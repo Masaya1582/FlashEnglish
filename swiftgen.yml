@@ -1,0 +1,19 @@
+xcassets:
+  inputs:
+     - FlashEnglish/Resources/Assets.xcassets
+     - FlashEnglish/Resources/Colors.xcassets
+  outputs:
+    templateName: swift5
+    output: FlashEnglish/Generated/Assets.swift
+strings:
+  inputs: FlashEnglish/Resources/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: FlashEnglish/Generated/LocalizableStrings.swift
+fonts:
+  inputs: FlashEnglish/Resources/Fonts
+  outputs:
+    templateName: swift5
+    output: FlashEnglish/Generated/Fonts.swift
+
+
