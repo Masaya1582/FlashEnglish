@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14980A7E78ED8597C2A764EA /* Pods_FlashEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* HomeView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
 		400A9C112B467BA60086914E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -33,6 +35,8 @@
 		400A9C2C2B467E560086914E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		400A9C2E2B467E5F0086914E /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 		400A9C302B467E640086914E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.release.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.release.xcconfig"; sourceTree = "<group>"; };
+		A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.debug.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +44,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14980A7E78ED8597C2A764EA /* Pods_FlashEnglish.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,6 +56,8 @@
 			children = (
 				400A9C0E2B467BA60086914E /* FlashEnglish */,
 				400A9C0D2B467BA60086914E /* Products */,
+				5644C387C454A9AA54646018 /* Pods */,
+				A86379BDA699414CC06D6CC7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,6 +151,24 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		5644C387C454A9AA54646018 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */,
+				73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A86379BDA699414CC06D6CC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,6 +176,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 400A9C1A2B467BA70086914E /* Build configuration list for PBXNativeTarget "FlashEnglish" */;
 			buildPhases = (
+				6D895A9D35E2177B11291255 /* [CP] Check Pods Manifest.lock */,
 				400A9C082B467BA60086914E /* Sources */,
 				400A9C092B467BA60086914E /* Frameworks */,
 				400A9C0A2B467BA60086914E /* Resources */,
@@ -233,6 +259,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect --format # 自動修正の有効化\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6D895A9D35E2177B11291255 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlashEnglish-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -374,6 +422,7 @@
 		};
 		400A9C1B2B467BA70086914E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -408,6 +457,7 @@
 		};
 		400A9C1C2B467BA70086914E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
