@@ -19,6 +19,7 @@
 		400A9C2D2B467E560086914E /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C2C2B467E560086914E /* Assets.swift */; };
 		400A9C2F2B467E5F0086914E /* LocalizableStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C2E2B467E5F0086914E /* LocalizableStrings.swift */; };
 		400A9C312B467E640086914E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C302B467E640086914E /* Fonts.swift */; };
+		400A9C362B46830E0086914E /* CustomViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C352B46830E0086914E /* CustomViewComponents.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		400A9C2C2B467E560086914E /* Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		400A9C2E2B467E5F0086914E /* LocalizableStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableStrings.swift; sourceTree = "<group>"; };
 		400A9C302B467E640086914E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		400A9C352B46830E0086914E /* CustomViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewComponents.swift; sourceTree = "<group>"; };
 		73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.release.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.release.xcconfig"; sourceTree = "<group>"; };
 		A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.debug.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -140,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				400A9C112B467BA60086914E /* HomeView.swift */,
+				400A9C342B4682F00086914E /* View Modifiers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -151,13 +154,20 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		400A9C342B4682F00086914E /* View Modifiers */ = {
+			isa = PBXGroup;
+			children = (
+				400A9C352B46830E0086914E /* CustomViewComponents.swift */,
+			);
+			path = "View Modifiers";
+			sourceTree = "<group>";
+		};
 		5644C387C454A9AA54646018 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
 				A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */,
 				73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -295,6 +305,7 @@
 				400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */,
 				400A9C2D2B467E560086914E /* Assets.swift in Sources */,
 				400A9C2F2B467E5F0086914E /* LocalizableStrings.swift in Sources */,
+				400A9C362B46830E0086914E /* CustomViewComponents.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
