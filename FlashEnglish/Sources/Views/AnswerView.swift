@@ -24,7 +24,7 @@ struct AnswerView: View {
         NavigationView {
             ZStack {
                 if isShowMaruBatsu {
-                    Image(systemName: isAnswerCorrect ? "circle.circle" : "cross.case.circle")
+                    Image(systemName: isAnswerCorrect ? "circle.circle" : "multiply")
                         .resizable()
                         .frame(width: 300, height: 300)
                 }

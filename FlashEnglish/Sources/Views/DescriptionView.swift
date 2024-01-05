@@ -32,9 +32,6 @@ struct DescriptionView: View {
                 formattedCorrectAnswer = correctAnswer.joined(separator: ",")
                 formattedCorrectAnswer = formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
             }
-            .onTapGesture {
-                dismissAction()
-            }
         }
     }
 
