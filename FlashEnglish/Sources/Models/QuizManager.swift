@@ -20,8 +20,13 @@ final class QuizManager: ObservableObject {
         if isSetNextQuiz {
             quizIndex = 0
             currentIndex += 1
+            print("カウント: \(quizData.allQuizContents.count)")
         } else {
             quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
+        }
+        if currentIndex == quizData.allQuizContents.count {
+           // TODO: - 結果画面に遷移
+            return
         }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
