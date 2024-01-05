@@ -11,6 +11,7 @@
 		1E1BB15F2B47D60700E0A468 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB15E2B47D60700E0A468 /* AnswerView.swift */; };
 		1E1BB1652B47D67600E0A468 /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1642B47D67600E0A468 /* HomeModel.swift */; };
 		1E1BB1672B47D67D00E0A468 /* HomeViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1662B47D67D00E0A468 /* HomeViewModels.swift */; };
+		1E1BB1692B47D6E300E0A468 /* quiz1.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1682B47D6E300E0A468 /* quiz1.csv */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* HomeView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -29,6 +30,7 @@
 		1E1BB15E2B47D60700E0A468 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		1E1BB1642B47D67600E0A468 /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		1E1BB1662B47D67D00E0A468 /* HomeViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModels.swift; sourceTree = "<group>"; };
+		1E1BB1682B47D6E300E0A468 /* quiz1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quiz1.csv; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				400A9C1D2B467CD00086914E /* Resources */,
 				400A9C1E2B467CDF0086914E /* Sources */,
+				1E1BB1682B47D6E300E0A468 /* quiz1.csv */,
 				400A9C1F2B467D3E0086914E /* Generated */,
 				400A9C152B467BA70086914E /* Preview Content */,
 			);
@@ -251,6 +254,7 @@
 				400A9C212B467D710086914E /* Colors.xcassets in Resources */,
 				400A9C232B467D860086914E /* Localizable.strings in Resources */,
 				400A9C272B467DC40086914E /* RubikDoodleShadow-Regular.ttf in Resources */,
+				1E1BB1692B47D6E300E0A468 /* quiz1.csv in Resources */,
 				400A9C172B467BA70086914E /* Preview Assets.xcassets in Resources */,
 				400A9C142B467BA70086914E /* Assets.xcassets in Resources */,
 				400A9C282B467DC40086914E /* Caprasimo-Regular.ttf in Resources */,
