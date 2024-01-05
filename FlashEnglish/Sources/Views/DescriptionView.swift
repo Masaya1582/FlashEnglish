@@ -18,8 +18,7 @@ struct DescriptionView: View {
     var body: some View {
         NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {
             VStack {
-                closeButton
-                sampleView
+                modalView
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .padding(.top, 32)
@@ -36,26 +35,13 @@ struct DescriptionView: View {
         }
     }
 
-    var closeButton: some View {
-        HStack {
-            Spacer()
-            Button(action: dismissAction) {
-                Image(systemName: "apple")
-                    .resizable()
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-            }
-            .frame(width: 48, height: 48)
-            .padding(2)
-        }
-    }
-
-    var sampleView: some View {
+    var modalView: some View {
         VStack(spacing: 42) {
             Text("Answer")
                 .font(.system(size: 28))
             Text(formattedCorrectAnswer)
                 .font(.system(size: 28))
-            mainCloseButton
+            nextQuizButton
         }
         .padding(20)
         .background(.white)
@@ -63,7 +49,7 @@ struct DescriptionView: View {
         .cornerRadius(12)
     }
 
-    var mainCloseButton: some View {
+    var nextQuizButton: some View {
         Button(action: {
             isTryNextQuiz = true
             isSetNextQuiz = true

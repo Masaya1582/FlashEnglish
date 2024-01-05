@@ -14,11 +14,22 @@ final class QuizManager: ObservableObject {
     @Published var quizIndex: Int = 0
     @Published var formattedQuizArray: [String] = []
     @Published var prodQuizContent: [String] = []
+    @Published var quizData = QuizData()
 
-    func setQuiz(isSetNextQuiz: Bool) {
-        isSetNextQuiz ? (currentIndex += 1) : (allQuizDataArray = loadCSV(with: "quiz1"))
-        print("インデックス: \(currentIndex), データ: \(allQuizDataArray)")
-        formattedQuizArray = allQuizDataArray[currentIndex]
+    func setQuiz() {
+        quizData.allQuizContents = loadCSV(with: "quiz1")
+        print("インデックス: \(currentIndex), データ: \(quizData.allQuizContents)")
+        formattedQuizArray = quizData.allQuizContents[currentIndex]
+            .components(separatedBy: ",")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        prodQuizContent = formattedQuizArray
+        prodQuizContent.shuffle()
+    }
+
+    func setNextQuiz() {
+        currentIndex += 1
+        print("インデックス: \(currentIndex), データ: \(quizData.allQuizContents)")
+        formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         prodQuizContent = formattedQuizArray

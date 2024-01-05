@@ -20,33 +20,34 @@ struct HomeView: View {
     @StateObject var quizManager = QuizManager()
 
     var body: some View {
-        VStack {
-            if count > 0 {
-                initialCounter
-            } else {
-                if quizManager.currentIndex < quizManager.prodQuizContent.count {
-                    quiz
+        NavigationView {
+            VStack {
+                NavigationLink(destination: AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $quizManager.formattedQuizArray, isTryOneMore: $isTryAgain, isShowAnswerView: $isShowAnswerView), isActive: $isShowAnswerView) {
+                }
+                if count > 0 {
+                    initialCounter
+                } else {
+                    if quizManager.currentIndex < quizManager.prodQuizContent.count {
+                        quiz
+                    }
                 }
             }
-        }
-        .fullScreenCover(isPresented: $isShowAnswerView) {
-            AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $quizManager.formattedQuizArray, isTryOneMore: $isTryAgain, isShowAnswerView: $isShowAnswerView)
-        }
-        .onAppear {
-            startTimer()
-            quizManager.setQuiz(isSetNextQuiz: isSetNextQuiz)
-            quizForRetry = quizManager.prodQuizContent
-        }
-        .onDisappear {
-            stopTimer()
-            tryAgainCount -= 1
-        }
-        .onChange(of: isTryAgain) { isTryAgain in
-            if isTryAgain {
-                resetAndRestartQuiz()
+            .onAppear {
+                startTimer()
+                isSetNextQuiz ? quizManager.setNextQuiz() : quizManager.setQuiz()
+                quizForRetry = quizManager.prodQuizContent
             }
+            .onDisappear {
+                stopTimer()
+            }
+            .onChange(of: isTryAgain) { isTryAgain in
+                if isTryAgain {
+                    resetAndRestartQuiz()
+                }
+                tryAgainCount -= 1
+            }
+            .navigationBarBackButtonHidden()
         }
-        .navigationBarBackButtonHidden()
     }
 
     var initialCounter: some View {
