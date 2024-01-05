@@ -34,7 +34,9 @@ struct HomeView: View {
             }
             .onAppear {
                 startTimer()
-                isSetNextQuiz ? quizManager.setNextQuiz() : quizManager.setQuiz()
+                if !isTryAgain {
+                    isSetNextQuiz ? quizManager.setNextQuiz() : quizManager.setQuiz()
+                }
                 quizForRetry = quizManager.prodQuizContent
             }
             .onDisappear {
@@ -42,9 +44,9 @@ struct HomeView: View {
             }
             .onChange(of: isTryAgain) { isTryAgain in
                 if isTryAgain {
+                    tryAgainCount -= 1
                     resetAndRestartQuiz()
                 }
-                tryAgainCount -= 1
             }
             .navigationBarBackButtonHidden()
         }

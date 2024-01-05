@@ -17,7 +17,7 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
 
     func setQuiz() {
-        quizData.allQuizContents = loadCSV(with: "quiz1")
+        quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
         print("インデックス: \(currentIndex), データ: \(quizData.allQuizContents)")
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")

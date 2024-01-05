@@ -51,7 +51,6 @@ struct AnswerView: View {
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
                     Button("Try One More Time (\(tryAgainCount) times left)") {
-                        tryAgainCount -= 1
                         isTryOneMore = true
                         isShowAnswerView = false
                     }
