@@ -16,24 +16,14 @@ final class QuizManager: ObservableObject {
     @Published var prodQuizContent: [String] = []
     @Published var quizData = QuizData()
 
-    func setQuiz() {
-        quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
-        print("インデックス: \(currentIndex), データ: \(quizData.allQuizContents)")
+    func setQuiz(_ isSetNextQuiz: Bool) {
+        isSetNextQuiz ? (currentIndex += 1) : (quizData.allQuizContents = loadCSV(with: "quiz1").shuffled())
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         prodQuizContent = formattedQuizArray
         prodQuizContent.shuffle()
-    }
-
-    func setNextQuiz() {
-        currentIndex += 1
-        print("インデックス: \(currentIndex), データ: \(quizData.allQuizContents)")
-        formattedQuizArray = quizData.allQuizContents[currentIndex]
-            .components(separatedBy: ",")
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        prodQuizContent = formattedQuizArray
-        prodQuizContent.shuffle()
+        print("After\n全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)")
     }
 
     // CSVファイルの読み込み

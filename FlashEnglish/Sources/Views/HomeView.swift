@@ -35,7 +35,7 @@ struct HomeView: View {
             .onAppear {
                 startTimer()
                 if !isTryAgain {
-                    isSetNextQuiz ? quizManager.setNextQuiz() : quizManager.setQuiz()
+                    quizManager.setQuiz(isSetNextQuiz)
                 }
                 quizForRetry = quizManager.prodQuizContent
             }
