@@ -23,11 +23,6 @@ struct AnswerView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                if isShowMaruBatsu {
-                    Image(systemName: isAnswerCorrect ? "circle.circle" : "multiply")
-                        .resizable()
-                        .frame(width: 300, height: 300)
-                }
                 if isShowDescriptionModalView {
                     DescriptionView(correctAnswer: $correctAnswer)
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
@@ -55,6 +50,11 @@ struct AnswerView: View {
                         isShowAnswerView = false
                     }
                     .disabled(tryAgainCount < 1)
+                }
+                if isShowMaruBatsu {
+                    Image(systemName: isAnswerCorrect ? "circle.circle" : "multiply")
+                        .resizable()
+                        .frame(width: 300, height: 300)
                 }
             }
         }
