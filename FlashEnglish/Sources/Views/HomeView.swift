@@ -27,7 +27,7 @@ struct HomeView: View {
                 if count > 0 {
                     initialCounter
                 } else {
-                    if quizManager.currentIndex < quizManager.prodQuizContent.count {
+                    if quizManager.quizIndex < quizManager.prodQuizContent.count {
                         quiz
                     }
                 }
@@ -65,13 +65,13 @@ struct HomeView: View {
     }
 
     var quiz: some View {
-        Text(isTryAgain ? quizForRetry[quizManager.currentIndex] : quizManager.prodQuizContent[quizManager.currentIndex])
+        Text(isTryAgain ? quizForRetry[quizManager.quizIndex] : quizManager.prodQuizContent[quizManager.quizIndex])
             .modifier(CustomLabel(foregroundColor: .black, size: 48))
     }
 
     private func resetAndRestartQuiz() {
         count = 3
-        quizManager.currentIndex = 0
+        quizManager.quizIndex = 0
         quizManager.prodQuizContent = quizForRetry
     }
 
@@ -88,8 +88,8 @@ struct HomeView: View {
 
     private func startQuizTimer() {
         quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-            if quizManager.currentIndex < (isTryAgain ? quizForRetry.count : quizManager.prodQuizContent.count) {
-                quizManager.currentIndex += 1
+            if quizManager.quizIndex < (isTryAgain ? quizForRetry.count : quizManager.prodQuizContent.count) {
+                quizManager.quizIndex += 1
             } else {
                 quizTimer?.invalidate()
                 quizTimer = nil

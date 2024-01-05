@@ -18,6 +18,7 @@ final class QuizManager: ObservableObject {
 
     func setQuiz(_ isSetNextQuiz: Bool) {
         if isSetNextQuiz {
+            quizIndex = 0
             currentIndex += 1
         } else {
             quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
