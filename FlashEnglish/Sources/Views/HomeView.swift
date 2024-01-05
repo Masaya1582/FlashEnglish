@@ -11,24 +11,20 @@ struct HomeView: View {
     @State private var count = 3
     @State private var timer: Timer?
     @State private var quizTimer: Timer?
-    // @State private var currentIndex = 0
-    // @State private var allQuizDataArray: [String] = []
     @State private var eachQuizArray: [String] = []
-    // @State private var formattedQuizArray: [String] = []
-    // @State private var shuffledQuizArray: [String] = []
     @State private var isShowAnswerView = false
     @State private var isTryAgain = false
     @State private var quizForRetry: [String] = []
     @State private var tryAgainCount = 3
     @Binding var isSetNextQuiz: Bool
-    @ObservedObject var quizManager = QuizManager()
+    @StateObject var quizManager = QuizManager()
 
     var body: some View {
         VStack {
             if count > 0 {
                 initialCounter
             } else {
-                if quizManager.currentIndex < quizManager.shuffledQuizArray.count {
+                if quizManager.currentIndex < quizManager.prodQuizContent.count {
                     quiz
                 }
             }
@@ -39,14 +35,14 @@ struct HomeView: View {
         .onAppear {
             startTimer()
             quizManager.setQuiz(isSetNextQuiz: isSetNextQuiz)
-            quizForRetry = quizManager.shuffledQuizArray
+            quizForRetry = quizManager.prodQuizContent
         }
         .onDisappear {
             stopTimer()
             tryAgainCount -= 1
         }
-        .onChange(of: isTryAgain) { newValue in
-            if newValue {
+        .onChange(of: isTryAgain) { isTryAgain in
+            if isTryAgain {
                 resetAndRestartQuiz()
             }
         }
@@ -66,14 +62,14 @@ struct HomeView: View {
     }
 
     var quiz: some View {
-        Text(isTryAgain ? quizForRetry[quizManager.currentIndex] : quizManager.shuffledQuizArray[quizManager.currentIndex])
+        Text(isTryAgain ? quizForRetry[quizManager.currentIndex] : quizManager.prodQuizContent[quizManager.currentIndex])
             .modifier(CustomLabel(foregroundColor: .black, size: 48))
     }
 
     private func resetAndRestartQuiz() {
         count = 3
         quizManager.currentIndex = 0
-        quizManager.shuffledQuizArray = quizForRetry
+        quizManager.prodQuizContent = quizForRetry
     }
 
     private func startTimer() {
@@ -89,7 +85,7 @@ struct HomeView: View {
 
     private func startQuizTimer() {
         quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-            if quizManager.currentIndex < (isTryAgain ? quizForRetry.count : quizManager.shuffledQuizArray.count) {
+            if quizManager.currentIndex < (isTryAgain ? quizForRetry.count : quizManager.prodQuizContent.count) {
                 quizManager.currentIndex += 1
             } else {
                 quizTimer?.invalidate()
@@ -105,21 +101,6 @@ struct HomeView: View {
         timer = nil
         quizTimer = nil
         quizManager.currentIndex = 0
-    }
-
-    private func loadCSV(with name: String) -> [String] {
-        guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
-            fatalError("CSV not found")
-        }
-        var csvDataArray: [String] = []
-        do {
-            let csvData = try String(contentsOfFile: csvBundle, encoding: .utf8)
-            csvDataArray = csvData.components(separatedBy: "\n")
-            csvDataArray.removeLast()
-        } catch {
-            print("Error: \(error.localizedDescription)")
-        }
-        return csvDataArray
     }
 }
 

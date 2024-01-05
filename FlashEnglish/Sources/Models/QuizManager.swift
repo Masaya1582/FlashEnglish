@@ -11,21 +11,18 @@ import SwiftUI
 final class QuizManager: ObservableObject {
     @Published var allQuizDataArray: [String] = []
     @Published var currentIndex: Int = 0
+    @Published var quizIndex: Int = 0
     @Published var formattedQuizArray: [String] = []
-    @Published var shuffledQuizArray: [String] = []
+    @Published var prodQuizContent: [String] = []
 
     func setQuiz(isSetNextQuiz: Bool) {
-        if !isSetNextQuiz {
-           allQuizDataArray = loadCSV(with: "quiz1")
-        }
-        if isSetNextQuiz {
-            currentIndex += 1
-        }
+        isSetNextQuiz ? (currentIndex += 1) : (allQuizDataArray = loadCSV(with: "quiz1"))
+        print("インデックス: \(currentIndex), データ: \(allQuizDataArray)")
         formattedQuizArray = allQuizDataArray[currentIndex]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        shuffledQuizArray = formattedQuizArray
-        shuffledQuizArray.shuffle()
+        prodQuizContent = formattedQuizArray
+        prodQuizContent.shuffle()
     }
 
     // CSVファイルの読み込み
