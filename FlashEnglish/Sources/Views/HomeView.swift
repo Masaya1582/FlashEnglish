@@ -17,7 +17,7 @@ struct HomeView: View {
     @State private var quizForRetry: [String] = []
     @State private var tryAgainCount = 3
     @Binding var isSetNextQuiz: Bool
-    @StateObject var quizManager = QuizManager()
+    @EnvironmentObject var quizManager: QuizManager
 
     var body: some View {
         NavigationView {
@@ -103,7 +103,6 @@ struct HomeView: View {
         quizTimer?.invalidate()
         timer = nil
         quizTimer = nil
-        quizManager.currentIndex = 0
     }
 }
 
@@ -111,5 +110,6 @@ struct HomeView_Previews: PreviewProvider {
     @State static var isShowAnswerView = false
     static var previews: some View {
         HomeView(isSetNextQuiz: $isShowAnswerView)
+            .environmentObject(QuizManager())
     }
 }

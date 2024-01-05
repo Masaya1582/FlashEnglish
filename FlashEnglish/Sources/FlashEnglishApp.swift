@@ -13,6 +13,7 @@ struct FlashEnglishApp: App {
     var body: some Scene {
         WindowGroup {
             HomeView(isSetNextQuiz: FlashEnglishApp.$isSetNextQuiz)
+                .environmentObject(QuizManager())
         }
     }
 }

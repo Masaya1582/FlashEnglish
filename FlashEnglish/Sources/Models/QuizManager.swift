@@ -17,13 +17,17 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
 
     func setQuiz(_ isSetNextQuiz: Bool) {
-        isSetNextQuiz ? (currentIndex += 1) : (quizData.allQuizContents = loadCSV(with: "quiz1").shuffled())
+        if isSetNextQuiz {
+            currentIndex += 1
+        } else {
+            quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
+        }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         prodQuizContent = formattedQuizArray
         prodQuizContent.shuffle()
-        print("After\n全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)")
+        print("インデックス: \(currentIndex), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)\n-----------------------------------------")
     }
 
     // CSVファイルの読み込み
