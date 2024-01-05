@@ -13,6 +13,7 @@
 		1E1BB1672B47D67D00E0A468 /* HomeViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1662B47D67D00E0A468 /* HomeViewModels.swift */; };
 		1E1BB1692B47D6E300E0A468 /* quiz1.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1682B47D6E300E0A468 /* quiz1.csv */; };
 		1E1BB16B2B47D7E000E0A468 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */; };
+		1E1BB16F2B47EC6C00E0A468 /* QuizManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* HomeView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 		1E1BB1662B47D67D00E0A468 /* HomeViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModels.swift; sourceTree = "<group>"; };
 		1E1BB1682B47D6E300E0A468 /* quiz1.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = quiz1.csv; sourceTree = "<group>"; };
 		1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
+		1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizManager.swift; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -67,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				1E1BB1642B47D67600E0A468 /* HomeModel.swift */,
+				1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -323,6 +326,7 @@
 				400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */,
 				1E1BB1652B47D67600E0A468 /* HomeModel.swift in Sources */,
 				400A9C2D2B467E560086914E /* Assets.swift in Sources */,
+				1E1BB16F2B47EC6C00E0A468 /* QuizManager.swift in Sources */,
 				400A9C2F2B467E5F0086914E /* LocalizableStrings.swift in Sources */,
 				400A9C362B46830E0086914E /* CustomViewComponents.swift in Sources */,
 				1E1BB16B2B47D7E000E0A468 /* DescriptionView.swift in Sources */,

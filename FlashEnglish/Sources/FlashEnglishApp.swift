@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct FlashEnglishApp: App {
+    @State static var isSetNextQuiz = false
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            HomeView(isSetNextQuiz: FlashEnglishApp.$isSetNextQuiz)
         }
     }
 }

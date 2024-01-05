@@ -11,40 +11,41 @@ struct HomeView: View {
     @State private var count = 3
     @State private var timer: Timer?
     @State private var quizTimer: Timer?
-    @State private var currentIndex = 0
-    @State private var allQuizDataArray: [String] = []
+    // @State private var currentIndex = 0
+    // @State private var allQuizDataArray: [String] = []
     @State private var eachQuizArray: [String] = []
-    @State private var formattedQuizArray: [String] = []
-    @State private var shuffledQuizArray: [String] = []
+    // @State private var formattedQuizArray: [String] = []
+    // @State private var shuffledQuizArray: [String] = []
     @State private var isShowAnswerView = false
-    @State private var isTryOneMore = false
-    @State private var quizForOneMore: [String] = []
+    @State private var isTryAgain = false
+    @State private var quizForRetry: [String] = []
     @State private var tryAgainCount = 3
+    @Binding var isSetNextQuiz: Bool
+    @ObservedObject var quizManager = QuizManager()
 
     var body: some View {
         VStack {
             if count > 0 {
                 initialCounter
             } else {
-                if currentIndex < shuffledQuizArray.count {
+                if quizManager.currentIndex < quizManager.shuffledQuizArray.count {
                     quiz
                 }
             }
         }
         .fullScreenCover(isPresented: $isShowAnswerView) {
-            AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $formattedQuizArray, isTryOneMore: $isTryOneMore, isShowAnswerView: $isShowAnswerView)
+            AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $quizManager.formattedQuizArray, isTryOneMore: $isTryAgain, isShowAnswerView: $isShowAnswerView)
         }
         .onAppear {
             startTimer()
-            setupQuizData()
-            quizForOneMore = shuffledQuizArray
+            quizManager.setQuiz(isSetNextQuiz: isSetNextQuiz)
+            quizForRetry = quizManager.shuffledQuizArray
         }
         .onDisappear {
             stopTimer()
             tryAgainCount -= 1
-            resetAndRestartQuiz()
         }
-        .onChange(of: isTryOneMore) { newValue in
+        .onChange(of: isTryAgain) { newValue in
             if newValue {
                 resetAndRestartQuiz()
             }
@@ -65,24 +66,14 @@ struct HomeView: View {
     }
 
     var quiz: some View {
-        Text(isTryOneMore ? quizForOneMore[currentIndex] : shuffledQuizArray[currentIndex])
+        Text(isTryAgain ? quizForRetry[quizManager.currentIndex] : quizManager.shuffledQuizArray[quizManager.currentIndex])
             .modifier(CustomLabel(foregroundColor: .black, size: 48))
     }
 
     private func resetAndRestartQuiz() {
         count = 3
-        currentIndex = 0
-        shuffledQuizArray = quizForOneMore
-    }
-
-    private func setupQuizData() {
-        allQuizDataArray = loadCSV(with: "quiz1").shuffled()
-        eachQuizArray.append(allQuizDataArray[currentIndex])
-        formattedQuizArray = eachQuizArray.first?
-            .components(separatedBy: ",")
-            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) } ?? []
-        shuffledQuizArray = formattedQuizArray
-        shuffledQuizArray.shuffle()
+        quizManager.currentIndex = 0
+        quizManager.shuffledQuizArray = quizForRetry
     }
 
     private func startTimer() {
@@ -98,8 +89,8 @@ struct HomeView: View {
 
     private func startQuizTimer() {
         quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-            if currentIndex < (isTryOneMore ? quizForOneMore.count : shuffledQuizArray.count) {
-                currentIndex += 1
+            if quizManager.currentIndex < (isTryAgain ? quizForRetry.count : quizManager.shuffledQuizArray.count) {
+                quizManager.currentIndex += 1
             } else {
                 quizTimer?.invalidate()
                 quizTimer = nil
@@ -113,7 +104,7 @@ struct HomeView: View {
         quizTimer?.invalidate()
         timer = nil
         quizTimer = nil
-        currentIndex = 0
+        quizManager.currentIndex = 0
     }
 
     private func loadCSV(with name: String) -> [String] {
@@ -133,7 +124,8 @@ struct HomeView: View {
 }
 
 struct HomeView_Previews: PreviewProvider {
+    @State static var isShowAnswerView = false
     static var previews: some View {
-        HomeView()
+        HomeView(isSetNextQuiz: $isShowAnswerView)
     }
 }

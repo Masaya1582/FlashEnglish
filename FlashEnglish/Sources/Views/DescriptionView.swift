@@ -13,9 +13,10 @@ struct DescriptionView: View {
     @Binding var correctAnswer: [String]
     @State private var formattedCorrectAnswer = ""
     @State private var isTryNextQuiz = false
+    @State private var isSetNextQuiz = false
 
     var body: some View {
-        NavigationLink(destination: HomeView(), isActive: $isTryNextQuiz) {
+        NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {
             VStack {
                 closeButton
                 sampleView
@@ -65,6 +66,7 @@ struct DescriptionView: View {
     var mainCloseButton: some View {
         Button(action: {
             isTryNextQuiz = true
+            isSetNextQuiz = true
         }, label: {
             Text("Next")
                 .font(.system(size: 32))
