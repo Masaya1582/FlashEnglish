@@ -27,7 +27,7 @@ struct CustomButton: ViewModifier {
     func body(content: Content) -> some View {
         content
             .font(.custom(FontFamily.Caprasimo.regular, size: 24))
-            .frame(width: 240, height: 32, alignment: .center)
+            .frame(width: 280, height: 24, alignment: .center)
             .padding()
             .foregroundColor(foregroundColor)
             .background(backgroundColor)

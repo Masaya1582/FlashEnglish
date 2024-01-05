@@ -13,11 +13,16 @@ struct DescriptionView: View {
     @State private var formattedCorrectAnswer = ""
     @State private var isTryNextQuiz = false
     @State private var isSetNextQuiz = false
-
+    @EnvironmentObject var quizManager: QuizManager
+    
     var body: some View {
         NavigationView {
             VStack {
-                NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
+                if quizManager.isShowResultView {
+                    NavigationLink(destination: ResultView(), isActive: $quizManager.isShowResultView) {}
+                } else {
+                    NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
+                }
                 modalView
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -43,18 +48,21 @@ struct DescriptionView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 24))
             nextQuizButton
         }
-        .padding(20)
+        .padding(12)
         .background(.white)
         .frame(maxWidth: .infinity)
-        .cornerRadius(12)
+        .cornerRadius(20)
     }
 
     var nextQuizButton: some View {
-        Button("Next") {
+        Button(quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 ? "See Results" : "Next") {
+            if quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 {
+                quizManager.isShowResultView = true
+            }
             isTryNextQuiz = true
             isSetNextQuiz = true
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.pink.swiftUIColor))
+        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.alertRed.swiftUIColor))
     }
 }
 
@@ -62,5 +70,6 @@ struct DescriptionView_Previews: PreviewProvider {
     @State static var correctAnswer = ["This", "is", "a", "pen"]
     static var previews: some View {
         DescriptionView(correctAnswer: $correctAnswer)
+            .environmentObject(QuizManager())
     }
 }

@@ -15,6 +15,7 @@ final class QuizManager: ObservableObject {
     @Published var formattedQuizArray: [String] = []
     @Published var prodQuizContent: [String] = []
     @Published var quizData = QuizData()
+    @Published var isShowResultView = false
 
     func setQuiz(_ isSetNextQuiz: Bool) {
         if isSetNextQuiz {
@@ -23,10 +24,6 @@ final class QuizManager: ObservableObject {
             print("カウント: \(quizData.allQuizContents.count)")
         } else {
             quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
-        }
-        if currentIndex == quizData.allQuizContents.count {
-           // TODO: - 結果画面に遷移
-            return
         }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")

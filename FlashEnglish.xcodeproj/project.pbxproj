@@ -14,6 +14,7 @@
 		1E1BB16B2B47D7E000E0A468 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */; };
 		1E1BB16F2B47EC6C00E0A468 /* QuizManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */; };
 		1E1BB1712B47FCBF00E0A468 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1702B47FCBF00E0A468 /* Quiz.swift */; };
+		1E1BB1772B481B9F00E0A468 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1762B481B9F00E0A468 /* ResultView.swift */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* HomeView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizManager.swift; sourceTree = "<group>"; };
 		1E1BB1702B47FCBF00E0A468 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
+		1E1BB1762B481B9F00E0A468 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				400A9C112B467BA60086914E /* HomeView.swift */,
 				1E1BB15E2B47D60700E0A468 /* AnswerView.swift */,
 				1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */,
+				1E1BB1762B481B9F00E0A468 /* ResultView.swift */,
 				400A9C342B4682F00086914E /* View Modifiers */,
 			);
 			path = Views;
@@ -324,6 +327,7 @@
 				400A9C312B467E640086914E /* Fonts.swift in Sources */,
 				1E1BB15F2B47D60700E0A468 /* AnswerView.swift in Sources */,
 				400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */,
+				1E1BB1772B481B9F00E0A468 /* ResultView.swift in Sources */,
 				400A9C2D2B467E560086914E /* Assets.swift in Sources */,
 				1E1BB16F2B47EC6C00E0A468 /* QuizManager.swift in Sources */,
 				1E1BB1712B47FCBF00E0A468 /* Quiz.swift in Sources */,
