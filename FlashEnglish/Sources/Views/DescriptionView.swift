@@ -21,8 +21,8 @@ struct DescriptionView: View {
                 modalView
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.top, 60)
-            .padding(12)
+            .padding(.top, 100)
+            .padding(24)
             .background(
                 Color.black
                     .opacity(0.5)
@@ -38,7 +38,7 @@ struct DescriptionView: View {
     var modalView: some View {
         VStack(spacing: 42) {
             Text("Answer")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 20))
             Text(formattedCorrectAnswer)
                 .modifier(CustomLabel(foregroundColor: .black, size: 24))
             nextQuizButton
@@ -50,18 +50,11 @@ struct DescriptionView: View {
     }
 
     var nextQuizButton: some View {
-        Button(action: {
+        Button("Next") {
             isTryNextQuiz = true
             isSetNextQuiz = true
-        }, label: {
-            Text("Next")
-                .font(.system(size: 32))
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-        })
-        .background(.orange)
-        .cornerRadius(80)
-        .frame(height: 60)
+        }
+        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.pink.swiftUIColor))
     }
 }
 

@@ -28,7 +28,7 @@ struct HomeView: View {
                     initialCounter
                 } else {
                     if quizManager.quizIndex < quizManager.prodQuizContent.count {
-                        quiz
+                        quizContent
                     }
                 }
             }
@@ -48,8 +48,8 @@ struct HomeView: View {
                     resetAndRestartQuiz()
                 }
             }
-            .navigationBarBackButtonHidden()
         }
+        .navigationBarBackButtonHidden()
     }
 
     var initialCounter: some View {
@@ -64,9 +64,16 @@ struct HomeView: View {
             )
     }
 
-    var quiz: some View {
-        Text(isTryAgain ? quizForRetry[quizManager.quizIndex] : quizManager.prodQuizContent[quizManager.quizIndex])
-            .modifier(CustomLabel(foregroundColor: .black, size: 48))
+    var quizContent: some View {
+        VStack {
+            Text("Question \(quizManager.currentIndex + 1)")
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
+            Spacer()
+            Text(isTryAgain ? quizForRetry[quizManager.quizIndex] : quizManager.prodQuizContent[quizManager.quizIndex])
+                .modifier(CustomLabel(foregroundColor: .black, size: 48))
+            Spacer()
+
+        }
     }
 
     private func resetAndRestartQuiz() {
