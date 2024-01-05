@@ -12,16 +12,22 @@ struct AnswerView: View {
     @State private var answer = ""
     @Binding var tryAgainCount: Int
     @State private var userAnswer: [String] = []
-    @State private var showAlert = false
     @State private var alertTitle = ""
     @Binding var correctAnswer: [String]
     @Binding var isTryOneMore: Bool
     @Binding var isShowAnswerView: Bool
     @State private var isShowDescriptionModalView = false
+    @State private var isAnswerCorrect = false
+    @State private var isShowMaruBatsu = false
 
     var body: some View {
         NavigationView {
             ZStack {
+                if isShowMaruBatsu {
+                    Image(systemName: isAnswerCorrect ? "circle.circle" : "cross.case.circle")
+                        .resizable()
+                        .frame(width: 300, height: 300)
+                }
                 if isShowDescriptionModalView {
                     DescriptionView(dismissAction: {
                         withAnimation {
@@ -32,16 +38,20 @@ struct AnswerView: View {
                     .zIndex(1)
                 }
                 VStack(spacing: 28) {
-
                     Text("Answer")
                         .modifier(CustomLabel(foregroundColor: .black, size: 32))
                     TextField("Answer", text: $answer)
                         .modifier(CustomTextField())
                     Button("GO") {
-                        //                    userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                        //                    alertTitle = (userAnswer == correctAnswer) ? "正解" : "不正解"
-                        //                    showAlert = true
-                        isShowDescriptionModalView = true
+                        userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                        isShowMaruBatsu = true
+                        if userAnswer == correctAnswer {
+                            isAnswerCorrect = true
+                        }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            isShowMaruBatsu = false
+                            isShowDescriptionModalView = true
+                        }
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
                     Button("Try One More Time (\(tryAgainCount) times left)") {
@@ -51,9 +61,6 @@ struct AnswerView: View {
                     }
                     .disabled(tryAgainCount < 1)
                 }
-            }
-            .alert(isPresented: $showAlert) {
-                Alert(title: Text(alertTitle), dismissButton: .default(Text("NEXT")))
             }
         }
         .onDisappear {

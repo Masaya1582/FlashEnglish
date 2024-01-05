@@ -49,6 +49,7 @@ struct HomeView: View {
                 resetAndRestartQuiz()
             }
         }
+        .navigationBarBackButtonHidden()
     }
 
     var initialCounter: some View {

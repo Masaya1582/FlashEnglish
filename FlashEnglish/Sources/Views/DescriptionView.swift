@@ -12,26 +12,29 @@ struct DescriptionView: View {
     @State var dismissAction: (() -> Void)
     @Binding var correctAnswer: [String]
     @State private var formattedCorrectAnswer = ""
+    @State private var isTryNextQuiz = false
 
     var body: some View {
-        VStack {
-            closeButton
-            sampleView
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding(.top, 32)
-        .padding(12)
-        .background(
-            Color.black
-                .opacity(0.5)
-                .ignoresSafeArea()
-        )
-        .onAppear {
-            formattedCorrectAnswer = correctAnswer.joined(separator: ",")
-            formattedCorrectAnswer = formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
-        }
-        .onTapGesture {
-            dismissAction()
+        NavigationLink(destination: HomeView(), isActive: $isTryNextQuiz) {
+            VStack {
+                closeButton
+                sampleView
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(.top, 32)
+            .padding(12)
+            .background(
+                Color.black
+                    .opacity(0.5)
+                    .ignoresSafeArea()
+            )
+            .onAppear {
+                formattedCorrectAnswer = correctAnswer.joined(separator: ",")
+                formattedCorrectAnswer = formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
+            }
+            .onTapGesture {
+                dismissAction()
+            }
         }
     }
 
@@ -64,7 +67,7 @@ struct DescriptionView: View {
 
     var mainCloseButton: some View {
         Button(action: {
-            dismissAction()
+            isTryNextQuiz = true
         }, label: {
             Text("Next")
                 .font(.system(size: 32))
