@@ -17,26 +17,40 @@ struct AnswerView: View {
     @Binding var correctAnswer: [String]
     @Binding var isTryOneMore: Bool
     @Binding var isShowAnswerView: Bool
+    @State private var isShowDescriptionModalView = false
 
     var body: some View {
         NavigationView {
-            VStack(spacing: 28) {
-                Text("Answer")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 32))
-                TextField("Answer", text: $answer)
-                    .modifier(CustomTextField())
-                Button("GO") {
-                    userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                    alertTitle = (userAnswer == correctAnswer) ? "正解" : "不正解"
-                    showAlert = true
+            ZStack {
+                if isShowDescriptionModalView {
+                    DescriptionView(dismissAction: {
+                        withAnimation {
+                            isShowDescriptionModalView = false
+                        }
+                    }, correctAnswer: $correctAnswer)
+                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                    .zIndex(1)
                 }
-                .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
-                Button("Try One More Time (\(tryAgainCount) times left)") {
-                    tryAgainCount -= 1
-                    isTryOneMore = true
-                    isShowAnswerView = false
+                VStack(spacing: 28) {
+
+                    Text("Answer")
+                        .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                    TextField("Answer", text: $answer)
+                        .modifier(CustomTextField())
+                    Button("GO") {
+                        //                    userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                        //                    alertTitle = (userAnswer == correctAnswer) ? "正解" : "不正解"
+                        //                    showAlert = true
+                        isShowDescriptionModalView = true
+                    }
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
+                    Button("Try One More Time (\(tryAgainCount) times left)") {
+                        tryAgainCount -= 1
+                        isTryOneMore = true
+                        isShowAnswerView = false
+                    }
+                    .disabled(tryAgainCount < 1)
                 }
-                .disabled(tryAgainCount < 1)
             }
             .alert(isPresented: $showAlert) {
                 Alert(title: Text(alertTitle), dismissButton: .default(Text("NEXT")))
