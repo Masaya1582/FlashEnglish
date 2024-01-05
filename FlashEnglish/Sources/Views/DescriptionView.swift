@@ -9,19 +9,19 @@
 import SwiftUI
 
 struct DescriptionView: View {
-    @State var dismissAction: (() -> Void)
     @Binding var correctAnswer: [String]
     @State private var formattedCorrectAnswer = ""
     @State private var isTryNextQuiz = false
     @State private var isSetNextQuiz = false
 
     var body: some View {
-        NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {
+        NavigationView {
             VStack {
+                NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
                 modalView
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(.top, 32)
+            .padding(.top, 60)
             .padding(12)
             .background(
                 Color.black
@@ -38,9 +38,9 @@ struct DescriptionView: View {
     var modalView: some View {
         VStack(spacing: 42) {
             Text("Answer")
-                .font(.system(size: 28))
+                .modifier(CustomLabel(foregroundColor: .black, size: 32))
             Text(formattedCorrectAnswer)
-                .font(.system(size: 28))
+                .modifier(CustomLabel(foregroundColor: .black, size: 24))
             nextQuizButton
         }
         .padding(20)
@@ -68,6 +68,6 @@ struct DescriptionView: View {
 struct DescriptionView_Previews: PreviewProvider {
     @State static var correctAnswer = ["This", "is", "a", "pen"]
     static var previews: some View {
-        DescriptionView(dismissAction: {}, correctAnswer: $correctAnswer)
+        DescriptionView(correctAnswer: $correctAnswer)
     }
 }

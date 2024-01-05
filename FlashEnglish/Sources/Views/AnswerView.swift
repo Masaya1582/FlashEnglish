@@ -29,11 +29,7 @@ struct AnswerView: View {
                         .frame(width: 300, height: 300)
                 }
                 if isShowDescriptionModalView {
-                    DescriptionView(dismissAction: {
-                        withAnimation {
-                            isShowDescriptionModalView = false
-                        }
-                    }, correctAnswer: $correctAnswer)
+                    DescriptionView(correctAnswer: $correctAnswer)
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                     .zIndex(1)
                 }
