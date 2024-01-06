@@ -33,7 +33,8 @@ struct AnswerView: View {
                     Button("解答") {
                         quizManager.judgeAnswer()
                     }
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.textFieldInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+                    .disabled(quizManager.textFieldInputs.isEmpty)
                     Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
                         quizManager.isTryAgainTriggered = true
                         quizManager.isShowAnswerView = false
