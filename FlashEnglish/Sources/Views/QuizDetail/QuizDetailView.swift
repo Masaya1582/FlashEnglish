@@ -44,6 +44,9 @@ struct QuizDetailView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
+            Text("*全て肯定文で並び替えを行なってください")
+                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
+                .padding()
             Spacer().frame(height: 100)
             Button("始める") {
                 navigationManager.path.append(.quizView)

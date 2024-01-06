@@ -52,9 +52,6 @@ struct HomeView: View {
             Text("フラッシュ英文法")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
-            Text("*全て肯定文で並び替えを行なってください")
-                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.bold))
-                .padding()
             Spacer().frame(height: 20)
             ScrollView {
                 LazyVGrid(columns: gridItems, spacing: 16) {
