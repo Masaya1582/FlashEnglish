@@ -13,12 +13,12 @@ struct HomeView: View {
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
     private let levelItem: [LevelItem] = [
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "中学生レベル", levelCase: .juniorHighSchool),
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "高校生レベル", levelCase: .hightSchool),
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "大学生レベル", levelCase: .college),
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "社会人レベル", levelCase: .businessman),
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "専門家レベル", levelCase: .professor),
-        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "人外レベル", levelCase: .monster)
+        LevelItem(image: Asset.Assets.imgJuniorHighSchool.swiftUIImage, title: "中学生レベル", levelCase: .juniorHighSchool),
+        LevelItem(image: Asset.Assets.imgHighSchool.swiftUIImage, title: "高校生レベル", levelCase: .hightSchool),
+        LevelItem(image: Asset.Assets.imgCollege.swiftUIImage, title: "大学生レベル", levelCase: .college),
+        LevelItem(image: Asset.Assets.imgBusinessman.swiftUIImage, title: "社会人レベル", levelCase: .businessman),
+        LevelItem(image: Asset.Assets.imgExpert.swiftUIImage, title: "専門家レベル", levelCase: .professor),
+        LevelItem(image: Asset.Assets.imgMonster.swiftUIImage, title: "人外レベル", levelCase: .monster)
     ]
     private let gridItems = [
         GridItem(.flexible()),
