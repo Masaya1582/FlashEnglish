@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct AnswerView: View {
+    // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
 
+    // MARK: - Body
     var body: some View {
         NavigationView {
             ZStack {
@@ -50,6 +52,7 @@ struct AnswerView: View {
     }
 }
 
+// MARK: - Preview
 struct AnswerView_Previews: PreviewProvider {
     static var previews: some View {
         AnswerView()

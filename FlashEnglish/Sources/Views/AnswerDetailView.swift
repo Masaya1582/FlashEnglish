@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
+    // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
-    
+
+    // MARK: - Body
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
@@ -56,7 +58,7 @@ struct AnswerDetailView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 24))
             nextQuizButton
         }
-        .padding(12)
+        .padding(4)
         .background(.white)
         .frame(maxWidth: .infinity)
         .cornerRadius(20)
@@ -77,6 +79,7 @@ struct AnswerDetailView: View {
     }
 }
 
+// MARK: - Preview
 struct AnswerDetailView_Previews: PreviewProvider {
     static var previews: some View {
         AnswerDetailView()

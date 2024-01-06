@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct QuizView: View {
+    // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
 
+    // MARK: - Body
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
@@ -90,11 +92,11 @@ struct QuizView: View {
             Text(quizManager.isTryAgainTriggered ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
                 .modifier(CustomLabel(foregroundColor: .black, size: 48))
             Spacer()
-
         }
     }
 }
 
+// MARK: - Preview
 struct QuizView_Previews: PreviewProvider {
     static var previews: some View {
         QuizView()
