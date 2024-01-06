@@ -26,6 +26,9 @@
 		1E1BB18B2B49395700E0A468 /* Monster.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1882B49395700E0A468 /* Monster.csv */; };
 		1E1BB18C2B49395700E0A468 /* Professor.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1892B49395700E0A468 /* Professor.csv */; };
 		1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB18A2B49395700E0A468 /* Businessman.csv */; };
+		1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1972B4949F700E0A468 /* LottieView.swift */; };
+		1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */; };
+		1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19A2B494A6300E0A468 /* lottie_correct.json */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -59,6 +62,9 @@
 		1E1BB1882B49395700E0A468 /* Monster.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Monster.csv; sourceTree = "<group>"; };
 		1E1BB1892B49395700E0A468 /* Professor.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Professor.csv; sourceTree = "<group>"; };
 		1E1BB18A2B49395700E0A468 /* Businessman.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Businessman.csv; sourceTree = "<group>"; };
+		1E1BB1972B4949F700E0A468 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_incorrect.json; sourceTree = "<group>"; };
+		1E1BB19A2B494A6300E0A468 /* lottie_correct.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_correct.json; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -164,6 +170,8 @@
 				400A9C132B467BA70086914E /* Assets.xcassets */,
 				400A9C202B467D710086914E /* Colors.xcassets */,
 				400A9C222B467D860086914E /* Localizable.strings */,
+				1E1BB19A2B494A6300E0A468 /* lottie_correct.json */,
+				1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */,
 				400A9C242B467D980086914E /* Fonts */,
 			);
 			path = Resources;
@@ -220,6 +228,7 @@
 			children = (
 				400A9C352B46830E0086914E /* CustomViewComponents.swift */,
 				1E1BB1862B49349200E0A468 /* GridItem.swift */,
+				1E1BB1972B4949F700E0A468 /* LottieView.swift */,
 			);
 			path = "View Modifiers";
 			sourceTree = "<group>";
@@ -253,6 +262,7 @@
 				400A9C092B467BA60086914E /* Frameworks */,
 				400A9C0A2B467BA60086914E /* Resources */,
 				400A9C332B467FD40086914E /* SwiftLint */,
+				1B5B93889CFD5437CB299028 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -311,8 +321,10 @@
 				1E1BB17E2B48DF1C00E0A468 /* HighSchool.csv in Resources */,
 				1E1BB1832B49285B00E0A468 /* NotoSansJP-VariableFont_wght.ttf in Resources */,
 				1E1BB17F2B48DF1C00E0A468 /* College.csv in Resources */,
+				1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */,
 				400A9C142B467BA70086914E /* Assets.xcassets in Resources */,
 				1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */,
+				1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */,
 				1E1BB1852B4928C700E0A468 /* NotoSans-VariableFont_wdth,wght.ttf in Resources */,
 				400A9C282B467DC40086914E /* Caprasimo-Regular.ttf in Resources */,
 			);
@@ -321,6 +333,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1B5B93889CFD5437CB299028 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		400A9C332B467FD40086914E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -371,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E1BB1672B47D67D00E0A468 /* HomeViewModels.swift in Sources */,
+				1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */,
 				1E1BB17B2B48DC5000E0A468 /* HomeView.swift in Sources */,
 				400A9C122B467BA60086914E /* QuizView.swift in Sources */,
 				400A9C312B467E640086914E /* Fonts.swift in Sources */,

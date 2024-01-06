@@ -57,17 +57,9 @@ struct AnswerView: View {
                 }
                 if quizManager.isShowMaruBatsu {
                     if quizManager.isAnswerCorrect {
-                        withAnimation {
-                            Asset.Assets.imgCorrect.swiftUIImage
-                                .resizable()
-                                .modifier(CustomImage(width: 280, height: 280))
-                        }
+                        LottieView(lottieFile: "lottie_correct")
                     } else {
-                        withAnimation {
-                            Asset.Assets.imgIncorrect.swiftUIImage
-                                .resizable()
-                                .modifier(CustomImage(width: 280, height: 280))
-                        }
+                        LottieView(lottieFile: "lottie_incorrect")
                     }
                 }
             }

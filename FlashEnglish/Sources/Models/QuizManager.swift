@@ -132,7 +132,7 @@ final class QuizManager: ObservableObject {
             isAnswerCorrect = true
             correctCount += 1
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
             self?.isShowMaruBatsu = false
             self?.isShowDescriptionModalView = true
         }

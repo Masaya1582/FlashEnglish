@@ -1,16 +1,20 @@
 PODS:
+  - lottie-ios (4.3.3)
   - SwiftGen (6.6.2)
 
 DEPENDENCIES:
+  - lottie-ios
   - SwiftGen (~> 6.0)
 
 SPEC REPOS:
   trunk:
+    - lottie-ios
     - SwiftGen
 
 SPEC CHECKSUMS:
+  lottie-ios: 25e7b2675dad5c3ddad369ac9baab03560c5bfdd
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
 
-PODFILE CHECKSUM: e2ccf013b2201d11cf2f235d7097a0930ce3af57
+PODFILE CHECKSUM: a21b730fddcf82b1563e6f4f2de277e2018b0cf1
 
 COCOAPODS: 1.12.1
