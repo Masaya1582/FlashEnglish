@@ -13,7 +13,7 @@ enum QuizLevel: String, CaseIterable {
     case hightSchool = "HighSchool"
     case college = "College"
     case businessman = "Businessman"
-    case professor = "Professor"
+    case expert = "Expert"
     case monster = "Monster"
 
     var levelTitle: String {
@@ -22,7 +22,7 @@ enum QuizLevel: String, CaseIterable {
         case .hightSchool: return "高校生レベル"
         case .college: return "大学生レベル"
         case .businessman: return "社会人レベル"
-        case .professor: return "専門家レベル"
+        case .expert: return "専門家レベル"
         case .monster: return "人外レベル"
         }
     }

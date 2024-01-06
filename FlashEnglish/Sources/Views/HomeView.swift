@@ -17,7 +17,7 @@ struct HomeView: View {
         LevelItem(image: Asset.Assets.imgHighSchool.swiftUIImage, title: "高校生レベル", levelCase: .hightSchool),
         LevelItem(image: Asset.Assets.imgCollege.swiftUIImage, title: "大学生レベル", levelCase: .college),
         LevelItem(image: Asset.Assets.imgBusinessman.swiftUIImage, title: "社会人レベル", levelCase: .businessman),
-        LevelItem(image: Asset.Assets.imgExpert.swiftUIImage, title: "専門家レベル", levelCase: .professor),
+        LevelItem(image: Asset.Assets.imgExpert.swiftUIImage, title: "専門家レベル", levelCase: .expert),
         LevelItem(image: Asset.Assets.imgMonster.swiftUIImage, title: "人外レベル", levelCase: .monster)
     ]
     private let gridItems = [

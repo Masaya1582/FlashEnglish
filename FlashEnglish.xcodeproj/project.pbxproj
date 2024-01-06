@@ -24,7 +24,7 @@
 		1E1BB1852B4928C700E0A468 /* NotoSans-VariableFont_wdth,wght.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1842B4928C700E0A468 /* NotoSans-VariableFont_wdth,wght.ttf */; };
 		1E1BB1872B49349200E0A468 /* GridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1862B49349200E0A468 /* GridItem.swift */; };
 		1E1BB18B2B49395700E0A468 /* Monster.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1882B49395700E0A468 /* Monster.csv */; };
-		1E1BB18C2B49395700E0A468 /* Professor.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1892B49395700E0A468 /* Professor.csv */; };
+		1E1BB18C2B49395700E0A468 /* Expert.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1892B49395700E0A468 /* Expert.csv */; };
 		1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB18A2B49395700E0A468 /* Businessman.csv */; };
 		1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1972B4949F700E0A468 /* LottieView.swift */; };
 		1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */; };
@@ -61,7 +61,7 @@
 		1E1BB1842B4928C700E0A468 /* NotoSans-VariableFont_wdth,wght.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSans-VariableFont_wdth,wght.ttf"; sourceTree = "<group>"; };
 		1E1BB1862B49349200E0A468 /* GridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridItem.swift; sourceTree = "<group>"; };
 		1E1BB1882B49395700E0A468 /* Monster.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Monster.csv; sourceTree = "<group>"; };
-		1E1BB1892B49395700E0A468 /* Professor.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Professor.csv; sourceTree = "<group>"; };
+		1E1BB1892B49395700E0A468 /* Expert.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Expert.csv; sourceTree = "<group>"; };
 		1E1BB18A2B49395700E0A468 /* Businessman.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Businessman.csv; sourceTree = "<group>"; };
 		1E1BB1972B4949F700E0A468 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_incorrect.json; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 				1E1BB17C2B48DF1C00E0A468 /* HighSchool.csv */,
 				1E1BB17D2B48DF1C00E0A468 /* College.csv */,
 				1E1BB18A2B49395700E0A468 /* Businessman.csv */,
-				1E1BB1892B49395700E0A468 /* Professor.csv */,
+				1E1BB1892B49395700E0A468 /* Expert.csv */,
 				1E1BB1882B49395700E0A468 /* Monster.csv */,
 			);
 			path = CSV;
@@ -317,7 +317,7 @@
 				400A9C212B467D710086914E /* Colors.xcassets in Resources */,
 				1E1BB18B2B49395700E0A468 /* Monster.csv in Resources */,
 				400A9C232B467D860086914E /* Localizable.strings in Resources */,
-				1E1BB18C2B49395700E0A468 /* Professor.csv in Resources */,
+				1E1BB18C2B49395700E0A468 /* Expert.csv in Resources */,
 				400A9C272B467DC40086914E /* RubikDoodleShadow-Regular.ttf in Resources */,
 				1E1BB1692B47D6E300E0A468 /* JuniorHighSchool.csv in Resources */,
 				400A9C172B467BA70086914E /* Preview Assets.xcassets in Resources */,
