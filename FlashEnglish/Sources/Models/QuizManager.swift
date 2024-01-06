@@ -131,7 +131,32 @@ final class QuizManager: ObservableObject {
     }
 
     func resetAllQuiz() {
-
+        currentIndex = 0
+        quizIndex = 0
+        isShowResultView = false
+        // quizData = QuizData()
+        allQuizDataArray = []
+        formattedQuizArray = []
+        prodQuizContent = []
+        isShowQuizDetailView = false
+        isShowQuizView = false
+        isSetNextQuiz = false
+        count = 3
+//        timer: Timer?
+//        quizTimer: Timer?
+        eachQuizArray = []
+        isShowAnswerView = false
+        isTryAgain = false
+        quizForRetry = []
+        tryAgainCount = 3
+        answer = ""
+        userAnswer = []
+        alertTitle = ""
+        isShowDescriptionModalView = false
+        isAnswerCorrect = false
+        isShowMaruBatsu = false
+        correctAnswer = []
+        isTryOneMore = false
     }
 
     // CSVファイルの読み込み
