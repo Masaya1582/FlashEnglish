@@ -28,8 +28,14 @@ struct AnswerView: View {
                     Text("\(quizManager.textFieldInputs)")
                         .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
                         .multilineTextAlignment(.center)
-                    TextField("正しい順番に並び替えよう", text: $quizManager.textFieldInputs)
+                    TextField("正しい順番に並び替える", text: $quizManager.textFieldInputs)
                         .modifier(CustomTextField())
+                    // ヒント
+                    if quizManager.tryAgainRemainCount < 1 && quizManager.isShowHint {
+                        Text("ヒント:\n \(quizManager.productionQuizContentArray.joined(separator: " "))")
+                            .modifier(CustomLabel(foregroundColor: .black, size: 12, fontName: FontFamily.NotoSans.bold))
+                            .multilineTextAlignment(.center)
+                    }
                     Button("解答") {
                         quizManager.judgeAnswer()
                     }
@@ -66,6 +72,9 @@ struct AnswerView: View {
             }
         }
         .onDisappear {
+            if quizManager.tryAgainRemainCount < 1 {
+                quizManager.isShowHint = true
+            }
             quizManager.isTryAgainTriggered = false
         }
         .navigationBarBackButtonHidden()
