@@ -16,7 +16,7 @@ struct ResultView: View {
         NavigationView {
             VStack {
                 Button("Back") {
-                    quizManager.resetAllQuiz() 
+                    quizManager.resetAllQuiz()
                     navigationManager.path.removeAll()
                 }
                 .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))

@@ -45,9 +45,6 @@ struct AnswerDetailView: View {
                 quizManager.formattedCorrectAnswer = quizManager.correctAnswer.joined(separator: ",")
                 quizManager.formattedCorrectAnswer = quizManager.formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
             }
-            .onDisappear {
-                quizManager.resetQuiz()
-            }
         }
     }
 
@@ -72,6 +69,7 @@ struct AnswerDetailView: View {
             } else {
                 quizManager.isTryNextQuiz = true
                 quizManager.isSetNextQuiz = true
+                quizManager.resetQuiz()
                 navigationManager.path.append(.quizView)
             }
         }

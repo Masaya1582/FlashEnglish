@@ -124,6 +124,7 @@ final class QuizManager: ObservableObject {
     func resetQuiz() {
         isShowDescriptionModalView = false
         isShowAnswerView = false
+        isAnswerCorrect = false
         answer = ""
         tryAgainCount = 3
         userAnswer = []
@@ -134,7 +135,6 @@ final class QuizManager: ObservableObject {
         currentIndex = 0
         quizIndex = 0
         isShowResultView = false
-        // quizData = QuizData()
         allQuizDataArray = []
         formattedQuizArray = []
         prodQuizContent = []
@@ -142,8 +142,6 @@ final class QuizManager: ObservableObject {
         isShowQuizView = false
         isSetNextQuiz = false
         count = 3
-//        timer: Timer?
-//        quizTimer: Timer?
         eachQuizArray = []
         isShowAnswerView = false
         isTryAgain = false
