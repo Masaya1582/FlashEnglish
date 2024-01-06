@@ -56,7 +56,7 @@ struct AnswerDetailView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
             Text(quizManager.formattedCorrectAnswer)
                 .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
-            nextQuizButton
+            nextQuizButton()
         }
         .padding(4)
         .background(.white)
@@ -64,18 +64,36 @@ struct AnswerDetailView: View {
         .cornerRadius(20)
     }
 
-    var nextQuizButton: some View {
-        Button(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題") {
-            if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
-                navigationManager.path.append(.resultView)
-            } else {
-                quizManager.isTryNextQuiz = true
-                quizManager.isSetNextQuiz = true
-                quizManager.resetQuiz()
-                navigationManager.path.append(.quizView)
+    @ViewBuilder
+    private func nextQuizButton() -> some View {
+        VStack {
+            Button(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題") {
+                if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
+                    navigationManager.path.append(.resultView)
+                } else {
+                    quizManager.isTryNextQuiz = true
+                    quizManager.isSetNextQuiz = true
+                    quizManager.resetQuiz()
+                    navigationManager.path.append(.quizView)
+                }
             }
+            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+            Button("ホームに戻る") {
+                quizManager.isShowAlert = true
+            }
+            .alert(isPresented: $quizManager.isShowAlert) {
+                Alert(
+                    title: Text("確認"),
+                    message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
+                    primaryButton: .destructive(Text("ホームに戻る")) {
+                        quizManager.resetAllQuiz()
+                        navigationManager.path.removeAll()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
+            Spacer().frame(height: 12)
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
     }
 }
 

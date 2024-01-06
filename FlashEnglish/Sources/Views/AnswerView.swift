@@ -40,6 +40,20 @@ struct AnswerView: View {
                         navigationManager.path.removeLast()
                     }
                     .disabled(quizManager.tryAgainRemainCount < 1)
+                    Button("ホームに戻る") {
+                        quizManager.isShowAlert = true
+                    }
+                    .alert(isPresented: $quizManager.isShowAlert) {
+                        Alert(
+                            title: Text("確認"),
+                            message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
+                            primaryButton: .destructive(Text("ホームに戻る")) {
+                                quizManager.resetAllQuiz()
+                                navigationManager.path.removeAll()
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                 }
                 if quizManager.isShowMaruBatsu {
                     Image(systemName: quizManager.isAnswerCorrect ? "circle.circle" : "multiply")

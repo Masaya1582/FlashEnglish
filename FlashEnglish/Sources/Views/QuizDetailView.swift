@@ -50,7 +50,21 @@ struct QuizDetailView: View {
                 navigationManager.path.append(.quizView)
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+            Button("ホームに戻る") {
+                quizManager.isShowAlert = true
+            }
             Spacer().frame(height: 200)
+                .alert(isPresented: $quizManager.isShowAlert) {
+                    Alert(
+                        title: Text("確認"),
+                        message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
+                        primaryButton: .destructive(Text("ホームに戻る")) {
+                            quizManager.resetAllQuiz()
+                            navigationManager.path.removeAll()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
         }
     }
 }

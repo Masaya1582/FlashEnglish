@@ -48,6 +48,7 @@ final class QuizManager: ObservableObject {
     @Published var isTryNextQuiz = false
     @Published var isAnswerCorrect = false
     @Published var isShowMaruBatsu = false
+    @Published var isShowAlert = false
     @Published var allQuizDataArray: [String] = []
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
