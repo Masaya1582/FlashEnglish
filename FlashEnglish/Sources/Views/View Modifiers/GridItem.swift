@@ -24,7 +24,7 @@ struct LevelGridItem: View {
             levelItem.image
                 .resizable()
                 .aspectRatio(contentMode: .fill)
-                .frame(width: 100, height: 100)
+                .frame(width: UIScreen.main.bounds.width / 3, height: UIScreen.main.bounds.height / 6)
                 .cornerRadius(16)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16)
