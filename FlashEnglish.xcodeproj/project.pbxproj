@@ -15,8 +15,9 @@
 		1E1BB16F2B47EC6C00E0A468 /* QuizManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */; };
 		1E1BB1712B47FCBF00E0A468 /* Quiz.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1702B47FCBF00E0A468 /* Quiz.swift */; };
 		1E1BB1772B481B9F00E0A468 /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1762B481B9F00E0A468 /* ResultView.swift */; };
+		1E1BB1792B48D50800E0A468 /* QuizDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1782B48D50800E0A468 /* QuizDetailView.swift */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
-		400A9C122B467BA60086914E /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* HomeView.swift */; };
+		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
 		400A9C172B467BA70086914E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C162B467BA70086914E /* Preview Assets.xcassets */; };
 		400A9C212B467D710086914E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C202B467D710086914E /* Colors.xcassets */; };
@@ -37,10 +38,11 @@
 		1E1BB16E2B47EC6C00E0A468 /* QuizManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizManager.swift; sourceTree = "<group>"; };
 		1E1BB1702B47FCBF00E0A468 /* Quiz.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Quiz.swift; sourceTree = "<group>"; };
 		1E1BB1762B481B9F00E0A468 /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		1E1BB1782B48D50800E0A468 /* QuizDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizDetailView.swift; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
-		400A9C112B467BA60086914E /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		400A9C112B467BA60086914E /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
 		400A9C132B467BA70086914E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		400A9C162B467BA70086914E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		400A9C202B467D710086914E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -166,7 +168,8 @@
 		400A9C2A2B467E310086914E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				400A9C112B467BA60086914E /* HomeView.swift */,
+				1E1BB1782B48D50800E0A468 /* QuizDetailView.swift */,
+				400A9C112B467BA60086914E /* QuizView.swift */,
 				1E1BB15E2B47D60700E0A468 /* AnswerView.swift */,
 				1E1BB16A2B47D7E000E0A468 /* DescriptionView.swift */,
 				1E1BB1762B481B9F00E0A468 /* ResultView.swift */,
@@ -323,8 +326,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E1BB1672B47D67D00E0A468 /* HomeViewModels.swift in Sources */,
-				400A9C122B467BA60086914E /* HomeView.swift in Sources */,
+				400A9C122B467BA60086914E /* QuizView.swift in Sources */,
 				400A9C312B467E640086914E /* Fonts.swift in Sources */,
+				1E1BB1792B48D50800E0A468 /* QuizDetailView.swift in Sources */,
 				1E1BB15F2B47D60700E0A468 /* AnswerView.swift in Sources */,
 				400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */,
 				1E1BB1772B481B9F00E0A468 /* ResultView.swift in Sources */,

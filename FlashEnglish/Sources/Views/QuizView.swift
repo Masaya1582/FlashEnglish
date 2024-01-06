@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  QuizView.swift
 //  FlashEnglish
 //
 //  Created by MasayaNakakuki on 2024/01/04.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct HomeView: View {
+struct QuizView: View {
     @State private var count = 3
     @State private var timer: Timer?
     @State private var quizTimer: Timer?
@@ -113,10 +113,10 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
+struct QuizView_Previews: PreviewProvider {
     @State static var isShowAnswerView = false
     static var previews: some View {
-        HomeView(isSetNextQuiz: $isShowAnswerView)
+        QuizView(isSetNextQuiz: $isShowAnswerView)
             .environmentObject(QuizManager())
     }
 }

@@ -21,7 +21,7 @@ struct DescriptionView: View {
                 if quizManager.isShowResultView {
                     NavigationLink(destination: ResultView(), isActive: $quizManager.isShowResultView) {}
                 } else {
-                    NavigationLink(destination: HomeView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
+                    NavigationLink(destination: QuizView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
                 }
                 modalView
             }
