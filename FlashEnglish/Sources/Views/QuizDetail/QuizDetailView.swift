@@ -15,7 +15,11 @@ struct QuizDetailView: View {
     // MARK: - Body
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
-            quizDetailDescription
+            VStack {
+                quizDetailDescription
+                quizButton
+            }
+            .padding(16)
                 .navigationDestination(for: ViewType.self) { viewType in
                     switch viewType {
                     case .homeView:
@@ -40,14 +44,23 @@ struct QuizDetailView: View {
         VStack(alignment: .center) {
             Text("\(quizManager.levelTitle): \(quizManager.quizData.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
-            Text("3秒のカウント後、\nフラッシュ算形式で問題が出題されます")
+            Text("3カウント後、フラッシュ算式に問題が出題されます")
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
-            Text("*全て肯定文で並び替えを行なってください")
+            Text("*全て肯定文で並び替えを行なってください\n*稀に並び替え不要、その時はラッキーと思え")
                 .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
                 .padding()
-            Spacer().frame(height: 100)
+        }
+        .padding(4)
+        .background(Asset.Colors.gray7.swiftUIColor.opacity(0.3))
+        .frame(maxWidth: .infinity)
+        .cornerRadius(20)
+        .padding(.bottom, 20)
+    }
+
+    var quizButton: some View {
+        VStack {
             Button("始める") {
                 navigationManager.path.append(.quizView)
             }
@@ -56,7 +69,6 @@ struct QuizDetailView: View {
                 quizManager.resetAllQuiz()
                 navigationManager.path.removeAll()
             }
-            Spacer().frame(height: 200)
         }
     }
 }
