@@ -24,6 +24,9 @@ struct QuizView: View {
             VStack {
                 NavigationLink(destination: AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $quizManager.formattedQuizArray, isTryOneMore: $isTryAgain, isShowAnswerView: $isShowAnswerView), isActive: $isShowAnswerView) {
                 }
+                Text("Question \(quizManager.currentIndex + 1)")
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
+                Spacer()
                 if count > 0 {
                     initialCounter
                 } else {
@@ -31,6 +34,7 @@ struct QuizView: View {
                         quizContent
                     }
                 }
+                Spacer()
             }
             .onAppear {
                 startTimer()
@@ -66,8 +70,6 @@ struct QuizView: View {
 
     var quizContent: some View {
         VStack {
-            Text("Question \(quizManager.currentIndex + 1)")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
             Spacer()
             Text(isTryAgain ? quizForRetry[quizManager.quizIndex] : quizManager.prodQuizContent[quizManager.quizIndex])
                 .modifier(CustomLabel(foregroundColor: .black, size: 48))
