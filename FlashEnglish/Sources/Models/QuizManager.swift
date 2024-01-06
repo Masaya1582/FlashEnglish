@@ -9,32 +9,31 @@
 import SwiftUI
 
 final class QuizManager: ObservableObject {
-    @Published var allQuizDataArray: [String] = []
     @Published var currentIndex: Int = 0
     @Published var quizIndex: Int = 0
-    @Published var formattedQuizArray: [String] = []
-    @Published var prodQuizContent: [String] = []
-    @Published var quizData = QuizData()
     @Published var isShowResultView = false
     @Published var quizLevel: QuizLevel?
-    @Published var quizContentCount = 0
+    @Published var quizData = QuizData()
+    @Published var allQuizDataArray: [String] = []
+    @Published var formattedQuizArray: [String] = []
+    @Published var prodQuizContent: [String] = []
 
     func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
         self.quizLevel = quizLevel
         if isSetNextQuiz {
+            // 次の問題をセット
             quizIndex = 0
             currentIndex += 1
-            print("カウント: \(quizData.allQuizContents.count)")
         } else {
+            // 初回読み込み
             quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
-            quizContentCount = quizData.allQuizContents.count
         }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         prodQuizContent = formattedQuizArray
         prodQuizContent.shuffle()
-        print("インデックス: \(currentIndex), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)\n-----------------------------------------")
+        print("問題番号: \(currentIndex), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)\n-----------------------------------------")
     }
 
     // CSVファイルの読み込み

@@ -17,7 +17,7 @@ struct QuizDetailView: View {
         NavigationView {
             VStack(alignment: .center) {
                 NavigationLink(destination: QuizView(isSetNextQuiz: $isSetNextQuiz), isActive: $isShowQuizView) {}
-                Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizContentCount)問")
+                Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizData.allQuizContents.count)問")
                     .modifier(CustomLabel(foregroundColor: .black, size: 32))
                 Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
                     .modifier(CustomLabel(foregroundColor: .black, size: 20))

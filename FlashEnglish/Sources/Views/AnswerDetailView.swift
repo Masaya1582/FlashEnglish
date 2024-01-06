@@ -56,7 +56,7 @@ struct AnswerDetailView: View {
     }
 
     var nextQuizButton: some View {
-        Button(quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 ? "See Results" : "Next") {
+        Button(quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 ? "結果を見る" : "次の問題") {
             if quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 {
                 quizManager.isShowResultView = true
             }

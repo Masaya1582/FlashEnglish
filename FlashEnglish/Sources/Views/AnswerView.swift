@@ -29,9 +29,9 @@ struct AnswerView: View {
                     .zIndex(1)
                 }
                 VStack(spacing: 28) {
-                    Text("Answer")
+                    Text("解答")
                         .modifier(CustomLabel(foregroundColor: .black, size: 32))
-                    TextField("Answer", text: $answer)
+                    TextField("正しい順番に並び替えよう", text: $answer)
                         .modifier(CustomTextField())
                     Button("GO") {
                         userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -45,7 +45,7 @@ struct AnswerView: View {
                         }
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
-                    Button("Try One More Time (\(tryAgainCount) times left)") {
+                    Button("もう一度みる (あと\(tryAgainCount)回)") {
                         isTryOneMore = true
                         isShowAnswerView = false
                     }

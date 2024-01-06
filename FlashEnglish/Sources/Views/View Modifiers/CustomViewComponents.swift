@@ -56,15 +56,13 @@ struct StretchableButton: ButtonStyle {
 
 /// カスタムTextField
 struct CustomTextField: ViewModifier {
-    @Environment(\.colorScheme) var colorScheme
-
     func body(content: Content) -> some View {
         content
-            .font(.custom(FontFamily.Caprasimo.regular, size: 20))
+            .font(.custom(FontFamily.Caprasimo.regular, size: 16))
             .padding()
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
-                    .stroke(colorScheme == .dark ? Color.white : Color.black, lineWidth: 1)
+                    .stroke(lineWidth: 1)
             )
             .padding()
     }
