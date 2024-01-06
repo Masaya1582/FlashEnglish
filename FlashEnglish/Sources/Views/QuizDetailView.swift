@@ -39,7 +39,7 @@ struct QuizDetailView: View {
 
     var quizDetailDescription: some View {
         VStack(alignment: .center) {
-            Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizData.allQuizContents.count)問")
+            Text("\(quizManager.levelTitle): \(quizManager.quizData.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
             Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))

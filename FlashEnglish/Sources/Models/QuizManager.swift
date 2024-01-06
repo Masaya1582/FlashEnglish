@@ -15,6 +15,17 @@ enum QuizLevel: String, CaseIterable {
     case businessman = "Businessman"
     case professor = "Professor"
     case monster = "Monster"
+
+    var levelTitle: String {
+        switch self {
+        case .juniorHighSchool: return "中学生レベル"
+        case .hightSchool: return "高校生レベル"
+        case .college: return "大学生レベル"
+        case .businessman: return "社会人レベル"
+        case .professor: return "専門家レベル"
+        case .monster: return "人外レベル"
+        }
+    }
 }
 
 final class QuizManager: ObservableObject {
@@ -26,6 +37,7 @@ final class QuizManager: ObservableObject {
     @Published var tryAgainRemainCount = 3
     @Published var textFieldInputs = ""
     @Published var formattedCorrectAnswer = ""
+    @Published var levelTitle = ""
     @Published var isShowQuizDetailView = false
     @Published var isShowQuizView = false
     @Published var isShowAnswerView = false
@@ -50,6 +62,7 @@ final class QuizManager: ObservableObject {
     // MARK: - Functions
     func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
         self.quizLevel = quizLevel
+        levelTitle = quizLevel.levelTitle
         if isSetNextQuiz {
             // 次の問題をセット
             countDown = 3
@@ -153,6 +166,7 @@ final class QuizManager: ObservableObject {
         quizContentForTryAgain = []
         tryAgainRemainCount = 3
         textFieldInputs = ""
+        levelTitle = ""
         userAnswer = []
         isShowDescriptionModalView = false
         isAnswerCorrect = false
