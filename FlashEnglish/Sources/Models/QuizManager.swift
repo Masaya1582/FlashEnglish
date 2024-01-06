@@ -146,6 +146,7 @@ final class QuizManager: ObservableObject {
         isShowAnswerView = false
         isAnswerCorrect = false
         // isShowHint = false
+        isFlipHint = false
         textFieldInputs = ""
         tryAgainRemainCount = 3
         userAnswer = []
@@ -164,6 +165,8 @@ final class QuizManager: ObservableObject {
         isShowQuizDetailView = false
         isShowQuizView = false
         isSetNextQuiz = false
+        isShowHint = false
+        isFlipHint = false
         countDown = 3
         isShowAnswerView = false
         isTryAgainTriggered = false
