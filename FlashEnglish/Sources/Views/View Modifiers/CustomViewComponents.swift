@@ -11,10 +11,11 @@ import SwiftUI
 struct CustomLabel: ViewModifier {
     let foregroundColor: Color
     let size: CGFloat
+    let fontName: FontConvertible
 
     func body(content: Content) -> some View {
         content
-            .font(.custom(FontFamily.Caprasimo.regular, size: size))
+            .font(.custom(fontName, size: size))
             .foregroundColor(foregroundColor)
     }
 }
@@ -23,10 +24,11 @@ struct CustomLabel: ViewModifier {
 struct CustomButton: ViewModifier {
     let foregroundColor: Color
     let backgroundColor: Color
+    let fontName: FontConvertible
 
     func body(content: Content) -> some View {
         content
-            .font(.custom(FontFamily.Caprasimo.regular, size: 24))
+            .font(.custom(fontName, size: 24))
             .frame(width: 280, height: 24, alignment: .center)
             .padding()
             .foregroundColor(foregroundColor)
@@ -68,75 +70,4 @@ struct CustomTextField: ViewModifier {
     }
 }
 
-/// カスタムImageView
-struct CustomImage: ViewModifier {
-    let width: CGFloat
-    let height: CGFloat
 
-    func body(content: Content) -> some View {
-        content
-            .aspectRatio(contentMode: .fill)
-            .frame(width: width, height: height)
-            .clipShape(Circle())
-            .overlay(
-                Circle()
-                    .stroke(Color.black, lineWidth: 2)
-            )
-    }
-}
-
-/// ビンテージスタイルのSettingView
-struct VintageSettingView: View {
-    var iconName: String
-    var title: String
-
-    var body: some View {
-        HStack {
-            Image(systemName: iconName)
-                .font(.system(size: 28))
-            Text(title)
-                .font(.title)
-                .fontWeight(.semibold)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .font(.system(size: 20))
-        }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 10)
-    }
-}
-
-/// カスタムCircleView
-struct CustomCircleView: View {
-    @State private var isAnimating = false
-
-    var body: some View {
-        ZStack {
-            Circle()
-                .frame(width: 100, height: 100)
-                .foregroundColor(.blue)
-                .scaleEffect(isAnimating ? 1.5 : 1.0)
-
-            Image(systemName: "arrow.right.circle.fill")
-                .font(.system(size: 50))
-                .foregroundColor(.white)
-                .rotationEffect(.degrees(isAnimating ? 360 : 0))
-        }
-        .onTapGesture {
-            withAnimation(Animation.easeInOut(duration: 1.0)) {
-                isAnimating.toggle()
-            }
-        }
-    }
-}
-
-/// カードView
-struct CardViewModifier: ViewModifier {
-    func body(content: Content) -> some View {
-        content
-            .padding()
-            .background(Color.white)
-            .cornerRadius(10)
-            .shadow(radius: 5)
-    }
-}

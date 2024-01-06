@@ -12,6 +12,18 @@ struct HomeView: View {
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
+    private let levelItem: [LevelItem] = [
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "中学生レベル", levelCase: .juniorHighSchool),
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "高校生レベル", levelCase: .hightSchool),
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "大学生レベル", levelCase: .college),
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "社会人レベル", levelCase: .businessman),
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "専門家レベル", levelCase: .professor),
+        LevelItem(image: Asset.Assets.imgBeginner.swiftUIImage, title: "人外レベル", levelCase: .monster)
+    ]
+    private let gridItems = [
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
 
     // MARK: - Body
     var body: some View {
@@ -39,20 +51,25 @@ struct HomeView: View {
     var homeDescription: some View {
         VStack {
             Text("フラッシュ英文法")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
             Text("*全て肯定文で並び替えを行なってください")
-                .modifier(CustomLabel(foregroundColor: .black, size: 16))
+                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
             Spacer().frame(height: 20)
-            ForEach(QuizLevel.allCases, id: \.self) { level in
-                Button(level.rawValue) {
-                    navigationManager.path.append(.quizDetailView)
-                    quizManager.setQuiz(isSetNextQuiz: false, quizLevel: level)
+            ScrollView {
+                LazyVGrid(columns: gridItems, spacing: 16) {
+                    ForEach(levelItem) { levelItem in
+                        LevelGridItem(levelItem: levelItem, tapAction: {
+                            withAnimation {
+                                navigationManager.path.append(.quizDetailView)
+                                quizManager.setQuiz(isSetNextQuiz: false, quizLevel: levelItem.levelCase)
+                            }
+                        })
+                    }
                 }
-                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor))
+                .padding(.horizontal, 16)
             }
-            Spacer().frame(height: 120)
         }
     }
 }

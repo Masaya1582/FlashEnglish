@@ -17,7 +17,7 @@ struct QuizView: View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
                 Text("Question \(quizManager.quizNumber + 1)")
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
+                    .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
                 Spacer()
                 if quizManager.countDown > 0 {
                     initialCounter
@@ -47,7 +47,7 @@ struct QuizView: View {
             .onAppear {
                 quizManager.startTimerForCountDown()
                 if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
-                    quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .easy)
+                    quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .juniorHighSchool)
                 }
                 if quizManager.isTryAgainTriggered {
                     quizManager.isTryAgainTriggered = false
@@ -75,7 +75,7 @@ struct QuizView: View {
     // カウントダウン表示
     var initialCounter: some View {
         Text("\(quizManager.countDown)")
-            .modifier(CustomLabel(foregroundColor: .black, size: 48))
+            .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 120)
@@ -90,7 +90,7 @@ struct QuizView: View {
         VStack {
             Spacer()
             Text(quizManager.isTryAgainTriggered ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
-                .modifier(CustomLabel(foregroundColor: .black, size: 48))
+                .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
             Spacer()
         }
     }

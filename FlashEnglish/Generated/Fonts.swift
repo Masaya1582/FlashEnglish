@@ -24,11 +24,35 @@ internal enum FontFamily {
     internal static let regular = FontConvertible(name: "Caprasimo-Regular", family: "Caprasimo", path: "Caprasimo-Regular.ttf")
     internal static let all: [FontConvertible] = [regular]
   }
+  internal enum NotoSans {
+    internal static let regular = FontConvertible(name: "NotoSans-Regular", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let black = FontConvertible(name: "NotoSans-Regular_Black", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let bold = FontConvertible(name: "NotoSans-Regular_Bold", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let extraBold = FontConvertible(name: "NotoSans-Regular_ExtraBold", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let extraLight = FontConvertible(name: "NotoSans-Regular_ExtraLight", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let light = FontConvertible(name: "NotoSans-Regular_Light", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let medium = FontConvertible(name: "NotoSans-Regular_Medium", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let semiBold = FontConvertible(name: "NotoSans-Regular_SemiBold", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let thin = FontConvertible(name: "NotoSans-Regular_Thin", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
+    internal static let all: [FontConvertible] = [regular, black, bold, extraBold, extraLight, light, medium, semiBold, thin]
+  }
+  internal enum NotoSansJP {
+    internal static let thin = FontConvertible(name: "NotoSansJP-Thin", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let black = FontConvertible(name: "NotoSansJP-Thin_Black", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let bold = FontConvertible(name: "NotoSansJP-Thin_Bold", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let extraBold = FontConvertible(name: "NotoSansJP-Thin_ExtraBold", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let extraLight = FontConvertible(name: "NotoSansJP-Thin_ExtraLight", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let light = FontConvertible(name: "NotoSansJP-Thin_Light", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let medium = FontConvertible(name: "NotoSansJP-Thin_Medium", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let regular = FontConvertible(name: "NotoSansJP-Thin_Regular", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let semiBold = FontConvertible(name: "NotoSansJP-Thin_SemiBold", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
+    internal static let all: [FontConvertible] = [thin, black, bold, extraBold, extraLight, light, medium, regular, semiBold]
+  }
   internal enum RubikDoodleShadow {
     internal static let regular = FontConvertible(name: "RubikDoodleShadow-Regular", family: "Rubik Doodle Shadow", path: "RubikDoodleShadow-Regular.ttf")
     internal static let all: [FontConvertible] = [regular]
   }
-  internal static let allCustomFonts: [FontConvertible] = [Caprasimo.all, RubikDoodleShadow.all].flatMap { $0 }
+  internal static let allCustomFonts: [FontConvertible] = [Caprasimo.all, NotoSans.all, NotoSansJP.all, RubikDoodleShadow.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

@@ -24,16 +24,16 @@ struct AnswerView: View {
                 }
                 VStack(spacing: 20) {
                     Text("あなたの解答:")
-                        .modifier(CustomLabel(foregroundColor: .black, size: 24))
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
                     Text("\(quizManager.textFieldInputs)")
-                        .modifier(CustomLabel(foregroundColor: .black, size: 24))
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
                         .multilineTextAlignment(.center)
                     TextField("正しい順番に並び替えよう", text: $quizManager.textFieldInputs)
                         .modifier(CustomTextField())
-                    Button("GO") {
+                    Button("解答") {
                         quizManager.judgeAnswer()
                     }
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
                     Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
                         quizManager.isTryAgainTriggered = true
                         quizManager.isShowAnswerView = false

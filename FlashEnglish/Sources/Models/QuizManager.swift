@@ -9,9 +9,12 @@
 import SwiftUI
 
 enum QuizLevel: String, CaseIterable {
-    case easy = "Easy"
-    case normal = "Normal"
-    case hard = "Hard"
+    case juniorHighSchool = "JuniorHighSchool"
+    case hightSchool = "HighSchool"
+    case college = "College"
+    case businessman = "Businessman"
+    case professor = "Professor"
+    case monster = "Monster"
 }
 
 final class QuizManager: ObservableObject {

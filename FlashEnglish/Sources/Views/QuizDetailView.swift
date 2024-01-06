@@ -40,16 +40,16 @@ struct QuizDetailView: View {
     var quizDetailDescription: some View {
         VStack(alignment: .center) {
             Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizData.allQuizContents.count)問")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
             Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
-                .modifier(CustomLabel(foregroundColor: .black, size: 20))
+                .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
             Spacer().frame(height: 100)
             Button("始める") {
                 navigationManager.path.append(.quizView)
             }
-            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor))
+            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
             Spacer().frame(height: 200)
         }
     }

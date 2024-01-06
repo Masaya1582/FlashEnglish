@@ -53,9 +53,9 @@ struct AnswerDetailView: View {
     var modalView: some View {
         VStack(spacing: 42) {
             Text(quizManager.isAnswerCorrect ? "正解!" : "不正解...")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 20))
+                .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
             Text(quizManager.formattedCorrectAnswer)
-                .modifier(CustomLabel(foregroundColor: .black, size: 24))
+                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
             nextQuizButton
         }
         .padding(4)
@@ -75,7 +75,7 @@ struct AnswerDetailView: View {
                 navigationManager.path.append(.quizView)
             }
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.alertRed.swiftUIColor))
+        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
     }
 }
 
