@@ -1,5 +1,5 @@
 //
-//  DescriptionView.swift
+//  AnswerDetailView.swift
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
@@ -8,8 +8,9 @@
 
 import SwiftUI
 
-struct DescriptionView: View {
+struct AnswerDetailView: View {
     @Binding var correctAnswer: [String]
+    @Binding var isAnswerCorrect: Bool
     @State private var formattedCorrectAnswer = ""
     @State private var isTryNextQuiz = false
     @State private var isSetNextQuiz = false
@@ -42,7 +43,7 @@ struct DescriptionView: View {
 
     var modalView: some View {
         VStack(spacing: 42) {
-            Text("Answer")
+            Text(isAnswerCorrect ? "正解!" : "不正解...")
                 .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 20))
             Text(formattedCorrectAnswer)
                 .modifier(CustomLabel(foregroundColor: .black, size: 24))
@@ -66,10 +67,11 @@ struct DescriptionView: View {
     }
 }
 
-struct DescriptionView_Previews: PreviewProvider {
+struct AnswerDetailView_Previews: PreviewProvider {
     @State static var correctAnswer = ["This", "is", "a", "pen"]
+    @State static var isAnswerCorrect = true
     static var previews: some View {
-        DescriptionView(correctAnswer: $correctAnswer)
+        AnswerDetailView(correctAnswer: $correctAnswer, isAnswerCorrect: $isAnswerCorrect)
             .environmentObject(QuizManager())
     }
 }

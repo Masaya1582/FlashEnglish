@@ -24,7 +24,7 @@ struct AnswerView: View {
         NavigationView {
             ZStack {
                 if isShowDescriptionModalView {
-                    DescriptionView(correctAnswer: $correctAnswer)
+                    AnswerDetailView(correctAnswer: $correctAnswer, isAnswerCorrect: $isAnswerCorrect)
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                     .zIndex(1)
                 }

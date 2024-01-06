@@ -34,8 +34,8 @@ struct QuizView: View {
             }
             .onAppear {
                 startTimer()
-                if !isTryAgain {
-                    quizManager.setQuiz(isSetNextQuiz)
+                if !isTryAgain && isSetNextQuiz {
+                    quizManager.setQuiz(isSetNextQuiz: isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .easy)
                 }
                 quizForRetry = quizManager.prodQuizContent
             }

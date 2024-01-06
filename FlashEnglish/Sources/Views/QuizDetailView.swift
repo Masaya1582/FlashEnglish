@@ -28,6 +28,7 @@ struct QuizDetailView: View {
                 Spacer()
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

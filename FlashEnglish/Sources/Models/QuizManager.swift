@@ -16,14 +16,16 @@ final class QuizManager: ObservableObject {
     @Published var prodQuizContent: [String] = []
     @Published var quizData = QuizData()
     @Published var isShowResultView = false
+    @Published var quizLevel: QuizLevel?
 
-    func setQuiz(_ isSetNextQuiz: Bool) {
+    func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
+        self.quizLevel = quizLevel
         if isSetNextQuiz {
             quizIndex = 0
             currentIndex += 1
             print("カウント: \(quizData.allQuizContents.count)")
         } else {
-            quizData.allQuizContents = loadCSV(with: "quiz1").shuffled()
+            quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")
