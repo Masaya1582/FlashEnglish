@@ -22,9 +22,12 @@ struct AnswerView: View {
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                     .zIndex(1)
                 }
-                VStack(spacing: 28) {
-                    Text("解答")
-                        .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                VStack(spacing: 20) {
+                    Text("あなたの解答:")
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24))
+                    Text("\(quizManager.textFieldInputs)")
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24))
+                        .multilineTextAlignment(.center)
                     TextField("正しい順番に並び替えよう", text: $quizManager.textFieldInputs)
                         .modifier(CustomTextField())
                     Button("GO") {
