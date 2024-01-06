@@ -20,10 +20,6 @@ internal typealias Font = FontConvertible.Font
 
 // swiftlint:disable identifier_name line_length type_body_length
 internal enum FontFamily {
-  internal enum Caprasimo {
-    internal static let regular = FontConvertible(name: "Caprasimo-Regular", family: "Caprasimo", path: "Caprasimo-Regular.ttf")
-    internal static let all: [FontConvertible] = [regular]
-  }
   internal enum NotoSans {
     internal static let regular = FontConvertible(name: "NotoSans-Regular", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
     internal static let black = FontConvertible(name: "NotoSans-Regular_Black", family: "Noto Sans", path: "NotoSans-VariableFont_wdth,wght.ttf")
@@ -48,11 +44,7 @@ internal enum FontFamily {
     internal static let semiBold = FontConvertible(name: "NotoSansJP-Thin_SemiBold", family: "Noto Sans JP", path: "NotoSansJP-VariableFont_wght.ttf")
     internal static let all: [FontConvertible] = [thin, black, bold, extraBold, extraLight, light, medium, regular, semiBold]
   }
-  internal enum RubikDoodleShadow {
-    internal static let regular = FontConvertible(name: "RubikDoodleShadow-Regular", family: "Rubik Doodle Shadow", path: "RubikDoodleShadow-Regular.ttf")
-    internal static let all: [FontConvertible] = [regular]
-  }
-  internal static let allCustomFonts: [FontConvertible] = [Caprasimo.all, NotoSans.all, NotoSansJP.all, RubikDoodleShadow.all].flatMap { $0 }
+  internal static let allCustomFonts: [FontConvertible] = [NotoSans.all, NotoSansJP.all].flatMap { $0 }
   internal static func registerAllCustomFonts() {
     allCustomFonts.forEach { $0.register() }
   }

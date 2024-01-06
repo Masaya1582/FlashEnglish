@@ -3,8 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/06.
-//  Copyright (c) 2024 ReNKCHANNEL. All rihgts reserved.
-//
+//  
 
 import Foundation
 import SwiftUI

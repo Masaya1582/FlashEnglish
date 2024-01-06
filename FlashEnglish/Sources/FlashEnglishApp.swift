@@ -2,7 +2,7 @@
 //  FlashEnglishApp.swift
 //  FlashEnglish
 //
-//  Created by MasayaNakakuki on 2024/01/04.
+//  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/04.
 //
 
 import SwiftUI
