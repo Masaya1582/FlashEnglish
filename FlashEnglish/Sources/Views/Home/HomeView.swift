@@ -23,7 +23,6 @@ struct HomeView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @State private var isLevelCompleted = true
 
     // MARK: - Body
     var body: some View {
