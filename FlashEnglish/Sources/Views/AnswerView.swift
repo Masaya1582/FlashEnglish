@@ -56,9 +56,19 @@ struct AnswerView: View {
                     }
                 }
                 if quizManager.isShowMaruBatsu {
-                    Image(systemName: quizManager.isAnswerCorrect ? "circle.circle" : "multiply")
-                        .resizable()
-                        .frame(width: 300, height: 300)
+                    if quizManager.isAnswerCorrect {
+                        withAnimation {
+                            Asset.Assets.imgCorrect.swiftUIImage
+                                .resizable()
+                                .modifier(CustomImage(width: 280, height: 280))
+                        }
+                    } else {
+                        withAnimation {
+                            Asset.Assets.imgIncorrect.swiftUIImage
+                                .resizable()
+                                .modifier(CustomImage(width: 280, height: 280))
+                        }
+                    }
                 }
             }
         }
