@@ -14,15 +14,13 @@ struct HomeView: View {
 
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
-            VStack(spacing: 10) {
-                Text("フラッシュ暗記法")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding(.bottom, 20)
-                Text("フラッシュ形式で出題される英単語を覚え合わせて正しい英文法を作ろう！")
-                    .font(.subheadline)
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal)
+            VStack {
+                Text("フラッシュ英文法")
+                    .modifier(CustomLabel(foregroundColor: .black, size: 32))
+                    .padding()
+                Text("*全て肯定文で並び替えを行なってください")
+                    .modifier(CustomLabel(foregroundColor: .black, size: 16))
+                    .padding()
                 Spacer()
                 ForEach(QuizLevel.allCases, id: \.self) { level in
                     Button(level.rawValue) {

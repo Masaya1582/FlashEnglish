@@ -15,42 +15,39 @@ enum QuizLevel: String, CaseIterable {
 }
 
 final class QuizManager: ObservableObject {
-    // MARK: - General
+    // MARK: - Properties
     @Published var currentIndex: Int = 0
     @Published var quizIndex: Int = 0
+    @Published var correctCount = 0
+    @Published var count = 3
+    @Published var tryAgainCount = 3
+    @Published var answer = ""
+    @Published var alertTitle = ""
+    @Published var formattedCorrectAnswer = ""
     @Published var isShowResultView = false
-    @Published var quizLevel: QuizLevel?
-    @Published var quizData = QuizData()
-    @Published var allQuizDataArray: [String] = []
-    @Published var formattedQuizArray: [String] = []
-    @Published var prodQuizContent: [String] = []
-    // MARK: - HomeView
     @Published var isShowQuizDetailView = false
-    // MARK: - QuizDetailView
     @Published var isShowQuizView = false
     @Published var isSetNextQuiz = false
-    // MARK: - QuizView
-    @Published var count = 3
-    @Published var timer: Timer?
-    @Published var quizTimer: Timer?
-    @Published var eachQuizArray: [String] = []
     @Published var isShowAnswerView = false
     @Published var isTryAgain = false
-    @Published var quizForRetry: [String] = []
-    @Published var tryAgainCount = 3
-    // MARK: - AnswerView
-    @Published var answer = ""
-    @Published var userAnswer: [String] = []
-    @Published var alertTitle = ""
     @Published var isShowDescriptionModalView = false
     @Published var isAnswerCorrect = false
     @Published var isShowMaruBatsu = false
-    @Published var correctAnswer: [String] = []
     @Published var isTryOneMore = false
-    // MARK: - AnswerView
-    @Published var formattedCorrectAnswer = ""
     @Published var isTryNextQuiz = false
+    @Published var allQuizDataArray: [String] = []
+    @Published var formattedQuizArray: [String] = []
+    @Published var prodQuizContent: [String] = []
+    @Published var eachQuizArray: [String] = []
+    @Published var quizForRetry: [String] = []
+    @Published var userAnswer: [String] = []
+    @Published var correctAnswer: [String] = []
+    @Published var timer: Timer?
+    @Published var quizTimer: Timer?
+    @Published var quizLevel: QuizLevel?
+    @Published var quizData = QuizData()
 
+    // MARK: - Functions
     func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
         self.quizLevel = quizLevel
         if isSetNextQuiz {
@@ -114,6 +111,7 @@ final class QuizManager: ObservableObject {
         isShowMaruBatsu = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
+            correctCount += 1
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             self?.isShowMaruBatsu = false
@@ -134,6 +132,7 @@ final class QuizManager: ObservableObject {
     func resetAllQuiz() {
         currentIndex = 0
         quizIndex = 0
+        correctCount = 0
         isShowResultView = false
         allQuizDataArray = []
         formattedQuizArray = []
