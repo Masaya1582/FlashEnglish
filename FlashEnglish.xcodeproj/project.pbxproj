@@ -107,6 +107,19 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
+		1E1BB18E2B493BAF00E0A468 /* CSV */ = {
+			isa = PBXGroup;
+			children = (
+				1E1BB1682B47D6E300E0A468 /* JuniorHighSchool.csv */,
+				1E1BB17C2B48DF1C00E0A468 /* HighSchool.csv */,
+				1E1BB17D2B48DF1C00E0A468 /* College.csv */,
+				1E1BB18A2B49395700E0A468 /* Businessman.csv */,
+				1E1BB1882B49395700E0A468 /* Monster.csv */,
+				1E1BB1892B49395700E0A468 /* Professor.csv */,
+			);
+			path = CSV;
+			sourceTree = "<group>";
+		};
 		400A9C032B467BA60086914E = {
 			isa = PBXGroup;
 			children = (
@@ -130,12 +143,7 @@
 			children = (
 				400A9C1D2B467CD00086914E /* Resources */,
 				400A9C1E2B467CDF0086914E /* Sources */,
-				1E1BB1682B47D6E300E0A468 /* JuniorHighSchool.csv */,
-				1E1BB17C2B48DF1C00E0A468 /* HighSchool.csv */,
-				1E1BB17D2B48DF1C00E0A468 /* College.csv */,
-				1E1BB18A2B49395700E0A468 /* Businessman.csv */,
-				1E1BB1882B49395700E0A468 /* Monster.csv */,
-				1E1BB1892B49395700E0A468 /* Professor.csv */,
+				1E1BB18E2B493BAF00E0A468 /* CSV */,
 				400A9C1F2B467D3E0086914E /* Generated */,
 				400A9C152B467BA70086914E /* Preview Content */,
 			);
