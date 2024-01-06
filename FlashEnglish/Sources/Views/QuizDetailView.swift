@@ -9,14 +9,12 @@
 import SwiftUI
 
 struct QuizDetailView: View {
-    @State private var isShowQuizView = false
-    @State private var isSetNextQuiz = false
     @EnvironmentObject var quizManager: QuizManager
     
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
-                NavigationLink(destination: QuizView(isSetNextQuiz: $isSetNextQuiz), isActive: $isShowQuizView) {}
+                NavigationLink(destination: QuizView(), isActive: $quizManager.isShowQuizView) {}
                 Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizData.allQuizContents.count)問")
                     .modifier(CustomLabel(foregroundColor: .black, size: 32))
                 Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
@@ -24,7 +22,7 @@ struct QuizDetailView: View {
                     .padding()
                 Spacer()
                 Button("始める") {
-                    isShowQuizView = true
+                    quizManager.isShowQuizView = true
                 }
                 .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor))
                 Spacer()

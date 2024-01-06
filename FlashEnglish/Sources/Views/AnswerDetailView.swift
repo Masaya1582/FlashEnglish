@@ -9,11 +9,6 @@
 import SwiftUI
 
 struct AnswerDetailView: View {
-    @Binding var correctAnswer: [String]
-    @Binding var isAnswerCorrect: Bool
-    @State private var formattedCorrectAnswer = ""
-    @State private var isTryNextQuiz = false
-    @State private var isSetNextQuiz = false
     @EnvironmentObject var quizManager: QuizManager
     
     var body: some View {
@@ -22,7 +17,7 @@ struct AnswerDetailView: View {
                 if quizManager.isShowResultView {
                     NavigationLink(destination: ResultView(), isActive: $quizManager.isShowResultView) {}
                 } else {
-                    NavigationLink(destination: QuizView(isSetNextQuiz: $isSetNextQuiz), isActive: $isTryNextQuiz) {}
+                    NavigationLink(destination: QuizView(), isActive: $quizManager.isTryNextQuiz) {}
                 }
                 modalView
             }
@@ -35,17 +30,17 @@ struct AnswerDetailView: View {
                     .ignoresSafeArea()
             )
             .onAppear {
-                formattedCorrectAnswer = correctAnswer.joined(separator: ",")
-                formattedCorrectAnswer = formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
+                quizManager.formattedCorrectAnswer = quizManager.correctAnswer.joined(separator: ",")
+                quizManager.formattedCorrectAnswer = quizManager.formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
             }
         }
     }
 
     var modalView: some View {
         VStack(spacing: 42) {
-            Text(isAnswerCorrect ? "正解!" : "不正解...")
+            Text(quizManager.isAnswerCorrect ? "正解!" : "不正解...")
                 .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 20))
-            Text(formattedCorrectAnswer)
+            Text(quizManager.formattedCorrectAnswer)
                 .modifier(CustomLabel(foregroundColor: .black, size: 24))
             nextQuizButton
         }
@@ -60,18 +55,16 @@ struct AnswerDetailView: View {
             if quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 {
                 quizManager.isShowResultView = true
             }
-            isTryNextQuiz = true
-            isSetNextQuiz = true
+            quizManager.isTryNextQuiz = true
+            quizManager.isSetNextQuiz = true
         }
         .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.alertRed.swiftUIColor))
     }
 }
 
 struct AnswerDetailView_Previews: PreviewProvider {
-    @State static var correctAnswer = ["This", "is", "a", "pen"]
-    @State static var isAnswerCorrect = true
     static var previews: some View {
-        AnswerDetailView(correctAnswer: $correctAnswer, isAnswerCorrect: $isAnswerCorrect)
+        AnswerDetailView()
             .environmentObject(QuizManager())
     }
 }

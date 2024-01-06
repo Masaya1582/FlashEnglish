@@ -9,68 +9,48 @@
 import SwiftUI
 
 struct AnswerView: View {
-    @State private var answer = ""
-    @Binding var tryAgainCount: Int
-    @State private var userAnswer: [String] = []
-    @State private var alertTitle = ""
-    @Binding var correctAnswer: [String]
-    @Binding var isTryOneMore: Bool
-    @Binding var isShowAnswerView: Bool
-    @State private var isShowDescriptionModalView = false
-    @State private var isAnswerCorrect = false
-    @State private var isShowMaruBatsu = false
+    @EnvironmentObject var quizManager: QuizManager
 
     var body: some View {
         NavigationView {
             ZStack {
-                if isShowDescriptionModalView {
-                    AnswerDetailView(correctAnswer: $correctAnswer, isAnswerCorrect: $isAnswerCorrect)
+                if quizManager.isShowDescriptionModalView {
+                    AnswerDetailView()
                     .transition(.asymmetric(insertion: .opacity, removal: .opacity))
                     .zIndex(1)
                 }
                 VStack(spacing: 28) {
                     Text("解答")
                         .modifier(CustomLabel(foregroundColor: .black, size: 32))
-                    TextField("正しい順番に並び替えよう", text: $answer)
+                    TextField("正しい順番に並び替えよう", text: $quizManager.answer)
                         .modifier(CustomTextField())
                     Button("GO") {
-                        userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                        isShowMaruBatsu = true
-                        if userAnswer == correctAnswer {
-                            isAnswerCorrect = true
-                        }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            isShowMaruBatsu = false
-                            isShowDescriptionModalView = true
-                        }
+                        quizManager.judgeAnswer()
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
-                    Button("もう一度みる (あと\(tryAgainCount)回)") {
-                        isTryOneMore = true
-                        isShowAnswerView = false
+                    Button("もう一度みる (あと\(quizManager.tryAgainCount)回)") {
+                        quizManager.isTryOneMore = true
+                        quizManager.isShowAnswerView = false
                     }
-                    .disabled(tryAgainCount < 1)
+                    .disabled(quizManager.tryAgainCount < 1)
                 }
-                if isShowMaruBatsu {
-                    Image(systemName: isAnswerCorrect ? "circle.circle" : "multiply")
+                if quizManager.isShowMaruBatsu {
+                    Image(systemName: quizManager.isAnswerCorrect ? "circle.circle" : "multiply")
                         .resizable()
                         .frame(width: 300, height: 300)
                 }
             }
         }
         .onDisappear {
-            isTryOneMore = false
+            quizManager.isTryOneMore = false
         }
         .navigationBarBackButtonHidden()
     }
 }
 
 struct AnswerView_Previews: PreviewProvider {
-    @State static var correctAnswer: [String] = []
-    @State static var isTryOneMore = false
-    @State static var isShowAnswerView = false
-    @State static var tryAgainCount = 0
     static var previews: some View {
-        AnswerView(tryAgainCount: $tryAgainCount, correctAnswer: $correctAnswer, isTryOneMore: $isTryOneMore, isShowAnswerView: $isShowAnswerView)
+        AnswerView()
+            .environmentObject(QuizManager())
     }
 }
