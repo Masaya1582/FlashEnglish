@@ -41,7 +41,7 @@ struct QuizDetailView: View {
         VStack(alignment: .center) {
             Text("\(quizManager.levelTitle): \(quizManager.quizData.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
-            Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
+            Text("3秒のカウント後、\nフラッシュ算形式で問題が出題されます")
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
@@ -51,20 +51,10 @@ struct QuizDetailView: View {
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
             Button("ホームに戻る") {
-                quizManager.isShowAlert = true
+                quizManager.resetAllQuiz()
+                navigationManager.path.removeAll()
             }
             Spacer().frame(height: 200)
-                .alert(isPresented: $quizManager.isShowAlert) {
-                    Alert(
-                        title: Text("確認"),
-                        message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
-                        primaryButton: .destructive(Text("ホームに戻る")) {
-                            quizManager.resetAllQuiz()
-                            navigationManager.path.removeAll()
-                        },
-                        secondaryButton: .cancel()
-                    )
-                }
         }
     }
 }

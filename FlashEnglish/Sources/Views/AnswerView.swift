@@ -49,6 +49,7 @@ struct AnswerView: View {
                         }
                     }
                     Button("解答") {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         quizManager.judgeAnswer()
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.textFieldInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))

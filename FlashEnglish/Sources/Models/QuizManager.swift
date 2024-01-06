@@ -34,7 +34,7 @@ final class QuizManager: ObservableObject {
     @Published var eachQuizWordNumber: Int = 0
     @Published var correctCount = 0
     @Published var countDown = 3
-    @Published var tryAgainRemainCount = 3
+    @Published var tryAgainRemainCount = 2
     @Published var textFieldInputs = ""
     @Published var formattedCorrectAnswer = ""
     @Published var levelTitle = ""
@@ -51,7 +51,6 @@ final class QuizManager: ObservableObject {
     @Published var isShowAlert = false
     @Published var isShowHint = false
     @Published var isFlipHint = false
-    @Published var allQuizDataArray: [String] = []
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
     @Published var quizContentForTryAgain: [String] = []
@@ -145,10 +144,9 @@ final class QuizManager: ObservableObject {
         isShowDescriptionModalView = false
         isShowAnswerView = false
         isAnswerCorrect = false
-        // isShowHint = false
         isFlipHint = false
         textFieldInputs = ""
-        tryAgainRemainCount = 3
+        tryAgainRemainCount = 2
         userAnswer = []
         correctAnswer = []
     }
@@ -158,26 +156,25 @@ final class QuizManager: ObservableObject {
         quizNumber = 0
         eachQuizWordNumber = 0
         correctCount = 0
+        countDown = 3
+        tryAgainRemainCount = 2
         isShowResultView = false
-        allQuizDataArray = []
-        formattedQuizArray = []
-        productionQuizContentArray = []
         isShowQuizDetailView = false
         isShowQuizView = false
         isSetNextQuiz = false
         isShowHint = false
         isFlipHint = false
-        countDown = 3
         isShowAnswerView = false
         isTryAgainTriggered = false
-        quizContentForTryAgain = []
-        tryAgainRemainCount = 3
-        textFieldInputs = ""
-        levelTitle = ""
-        userAnswer = []
         isShowDescriptionModalView = false
         isAnswerCorrect = false
         isShowMaruBatsu = false
+        formattedQuizArray = []
+        productionQuizContentArray = []
+        quizContentForTryAgain = []
+        textFieldInputs = ""
+        levelTitle = ""
+        userAnswer = []
         correctAnswer = []
     }
 

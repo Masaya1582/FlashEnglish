@@ -120,8 +120,8 @@
 				1E1BB17C2B48DF1C00E0A468 /* HighSchool.csv */,
 				1E1BB17D2B48DF1C00E0A468 /* College.csv */,
 				1E1BB18A2B49395700E0A468 /* Businessman.csv */,
-				1E1BB1882B49395700E0A468 /* Monster.csv */,
 				1E1BB1892B49395700E0A468 /* Professor.csv */,
+				1E1BB1882B49395700E0A468 /* Monster.csv */,
 			);
 			path = CSV;
 			sourceTree = "<group>";
