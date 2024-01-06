@@ -10,15 +10,11 @@ import SwiftUI
 
 struct AnswerDetailView: View {
     @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationManager.path) {
             VStack {
-                if quizManager.isShowResultView {
-                    NavigationLink(destination: ResultView(), isActive: $quizManager.isShowResultView) {}
-                } else {
-                    NavigationLink(destination: QuizView(), isActive: $quizManager.isTryNextQuiz) {}
-                }
                 modalView
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -29,9 +25,33 @@ struct AnswerDetailView: View {
                     .opacity(0.5)
                     .ignoresSafeArea()
             )
+            .navigationDestination(for: ViewType.self) { viewType in
+                switch viewType {
+                case .homeView:
+                    HomeView()
+                case .quizDetailView:
+                    QuizDetailView()
+                case .quizView:
+                    QuizView()
+                case .answerView:
+                    AnswerView()
+                case .answerDetailView:
+                    AnswerDetailView()
+                case .resultView:
+                    ResultView()
+                }
+            }
             .onAppear {
                 quizManager.formattedCorrectAnswer = quizManager.correctAnswer.joined(separator: ",")
                 quizManager.formattedCorrectAnswer = quizManager.formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
+            }
+            .onDisappear {
+                quizManager.isShowDescriptionModalView = false
+                quizManager.isShowAnswerView = false
+                quizManager.answer = ""
+                quizManager.tryAgainCount = 3
+                quizManager.userAnswer = []
+                quizManager.correctAnswer = []
             }
         }
     }
@@ -53,10 +73,12 @@ struct AnswerDetailView: View {
     var nextQuizButton: some View {
         Button(quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 ? "結果を見る" : "次の問題") {
             if quizManager.quizData.allQuizContents.count - quizManager.currentIndex == 1 {
-                quizManager.isShowResultView = true
+                navigationManager.path.append(.resultView)
+            } else {
+                quizManager.isTryNextQuiz = true
+                quizManager.isSetNextQuiz = true
+                navigationManager.path.append(.quizView)
             }
-            quizManager.isTryNextQuiz = true
-            quizManager.isSetNextQuiz = true
         }
         .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.alertRed.swiftUIColor))
     }
@@ -66,5 +88,6 @@ struct AnswerDetailView_Previews: PreviewProvider {
     static var previews: some View {
         AnswerDetailView()
             .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

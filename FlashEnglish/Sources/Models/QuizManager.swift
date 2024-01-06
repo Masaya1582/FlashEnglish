@@ -55,6 +55,7 @@ final class QuizManager: ObservableObject {
         self.quizLevel = quizLevel
         if isSetNextQuiz {
             // 次の問題をセット
+            count = 3
             quizIndex = 0
             currentIndex += 1
         } else {
