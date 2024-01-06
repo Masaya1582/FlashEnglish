@@ -29,6 +29,7 @@
 		1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1972B4949F700E0A468 /* LottieView.swift */; };
 		1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */; };
 		1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19A2B494A6300E0A468 /* lottie_correct.json */; };
+		1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -65,6 +66,7 @@
 		1E1BB1972B4949F700E0A468 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_incorrect.json; sourceTree = "<group>"; };
 		1E1BB19A2B494A6300E0A468 /* lottie_correct.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_correct.json; sourceTree = "<group>"; };
+		1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_perfect.json; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -172,6 +174,7 @@
 				400A9C222B467D860086914E /* Localizable.strings */,
 				1E1BB19A2B494A6300E0A468 /* lottie_correct.json */,
 				1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */,
+				1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */,
 				400A9C242B467D980086914E /* Fonts */,
 			);
 			path = Resources;
@@ -324,6 +327,7 @@
 				1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */,
 				400A9C142B467BA70086914E /* Assets.xcassets in Resources */,
 				1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */,
+				1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */,
 				1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */,
 				1E1BB1852B4928C700E0A468 /* NotoSans-VariableFont_wdth,wght.ttf in Resources */,
 				400A9C282B467DC40086914E /* Caprasimo-Regular.ttf in Resources */,

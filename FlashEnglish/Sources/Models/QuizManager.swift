@@ -51,6 +51,7 @@ final class QuizManager: ObservableObject {
     @Published var isShowAlert = false
     @Published var isShowHint = false
     @Published var isFlipHint = false
+    @Published var isShowPerfectAnimation = false
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
     @Published var quizContentForTryAgain: [String] = []
@@ -169,6 +170,7 @@ final class QuizManager: ObservableObject {
         isShowDescriptionModalView = false
         isAnswerCorrect = false
         isShowMaruBatsu = false
+        isShowPerfectAnimation = false
         formattedQuizArray = []
         productionQuizContentArray = []
         quizContentForTryAgain = []

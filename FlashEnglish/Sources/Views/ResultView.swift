@@ -16,25 +16,36 @@ struct ResultView: View {
     // MARK: - Body
     var body: some View {
         NavigationView {
-            VStack {
-                Text("Result: \(quizManager.correctCount)問正解")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
-                Spacer()
-                Button("Back") {
-                    // 全問正解且つヒントを見ないでクリアしたら王冠をつける
-                    print("ヒント見た: \(quizManager.isShowHint)")
-                    if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
-                        UserDefaults.standard.set(true, forKey: "\(quizManager.levelTitle)Completed")
+            ZStack {
+                VStack {
+                    Text("Result: \(quizManager.correctCount)問正解")
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                    Spacer()
+                    Button("Back") {
+                        quizManager.resetAllQuiz()
+                        navigationManager.path.removeAll()
                     }
-                    quizManager.resetAllQuiz()
-                    navigationManager.path.removeAll()
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
+                    Spacer()
                 }
-                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
-                Spacer()
+                quizManager.isShowPerfectAnimation ? LottieView(lottieFile: "lottie_perfect") : nil
+            }
+            .onAppear {
+                // 全問正解且つヒントを見ないでクリアしたら王冠をつける
+                if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
+                    quizManager.isShowPerfectAnimation = true
+                    UserDefaults.standard.set(true, forKey: "\(quizManager.levelTitle)Completed")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                        withAnimation {
+                            quizManager.isShowPerfectAnimation = false
+                        }
+                    }
+                }
             }
         }
         .navigationBarBackButtonHidden()
     }
+
 }
 
 // MARK: - Preview
