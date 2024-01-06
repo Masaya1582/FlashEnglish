@@ -17,6 +17,7 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
     @Published var isShowResultView = false
     @Published var quizLevel: QuizLevel?
+    @Published var quizContentCount = 0
 
     func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
         self.quizLevel = quizLevel
@@ -26,6 +27,7 @@ final class QuizManager: ObservableObject {
             print("カウント: \(quizData.allQuizContents.count)")
         } else {
             quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
+            quizContentCount = quizData.allQuizContents.count
         }
         formattedQuizArray = quizData.allQuizContents[currentIndex]
             .components(separatedBy: ",")

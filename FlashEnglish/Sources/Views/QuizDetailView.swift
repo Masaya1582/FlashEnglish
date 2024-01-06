@@ -11,11 +11,13 @@ import SwiftUI
 struct QuizDetailView: View {
     @State private var isShowQuizView = false
     @State private var isSetNextQuiz = false
+    @EnvironmentObject var quizManager: QuizManager
+    
     var body: some View {
         NavigationView {
             VStack(alignment: .center) {
                 NavigationLink(destination: QuizView(isSetNextQuiz: $isSetNextQuiz), isActive: $isShowQuizView) {}
-                Text("Easy: 5問")
+                Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizContentCount)問")
                     .modifier(CustomLabel(foregroundColor: .black, size: 32))
                 Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
                     .modifier(CustomLabel(foregroundColor: .black, size: 20))
@@ -35,5 +37,6 @@ struct QuizDetailView: View {
 struct QuizDetailView_Previews: PreviewProvider {
     static var previews: some View {
         QuizDetailView()
+            .environmentObject(QuizManager())
     }
 }
