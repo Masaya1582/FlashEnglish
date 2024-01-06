@@ -9,12 +9,17 @@
 import SwiftUI
 
 struct ResultView: View {
+    @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         NavigationView {
             VStack {
                 Button("Back") {
-                    // Topに戻る
+                    quizManager.resetAllQuiz() {
+
+                    }
+                    navigationManager.path.removeAll()
                 }
                 .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
             }
@@ -26,5 +31,7 @@ struct ResultView: View {
 struct ResultView_Previews: PreviewProvider {
     static var previews: some View {
         ResultView()
+            .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

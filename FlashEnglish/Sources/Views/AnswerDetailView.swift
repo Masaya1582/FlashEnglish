@@ -46,12 +46,7 @@ struct AnswerDetailView: View {
                 quizManager.formattedCorrectAnswer = quizManager.formattedCorrectAnswer.replacingOccurrences(of: ",", with: " ")
             }
             .onDisappear {
-                quizManager.isShowDescriptionModalView = false
-                quizManager.isShowAnswerView = false
-                quizManager.answer = ""
-                quizManager.tryAgainCount = 3
-                quizManager.userAnswer = []
-                quizManager.correctAnswer = []
+                quizManager.resetQuiz()
             }
         }
     }

@@ -121,6 +121,19 @@ final class QuizManager: ObservableObject {
         }
     }
 
+    func resetQuiz() {
+        isShowDescriptionModalView = false
+        isShowAnswerView = false
+        answer = ""
+        tryAgainCount = 3
+        userAnswer = []
+        correctAnswer = []
+    }
+
+    func resetAllQuiz() {
+
+    }
+
     // CSVファイルの読み込み
     private func loadCSV(with name: String) -> [String] {
         guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
