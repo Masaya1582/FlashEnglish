@@ -50,6 +50,7 @@ final class QuizManager: ObservableObject {
     @Published var isShowMaruBatsu = false
     @Published var isShowAlert = false
     @Published var isShowHint = false
+    @Published var isFlipHint = false
     @Published var allQuizDataArray: [String] = []
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
@@ -144,6 +145,7 @@ final class QuizManager: ObservableObject {
         isShowDescriptionModalView = false
         isShowAnswerView = false
         isAnswerCorrect = false
+        isShowHint = false
         textFieldInputs = ""
         tryAgainRemainCount = 3
         userAnswer = []

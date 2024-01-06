@@ -31,10 +31,22 @@ struct AnswerView: View {
                     TextField("正しい順番に並び替える", text: $quizManager.textFieldInputs)
                         .modifier(CustomTextField())
                     // ヒント
-                    if quizManager.tryAgainRemainCount < 1 && quizManager.isShowHint {
-                        Text("ヒント:\n \(quizManager.productionQuizContentArray.joined(separator: " "))")
-                            .modifier(CustomLabel(foregroundColor: .black, size: 12, fontName: FontFamily.NotoSans.bold))
-                            .multilineTextAlignment(.center)
+                    if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 {
+                        Button(action: {
+                            withAnimation {
+                                quizManager.isFlipHint.toggle()
+                            }
+                        }) {
+                            HStack {
+                                Text(quizManager.isFlipHint ? "閉じる" : "ヒントを見る(並び替える前の単語がみれます)")
+                                Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
+                            }
+                            .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
+                        }
+                        if quizManager.isFlipHint {
+                            Text(quizManager.productionQuizContentArray.joined(separator: " "))
+                                .modifier(CustomLabel(foregroundColor: Asset.Colors.gray1.swiftUIColor, size: 12, fontName: FontFamily.NotoSans.bold))
+                        }
                     }
                     Button("解答") {
                         quizManager.judgeAnswer()
