@@ -145,7 +145,7 @@ final class QuizManager: ObservableObject {
         isShowDescriptionModalView = false
         isShowAnswerView = false
         isAnswerCorrect = false
-        isShowHint = false
+        // isShowHint = false
         textFieldInputs = ""
         tryAgainRemainCount = 3
         userAnswer = []
@@ -176,6 +176,10 @@ final class QuizManager: ObservableObject {
         isAnswerCorrect = false
         isShowMaruBatsu = false
         correctAnswer = []
+    }
+
+    func isLevelCompleted(level: String) -> Bool {
+        UserDefaults.standard.bool(forKey: "\(level)Completed")
     }
 
     // CSVファイルの読み込み

@@ -24,6 +24,7 @@ struct HomeView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    @State private var isLevelCompleted = true
 
     // MARK: - Body
     var body: some View {
@@ -66,6 +67,15 @@ struct HomeView: View {
                                 quizManager.setQuiz(isSetNextQuiz: false, quizLevel: levelItem.levelCase)
                             }
                         })
+                        .overlay(
+                            quizManager.isLevelCompleted(level: levelItem.title) ? Asset.Assets.imgCrown.swiftUIImage
+                                .resizable()
+                                .scaledToFit()
+                                .clipShape(Circle())
+                                .frame(width: 40, height: 40)
+                            : nil,
+                            alignment: .topTrailing
+                        )
                     }
                 }
                 .padding(.horizontal, 16)

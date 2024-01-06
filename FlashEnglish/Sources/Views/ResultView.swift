@@ -21,6 +21,11 @@ struct ResultView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
                 Spacer()
                 Button("Back") {
+                    // 全問正解且つヒントを見ないでクリアしたら王冠をつける
+                    print("ヒント見た: \(quizManager.isShowHint)")
+                    if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
+                        UserDefaults.standard.set(true, forKey: "\(quizManager.levelTitle)Completed")
+                    }
                     quizManager.resetAllQuiz()
                     navigationManager.path.removeAll()
                 }
