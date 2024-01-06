@@ -14,13 +14,13 @@ struct QuizView: View {
     var body: some View {
         NavigationStack(path: $navigationManager.path) {
             VStack {
-                Text("Question \(quizManager.currentIndex + 1)")
+                Text("Question \(quizManager.quizNumber + 1)")
                     .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
                 Spacer()
-                if quizManager.count > 0 {
+                if quizManager.countDown > 0 {
                     initialCounter
                 } else {
-                    if quizManager.quizIndex < quizManager.prodQuizContent.count {
+                    if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
                         quizContent
                     }
                 }
@@ -44,20 +44,20 @@ struct QuizView: View {
             }
             .onAppear {
                 quizManager.startTimerForCountDown()
-                if !quizManager.isTryAgain && quizManager.isSetNextQuiz {
+                if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
                     quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .easy)
                 }
-                if quizManager.isTryAgain {
-                    quizManager.isTryAgain = false
+                if quizManager.isTryAgainTriggered {
+                    quizManager.isTryAgainTriggered = false
                 }
-                quizManager.quizForRetry = quizManager.prodQuizContent
+                quizManager.quizContentForTryAgain = quizManager.productionQuizContentArray
             }
             .onDisappear {
                 quizManager.stopTimer()
             }
-            .onChange(of: quizManager.isTryAgain) { isTryAgain in
-                if isTryAgain {
-                    quizManager.tryAgainCount -= 1
+            .onChange(of: quizManager.isTryAgainTriggered) { isTryAgainTriggered in
+                if isTryAgainTriggered {
+                    quizManager.tryAgainRemainCount -= 1
                     quizManager.resetAndRestartQuiz()
                 }
             }
@@ -72,7 +72,7 @@ struct QuizView: View {
 
     // カウントダウン表示
     var initialCounter: some View {
-        Text("\(quizManager.count)")
+        Text("\(quizManager.countDown)")
             .modifier(CustomLabel(foregroundColor: .black, size: 48))
             .padding()
             .background(
@@ -87,7 +87,7 @@ struct QuizView: View {
     var quizContent: some View {
         VStack {
             Spacer()
-            Text(quizManager.isTryAgain ? quizManager.quizForRetry[quizManager.quizIndex] : quizManager.prodQuizContent[quizManager.quizIndex])
+            Text(quizManager.isTryAgainTriggered ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
                 .modifier(CustomLabel(foregroundColor: .black, size: 48))
             Spacer()
 

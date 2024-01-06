@@ -16,33 +16,30 @@ enum QuizLevel: String, CaseIterable {
 
 final class QuizManager: ObservableObject {
     // MARK: - Properties
-    @Published var currentIndex: Int = 0
-    @Published var quizIndex: Int = 0
+    @Published var quizNumber: Int = 0
+    @Published var eachQuizWordNumber: Int = 0
     @Published var correctCount = 0
-    @Published var count = 3
-    @Published var tryAgainCount = 3
-    @Published var answer = ""
-    @Published var alertTitle = ""
+    @Published var countDown = 3
+    @Published var tryAgainRemainCount = 3
+    @Published var textFieldInputs = ""
     @Published var formattedCorrectAnswer = ""
-    @Published var isShowResultView = false
     @Published var isShowQuizDetailView = false
     @Published var isShowQuizView = false
-    @Published var isSetNextQuiz = false
     @Published var isShowAnswerView = false
-    @Published var isTryAgain = false
     @Published var isShowDescriptionModalView = false
+    @Published var isShowResultView = false
+    @Published var isSetNextQuiz = false
+    @Published var isTryAgainTriggered = false
+    @Published var isTryNextQuiz = false
     @Published var isAnswerCorrect = false
     @Published var isShowMaruBatsu = false
-    @Published var isTryOneMore = false
-    @Published var isTryNextQuiz = false
     @Published var allQuizDataArray: [String] = []
     @Published var formattedQuizArray: [String] = []
-    @Published var prodQuizContent: [String] = []
-    @Published var eachQuizArray: [String] = []
-    @Published var quizForRetry: [String] = []
+    @Published var productionQuizContentArray: [String] = []
+    @Published var quizContentForTryAgain: [String] = []
     @Published var userAnswer: [String] = []
     @Published var correctAnswer: [String] = []
-    @Published var timer: Timer?
+    @Published var countDownTimer: Timer?
     @Published var quizTimer: Timer?
     @Published var quizLevel: QuizLevel?
     @Published var quizData = QuizData()
@@ -52,44 +49,47 @@ final class QuizManager: ObservableObject {
         self.quizLevel = quizLevel
         if isSetNextQuiz {
             // 次の問題をセット
-            count = 3
-            quizIndex = 0
-            currentIndex += 1
+            countDown = 3
+            eachQuizWordNumber = 0
+            quizNumber += 1
         } else {
             // 初回読み込み
             quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         }
-        formattedQuizArray = quizData.allQuizContents[currentIndex]
+        formattedQuizArray = quizData.allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        prodQuizContent = formattedQuizArray
-        prodQuizContent.shuffle()
-        print("問題番号: \(currentIndex), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番: \(prodQuizContent)\n-----------------------------------------")
+        productionQuizContentArray = formattedQuizArray
+        productionQuizContentArray.shuffle()
+        print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
+    // TryAgain用
     func resetAndRestartQuiz() {
-        count = 3
-        quizIndex = 0
-        prodQuizContent = quizForRetry
+        countDown = 3
+        eachQuizWordNumber = 0
+        productionQuizContentArray = quizContentForTryAgain
     }
 
+    // カウントダウンタイマー
     func startTimerForCountDown() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
             guard let self else { return }
-            if self.count > 0 {
-                self.count -= 1
-                if self.count == 0 {
+            if self.countDown > 0 {
+                self.countDown -= 1
+                if self.countDown == 0 {
                     self.startTimerForQuiz()
                 }
             }
         }
     }
 
+    // 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
         quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
             guard let self else { return }
-            if self.quizIndex < (self.isTryAgain ? self.quizForRetry.count : self.prodQuizContent.count) {
-                self.quizIndex += 1
+            if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
+                self.eachQuizWordNumber += 1
             } else {
                 self.quizTimer?.invalidate()
                 self.quizTimer = nil
@@ -99,15 +99,17 @@ final class QuizManager: ObservableObject {
         }
     }
 
+    // タイマー破棄
     func stopTimer() {
-        timer?.invalidate()
+        countDownTimer?.invalidate()
         quizTimer?.invalidate()
-        timer = nil
+        countDownTimer = nil
         quizTimer = nil
     }
 
+    // 正誤判定
     func judgeAnswer() {
-        userAnswer = answer.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        userAnswer = textFieldInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         isShowMaruBatsu = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
@@ -119,41 +121,40 @@ final class QuizManager: ObservableObject {
         }
     }
 
+    // 次の問題用にリセット
     func resetQuiz() {
         isShowDescriptionModalView = false
         isShowAnswerView = false
         isAnswerCorrect = false
-        answer = ""
-        tryAgainCount = 3
+        textFieldInputs = ""
+        tryAgainRemainCount = 3
         userAnswer = []
         correctAnswer = []
     }
 
+    // 全てリセット
     func resetAllQuiz() {
-        currentIndex = 0
-        quizIndex = 0
+        quizNumber = 0
+        eachQuizWordNumber = 0
         correctCount = 0
         isShowResultView = false
         allQuizDataArray = []
         formattedQuizArray = []
-        prodQuizContent = []
+        productionQuizContentArray = []
         isShowQuizDetailView = false
         isShowQuizView = false
         isSetNextQuiz = false
-        count = 3
-        eachQuizArray = []
+        countDown = 3
         isShowAnswerView = false
-        isTryAgain = false
-        quizForRetry = []
-        tryAgainCount = 3
-        answer = ""
+        isTryAgainTriggered = false
+        quizContentForTryAgain = []
+        tryAgainRemainCount = 3
+        textFieldInputs = ""
         userAnswer = []
-        alertTitle = ""
         isShowDescriptionModalView = false
         isAnswerCorrect = false
         isShowMaruBatsu = false
         correctAnswer = []
-        isTryOneMore = false
     }
 
     // CSVファイルの読み込み

@@ -23,19 +23,18 @@ struct AnswerView: View {
                 VStack(spacing: 28) {
                     Text("解答")
                         .modifier(CustomLabel(foregroundColor: .black, size: 32))
-                    TextField("正しい順番に並び替えよう", text: $quizManager.answer)
+                    TextField("正しい順番に並び替えよう", text: $quizManager.textFieldInputs)
                         .modifier(CustomTextField())
                     Button("GO") {
                         quizManager.judgeAnswer()
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
-                    Button("もう一度みる (あと\(quizManager.tryAgainCount)回)") {
-                        quizManager.isTryOneMore = true
-                        quizManager.isTryAgain = true
+                    Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
+                        quizManager.isTryAgainTriggered = true
                         quizManager.isShowAnswerView = false
                         navigationManager.path.removeLast()
                     }
-                    .disabled(quizManager.tryAgainCount < 1)
+                    .disabled(quizManager.tryAgainRemainCount < 1)
                 }
                 if quizManager.isShowMaruBatsu {
                     Image(systemName: quizManager.isAnswerCorrect ? "circle.circle" : "multiply")
@@ -45,7 +44,7 @@ struct AnswerView: View {
             }
         }
         .onDisappear {
-            quizManager.isTryOneMore = false
+            quizManager.isTryAgainTriggered = false
         }
         .navigationBarBackButtonHidden()
     }
