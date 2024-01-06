@@ -10,11 +10,11 @@ import SwiftUI
 
 struct QuizDetailView: View {
     @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
     
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationManager.path) {
             VStack(alignment: .center) {
-                NavigationLink(destination: QuizView(), isActive: $quizManager.isShowQuizView) {}
                 Text("\(quizManager.quizLevel?.rawValue ?? "Easy"): \(quizManager.quizData.allQuizContents.count)問")
                     .modifier(CustomLabel(foregroundColor: .black, size: 32))
                 Text("3秒のカウント後、フラッシュ形式で問題が出題されます")
@@ -22,10 +22,26 @@ struct QuizDetailView: View {
                     .padding()
                 Spacer()
                 Button("始める") {
-                    quizManager.isShowQuizView = true
+                    navigationManager.path.append(.quizView)
                 }
                 .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor))
                 Spacer()
+            }
+            .navigationDestination(for: ViewType.self) { viewType in
+                switch viewType {
+                case .homeView:
+                    HomeView()
+                case .quizDetailView:
+                    QuizDetailView()
+                case .quizView:
+                    QuizView()
+                case .answerView:
+                    AnswerView()
+                case .answerDetailView:
+                    AnswerDetailView()
+                case .resultView:
+                    ResultView()
+                }
             }
         }
         .navigationBarBackButtonHidden()
@@ -36,5 +52,6 @@ struct QuizDetailView_Previews: PreviewProvider {
     static var previews: some View {
         QuizDetailView()
             .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

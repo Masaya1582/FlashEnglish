@@ -9,12 +9,11 @@ import SwiftUI
 
 struct QuizView: View {
     @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationManager.path) {
             VStack {
-                NavigationLink(destination: AnswerView(), isActive: $quizManager.isShowAnswerView) {
-                }
                 Text("Question \(quizManager.currentIndex + 1)")
                     .modifier(CustomLabel(foregroundColor: Asset.Colors.gray3.swiftUIColor, size: 32))
                 Spacer()
@@ -27,10 +26,29 @@ struct QuizView: View {
                 }
                 Spacer()
             }
+            .navigationDestination(for: ViewType.self) { viewType in
+                switch viewType {
+                case .homeView:
+                    HomeView()
+                case .quizDetailView:
+                    QuizDetailView()
+                case .quizView:
+                    QuizView()
+                case .answerView:
+                    AnswerView()
+                case .answerDetailView:
+                    AnswerDetailView()
+                case .resultView:
+                    ResultView()
+                }
+            }
             .onAppear {
                 quizManager.startTimerForCountDown()
                 if !quizManager.isTryAgain && quizManager.isSetNextQuiz {
                     quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .easy)
+                }
+                if quizManager.isTryAgain {
+                    quizManager.isTryAgain = false
                 }
                 quizManager.quizForRetry = quizManager.prodQuizContent
             }
@@ -41,6 +59,11 @@ struct QuizView: View {
                 if isTryAgain {
                     quizManager.tryAgainCount -= 1
                     quizManager.resetAndRestartQuiz()
+                }
+            }
+            .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
+                if isShowAnswerView {
+                    navigationManager.path.append(.answerView)
                 }
             }
         }
@@ -76,5 +99,6 @@ struct QuizView_Previews: PreviewProvider {
     static var previews: some View {
         QuizView()
             .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

@@ -10,11 +10,11 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $navigationManager.path) {
             VStack(spacing: 10) {
-                NavigationLink(destination: QuizDetailView(), isActive: $quizManager.isShowQuizDetailView) {}
                 Text("フラッシュ暗記法")
                     .font(.title)
                     .fontWeight(.bold)
@@ -26,12 +26,28 @@ struct HomeView: View {
                 Spacer()
                 ForEach(QuizLevel.allCases, id: \.self) { level in
                     Button(level.rawValue) {
-                        quizManager.isShowQuizDetailView = true
+                        navigationManager.path.append(.quizDetailView)
                         quizManager.setQuiz(isSetNextQuiz: false, quizLevel: level)
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor))
                 }
                 Spacer()
+            }
+            .navigationDestination(for: ViewType.self) { viewType in
+                switch viewType {
+                case .homeView:
+                    HomeView()
+                case .quizDetailView:
+                    QuizDetailView()
+                case .quizView:
+                    QuizView()
+                case .answerView:
+                    AnswerView()
+                case .answerDetailView:
+                    AnswerDetailView()
+                case .resultView:
+                    ResultView()
+                }
             }
         }
     }
@@ -41,5 +57,6 @@ struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
             .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

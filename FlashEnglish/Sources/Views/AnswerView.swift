@@ -10,6 +10,7 @@ import SwiftUI
 
 struct AnswerView: View {
     @EnvironmentObject var quizManager: QuizManager
+    @EnvironmentObject var navigationManager: NavigationManager
 
     var body: some View {
         NavigationView {
@@ -30,7 +31,9 @@ struct AnswerView: View {
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: .orange))
                     Button("もう一度みる (あと\(quizManager.tryAgainCount)回)") {
                         quizManager.isTryOneMore = true
+                        quizManager.isTryAgain = true
                         quizManager.isShowAnswerView = false
+                        navigationManager.path.removeLast()
                     }
                     .disabled(quizManager.tryAgainCount < 1)
                 }
@@ -52,5 +55,6 @@ struct AnswerView_Previews: PreviewProvider {
     static var previews: some View {
         AnswerView()
             .environmentObject(QuizManager())
+            .environmentObject(NavigationManager())
     }
 }

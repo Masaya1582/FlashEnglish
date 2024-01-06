@@ -14,6 +14,7 @@ struct FlashEnglishApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(QuizManager())
+                .environmentObject(NavigationManager())
         }
     }
 }
