@@ -56,6 +56,7 @@ struct AnswerView: View {
                     Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
                         quizManager.isTryAgainTriggered = true
                         quizManager.isShowAnswerView = false
+                        quizManager.tryAgainRemainCount -= 1
                         navigationManager.path.removeLast()
                     }
                     .disabled(quizManager.tryAgainRemainCount < 1)
@@ -87,7 +88,6 @@ struct AnswerView: View {
             if quizManager.tryAgainRemainCount < 1 {
                 quizManager.isShowHint = true
             }
-            quizManager.isTryAgainTriggered = false
         }
         .navigationBarBackButtonHidden()
     }

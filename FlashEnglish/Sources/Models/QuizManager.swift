@@ -67,8 +67,8 @@ final class QuizManager: ObservableObject {
         levelTitle = quizLevel.levelTitle
         if isSetNextQuiz {
             // 次の問題をセット
-            countDown = 3
-            eachQuizWordNumber = 0
+            // countDown = 3
+            // eachQuizWordNumber = 0
             quizNumber += 1
         } else {
             // 初回読み込み
@@ -91,8 +91,7 @@ final class QuizManager: ObservableObject {
 
     // カウントダウンタイマー
     func startTimerForCountDown() {
-        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            guard let self else { return }
+        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             if self.countDown > 0 {
                 self.countDown -= 1
                 if self.countDown == 0 {
@@ -104,8 +103,7 @@ final class QuizManager: ObservableObject {
 
     // 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
-        quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
-            guard let self else { return }
+        quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
             if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
                 self.eachQuizWordNumber += 1
             } else {
@@ -118,24 +116,27 @@ final class QuizManager: ObservableObject {
     }
 
     // タイマー破棄
-    func stopTimer() {
-        countDownTimer?.invalidate()
-        quizTimer?.invalidate()
-        countDownTimer = nil
-        quizTimer = nil
+    func resetTimer() {
+        self.countDown = 3
+        self.eachQuizWordNumber = 0
+        self.countDownTimer?.invalidate()
+        self.quizTimer?.invalidate()
+        self.countDownTimer = nil
+        self.quizTimer = nil
     }
 
     // 正誤判定
     func judgeAnswer() {
         userAnswer = textFieldInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        print("Userの答え: \(userAnswer), 正解: \(correctAnswer)")
         isShowMaruBatsu = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
             correctCount += 1
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
-            self?.isShowMaruBatsu = false
-            self?.isShowDescriptionModalView = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { 
+            self.isShowMaruBatsu = false
+            self.isShowDescriptionModalView = true
         }
     }
 
@@ -146,6 +147,7 @@ final class QuizManager: ObservableObject {
         isAnswerCorrect = false
         isFlipHint = false
         textFieldInputs = ""
+        countDown = 3
         tryAgainRemainCount = 2
         userAnswer = []
         correctAnswer = []

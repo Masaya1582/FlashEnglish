@@ -45,23 +45,18 @@ struct QuizView: View {
                 }
             }
             .onAppear {
-                quizManager.startTimerForCountDown()
                 if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
                     quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .juniorHighSchool)
                 }
                 if quizManager.isTryAgainTriggered {
+                    quizManager.resetAndRestartQuiz()
                     quizManager.isTryAgainTriggered = false
                 }
                 quizManager.quizContentForTryAgain = quizManager.productionQuizContentArray
+                quizManager.startTimerForCountDown()
             }
             .onDisappear {
-                quizManager.stopTimer()
-            }
-            .onChange(of: quizManager.isTryAgainTriggered) { isTryAgainTriggered in
-                if isTryAgainTriggered {
-                    quizManager.tryAgainRemainCount -= 1
-                    quizManager.resetAndRestartQuiz()
-                }
+                quizManager.resetTimer()
             }
             .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
                 if isShowAnswerView {
