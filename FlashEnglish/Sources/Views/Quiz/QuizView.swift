@@ -20,11 +20,9 @@ struct QuizView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
                 Spacer()
                 if quizManager.countDown > 0 {
-                    initialCounter
-                } else {
-                    if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
-                        quizContent
-                    }
+                    countDownCircle
+                } else if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
+                    quizContent
                 }
                 Spacer()
             }
@@ -40,28 +38,21 @@ struct QuizView: View {
                     AnswerView()
                 case .answerDetailView:
                     AnswerDetailView()
-                case .resultView:
-                    ResultView()
+                case .scoreView:
+                    ScoreView()
                 }
             }
             .onAppear {
-                quizManager.startTimerForCountDown()
                 if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
                     quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .juniorHighSchool)
                 }
                 if quizManager.isTryAgainTriggered {
-                    quizManager.isTryAgainTriggered = false
-                }
-                quizManager.quizContentForTryAgain = quizManager.productionQuizContentArray
-            }
-            .onDisappear {
-                quizManager.stopTimer()
-            }
-            .onChange(of: quizManager.isTryAgainTriggered) { isTryAgainTriggered in
-                if isTryAgainTriggered {
-                    quizManager.tryAgainRemainCount -= 1
                     quizManager.resetAndRestartQuiz()
                 }
+                quizManager.startTimerForCountDown()
+            }
+            .onDisappear {
+                quizManager.resetCount()
             }
             .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
                 if isShowAnswerView {
@@ -73,7 +64,7 @@ struct QuizView: View {
     }
 
     // カウントダウン表示
-    var initialCounter: some View {
+    var countDownCircle: some View {
         Text("\(quizManager.countDown)")
             .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
             .padding()

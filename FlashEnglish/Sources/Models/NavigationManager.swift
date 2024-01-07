@@ -13,7 +13,7 @@ enum ViewType: Hashable {
     case quizView
     case answerView
     case answerDetailView
-    case resultView
+    case scoreView
 }
 
 final class NavigationManager: ObservableObject {

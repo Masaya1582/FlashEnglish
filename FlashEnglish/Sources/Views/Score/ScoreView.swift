@@ -1,5 +1,5 @@
 //
-//  ResultView.swift
+//  ScoreView.swift
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ResultView: View {
+struct ScoreView: View {
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
@@ -48,9 +48,9 @@ struct ResultView: View {
 }
 
 // MARK: - Preview
-struct ResultView_Previews: PreviewProvider {
+struct ScoreView_Previews: PreviewProvider {
     static var previews: some View {
-        ResultView()
+        ScoreView()
             .environmentObject(QuizManager())
             .environmentObject(NavigationManager())
     }

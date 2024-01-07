@@ -52,6 +52,7 @@ struct CustomTextField: ViewModifier {
     }
 }
 
+/// カスタムImage
 struct CustomImage: ViewModifier {
     let width: CGFloat
     let height: CGFloat

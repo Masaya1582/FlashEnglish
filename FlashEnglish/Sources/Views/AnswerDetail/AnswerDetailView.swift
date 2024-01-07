@@ -38,8 +38,8 @@ struct AnswerDetailView: View {
                     AnswerView()
                 case .answerDetailView:
                     AnswerDetailView()
-                case .resultView:
-                    ResultView()
+                case .scoreView:
+                    ScoreView()
                 }
             }
             .onAppear {
@@ -57,9 +57,9 @@ struct AnswerDetailView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
             nextQuizButton()
         }
+        .frame(maxWidth: .infinity)
         .padding(4)
         .background(.white)
-        .frame(maxWidth: .infinity)
         .cornerRadius(20)
     }
 
@@ -68,7 +68,7 @@ struct AnswerDetailView: View {
         VStack {
             Button(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題") {
                 if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
-                    navigationManager.path.append(.resultView)
+                    navigationManager.path.append(.scoreView)
                 } else {
                     quizManager.isTryNextQuiz = true
                     quizManager.isSetNextQuiz = true
@@ -83,7 +83,7 @@ struct AnswerDetailView: View {
             .alert(isPresented: $quizManager.isShowAlert) {
                 Alert(
                     title: Text("確認"),
-                    message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
+                    message: Text(L10n.alertDetail),
                     primaryButton: .destructive(Text("ホームに戻る")) {
                         quizManager.resetAllQuiz()
                         navigationManager.path.removeAll()

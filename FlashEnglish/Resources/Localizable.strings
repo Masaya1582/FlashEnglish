@@ -1,0 +1,6 @@
+// QuizDetailView
+"main_description" = "3カウント後、フラッシュ算式に問題が出題されます";
+"sub_description" = "*全て肯定文で並び替えを行なってください\n*稀に並び替え不要、その時はラッキー";
+
+// AnswerView
+"alert_detail" = "ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます";
