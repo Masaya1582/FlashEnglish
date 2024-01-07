@@ -27,7 +27,7 @@ struct ScoreView: View {
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
                     Spacer()
                 }
-                quizManager.isShowPerfectAnimation ? LottieView(lottieFile: "lottie_perfect") : nil
+                quizManager.isShowPerfectAnimation ? LottieView(lottieFile: L10n.lottiePerfect) : nil
             }
             .onAppear {
                 // 全問正解且つヒントを見ないでクリアしたら王冠をつける

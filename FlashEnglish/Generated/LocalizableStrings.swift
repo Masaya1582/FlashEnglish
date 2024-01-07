@@ -13,6 +13,12 @@ internal enum L10n {
   /// ホーム画面に戻りますがよろしいですか？
   /// *クイズデータは破棄されます
   internal static let alertDetail = L10n.tr("Localizable", "alert_detail", fallback: "ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます")
+  /// lottie_correct
+  internal static let lottieCorrect = L10n.tr("Localizable", "lottie_correct", fallback: "lottie_correct")
+  /// lottie_incorrect
+  internal static let lottieIncorrect = L10n.tr("Localizable", "lottie_incorrect", fallback: "lottie_incorrect")
+  /// lottie_perfect
+  internal static let lottiePerfect = L10n.tr("Localizable", "lottie_perfect", fallback: "lottie_perfect")
   /// 3カウント後、フラッシュ算式に問題が出題されます
   internal static let mainDescription = L10n.tr("Localizable", "main_description", fallback: "3カウント後、フラッシュ算式に問題が出題されます")
   /// *全て肯定文で並び替えを行なってください

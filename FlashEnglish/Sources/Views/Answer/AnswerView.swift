@@ -40,9 +40,9 @@ struct AnswerView: View {
                 .padding(.horizontal, 12)
                 if quizManager.isShowMaruBatsu {
                     if quizManager.isAnswerCorrect {
-                        LottieView(lottieFile: "lottie_correct")
+                        LottieView(lottieFile: L10n.lottieCorrect)
                     } else {
-                        LottieView(lottieFile: "lottie_incorrect")
+                        LottieView(lottieFile: L10n.lottieIncorrect)
                     }
                 }
             }

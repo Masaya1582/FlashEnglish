@@ -4,3 +4,8 @@
 
 // AnswerView
 "alert_detail" = "ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます";
+
+// Lottie
+"lottie_correct" = "lottie_correct";
+"lottie_incorrect" = "lottie_incorrect";
+"lottie_perfect" = "lottie_perfect";
