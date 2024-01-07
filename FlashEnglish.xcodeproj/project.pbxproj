@@ -30,6 +30,7 @@
 		1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */; };
 		1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19A2B494A6300E0A468 /* lottie_correct.json */; };
 		1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */; };
+		1E1BB1A92B4A898F00E0A468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -65,6 +66,8 @@
 		1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_incorrect.json; sourceTree = "<group>"; };
 		1E1BB19A2B494A6300E0A468 /* lottie_correct.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_correct.json; sourceTree = "<group>"; };
 		1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_perfect.json; sourceTree = "<group>"; };
+		1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -172,6 +175,14 @@
 			path = Score;
 			sourceTree = "<group>";
 		};
+		1E1BB1A72B4A897100E0A468 /* LaunchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */,
+			);
+			path = LaunchScreen;
+			sourceTree = "<group>";
+		};
 		400A9C032B467BA60086914E = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +204,7 @@
 		400A9C0E2B467BA60086914E /* FlashEnglish */ = {
 			isa = PBXGroup;
 			children = (
+				1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */,
 				400A9C1D2B467CD00086914E /* Resources */,
 				400A9C1E2B467CDF0086914E /* Sources */,
 				1E1BB18E2B493BAF00E0A468 /* CSV */,
@@ -264,6 +276,7 @@
 				1E1BB1A52B4972D800E0A468 /* AnswerDetail */,
 				1E1BB1A62B4972DF00E0A468 /* Score */,
 				400A9C342B4682F00086914E /* View Modifiers */,
+				1E1BB1A72B4A897100E0A468 /* LaunchScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -365,6 +378,7 @@
 				1E1BB17E2B48DF1C00E0A468 /* HighSchool.csv in Resources */,
 				1E1BB1832B49285B00E0A468 /* NotoSansJP-VariableFont_wght.ttf in Resources */,
 				1E1BB17F2B48DF1C00E0A468 /* College.csv in Resources */,
+				1E1BB1A92B4A898F00E0A468 /* LaunchScreen.storyboard in Resources */,
 				1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */,
 				400A9C142B467BA70086914E /* Assets.xcassets in Resources */,
 				1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */,
@@ -598,11 +612,12 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlashEnglish/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "フラッシュ英文法";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
@@ -635,11 +650,12 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlashEnglish/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "フラッシュ英文法";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
