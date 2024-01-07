@@ -110,7 +110,6 @@ final class QuizManager: ObservableObject {
     // 正誤判定
     func judgeAnswer() {
         userAnswer = textFieldInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        print("Userの答え: \(userAnswer), 正解: \(correctAnswer)")
         isShowMaruBatsu = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true

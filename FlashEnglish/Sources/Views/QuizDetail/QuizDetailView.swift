@@ -44,11 +44,11 @@ struct QuizDetailView: View {
         VStack(alignment: .center) {
             Text("\(quizManager.levelTitle): \(quizManager.quizData.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
-            Text("3カウント後、フラッシュ算式に問題が出題されます")
+            Text(L10n.mainDescription)
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
-            Text("*全て肯定文で並び替えを行なってください\n*稀に並び替え不要、その時はラッキー")
+            Text(L10n.subDescription)
                 .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
                 .padding()
         }

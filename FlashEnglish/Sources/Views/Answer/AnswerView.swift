@@ -28,7 +28,7 @@ struct AnswerView: View {
                     .alert(isPresented: $quizManager.isShowAlert) {
                         Alert(
                             title: Text("確認"),
-                            message: Text("ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます"),
+                            message: Text(L10n.alertDetail),
                             primaryButton: .destructive(Text("ホームに戻る")) {
                                 quizManager.resetAllQuiz()
                                 navigationManager.path.removeAll()
