@@ -187,6 +187,13 @@ final class QuizManager: ObservableObject {
         UserDefaults.standard.bool(forKey: "\(level)Completed")
     }
 
+    func shareApp(_ shareText: String) {
+        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+        let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let rootViewController = windowscene?.windows.first?.rootViewController
+        rootViewController?.present(activityViewController, animated: true)
+    }
+
     // CSVファイルの読み込み
     private func loadCSV(with name: String) -> [String] {
         guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {

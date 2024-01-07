@@ -25,7 +25,7 @@ struct ScoreView: View {
                     Text(quizManager.scoreTitle)
                         .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
                     Button("シェアする") {
-                        // シェアボタン
+                        quizManager.shareApp("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                     }
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold))
                     Button("ホームに戻る") {
