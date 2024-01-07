@@ -41,7 +41,7 @@ final class QuizManager: ObservableObject {
     @Published var isShowQuizView = false
     @Published var isShowAnswerView = false
     @Published var isShowDescriptionModalView = false
-    @Published var isShowResultView = false
+    @Published var isShowScoreView = false
     @Published var isSetNextQuiz = false
     @Published var isTryAgainTriggered = false
     @Published var isTryNextQuiz = false
@@ -158,7 +158,7 @@ final class QuizManager: ObservableObject {
         isShowQuizView = false
         isShowAnswerView = false
         isShowDescriptionModalView = false
-        isShowResultView = false
+        isShowScoreView = false
         isSetNextQuiz = false
         isTryAgainTriggered = false
         isTryNextQuiz = false

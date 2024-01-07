@@ -32,8 +32,8 @@ struct QuizDetailView: View {
                         AnswerView()
                     case .answerDetailView:
                         AnswerDetailView()
-                    case .resultView:
-                        ResultView()
+                    case .scoreView:
+                        ScoreView()
                     }
                 }
         }

@@ -38,8 +38,8 @@ struct QuizView: View {
                     AnswerView()
                 case .answerDetailView:
                     AnswerDetailView()
-                case .resultView:
-                    ResultView()
+                case .scoreView:
+                    ScoreView()
                 }
             }
             .onAppear {

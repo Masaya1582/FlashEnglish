@@ -40,8 +40,8 @@ struct HomeView: View {
                         AnswerView()
                     case .answerDetailView:
                         AnswerDetailView()
-                    case .resultView:
-                        ResultView()
+                    case .scoreView:
+                        ScoreView()
                     }
                 }
         }

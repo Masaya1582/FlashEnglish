@@ -38,8 +38,8 @@ struct AnswerDetailView: View {
                     AnswerView()
                 case .answerDetailView:
                     AnswerDetailView()
-                case .resultView:
-                    ResultView()
+                case .scoreView:
+                    ScoreView()
                 }
             }
             .onAppear {
@@ -68,7 +68,7 @@ struct AnswerDetailView: View {
         VStack {
             Button(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題") {
                 if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
-                    navigationManager.path.append(.resultView)
+                    navigationManager.path.append(.scoreView)
                 } else {
                     quizManager.isTryNextQuiz = true
                     quizManager.isSetNextQuiz = true
