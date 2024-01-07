@@ -37,6 +37,7 @@ final class QuizManager: ObservableObject {
     @Published var textFieldInputs = ""
     @Published var formattedCorrectAnswer = ""
     @Published var levelTitle = ""
+    @Published var scoreTitle = ""
     @Published var isShowQuizDetailView = false
     @Published var isShowQuizView = false
     @Published var isShowAnswerView = false
@@ -154,6 +155,7 @@ final class QuizManager: ObservableObject {
         textFieldInputs = ""
         formattedCorrectAnswer = ""
         levelTitle = ""
+        scoreTitle = ""
         isShowQuizDetailView = false
         isShowQuizView = false
         isShowAnswerView = false

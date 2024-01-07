@@ -32,6 +32,9 @@ internal enum Asset {
     internal static let imgHighSchool = ImageAsset(name: "img_high_school")
     internal static let imgJuniorHighSchool = ImageAsset(name: "img_junior_high_school")
     internal static let imgMonster = ImageAsset(name: "img_monster")
+    internal static let imgScoreBronze = ImageAsset(name: "img_score_bronze")
+    internal static let imgScoreGold = ImageAsset(name: "img_score_gold")
+    internal static let imgScoreSilver = ImageAsset(name: "img_score_silver")
     internal static let imgCrown = ImageAsset(name: "img_crown")
     internal static let imgLaunch = ImageAsset(name: "img_launch")
   }

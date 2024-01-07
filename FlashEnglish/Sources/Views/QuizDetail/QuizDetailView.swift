@@ -69,6 +69,9 @@ struct QuizDetailView: View {
                 quizManager.resetAllQuiz()
                 navigationManager.path.removeAll()
             }
+            Button("Score (DEBUG)") {
+                navigationManager.path.append(.scoreView)
+            }
         }
     }
 }

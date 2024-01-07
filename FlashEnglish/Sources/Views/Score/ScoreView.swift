@@ -17,10 +17,18 @@ struct ScoreView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    Text("Result: \(quizManager.correctCount)問正解")
-                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                    Text("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解")
+                        .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
                     Spacer()
-                    Button("Back") {
+                    medalView()
+                    Spacer().frame(height: 80)
+                    Text(quizManager.scoreTitle)
+                        .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
+                    Button("シェアする") {
+                        // シェアボタン
+                    }
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold))
+                    Button("ホームに戻る") {
                         quizManager.resetAllQuiz()
                         navigationManager.path.removeAll()
                     }
@@ -45,6 +53,31 @@ struct ScoreView: View {
         .navigationBarBackButtonHidden()
     }
 
+    @ViewBuilder
+    private func medalView() -> some View {
+        VStack {
+            if quizManager.quizData.allQuizContents.count == quizManager.correctCount {
+                Asset.Assets.imgScoreGold.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+                Text("You are a Genius!")
+                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
+            } else if quizManager.correctCount / quizManager.quizData.allQuizContents.count * 100 > 50 {
+                Asset.Assets.imgScoreSilver.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+                Text("You are awesome!")
+                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
+            } else {
+                Asset.Assets.imgScoreBronze.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+                Text("Let's try again!")
+                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
+            }
+        }
+
+    }
 }
 
 // MARK: - Preview
