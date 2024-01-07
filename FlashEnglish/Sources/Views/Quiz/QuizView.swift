@@ -20,11 +20,9 @@ struct QuizView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
                 Spacer()
                 if quizManager.countDown > 0 {
-                    initialCounter
-                } else {
-                    if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
-                        quizContent
-                    }
+                    countDownCircle
+                } else if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
+                    quizContent
                 }
                 Spacer()
             }
@@ -50,13 +48,11 @@ struct QuizView: View {
                 }
                 if quizManager.isTryAgainTriggered {
                     quizManager.resetAndRestartQuiz()
-                    quizManager.isTryAgainTriggered = false
                 }
-                quizManager.quizContentForTryAgain = quizManager.productionQuizContentArray
                 quizManager.startTimerForCountDown()
             }
             .onDisappear {
-                quizManager.resetTimer()
+                quizManager.resetCount()
             }
             .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
                 if isShowAnswerView {
@@ -68,7 +64,7 @@ struct QuizView: View {
     }
 
     // カウントダウン表示
-    var initialCounter: some View {
+    var countDownCircle: some View {
         Text("\(quizManager.countDown)")
             .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
             .padding()

@@ -65,15 +65,7 @@ final class QuizManager: ObservableObject {
     func setQuiz(isSetNextQuiz: Bool, quizLevel: QuizLevel) {
         self.quizLevel = quizLevel
         levelTitle = quizLevel.levelTitle
-        if isSetNextQuiz {
-            // 次の問題をセット
-            // countDown = 3
-            // eachQuizWordNumber = 0
-            quizNumber += 1
-        } else {
-            // 初回読み込み
-            quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
-        }
+        isSetNextQuiz ? (quizNumber += 1) : (quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled())
         formattedQuizArray = quizData.allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -84,8 +76,6 @@ final class QuizManager: ObservableObject {
 
     // TryAgain用
     func resetAndRestartQuiz() {
-        countDown = 3
-        eachQuizWordNumber = 0
         productionQuizContentArray = quizContentForTryAgain
     }
 
@@ -95,6 +85,8 @@ final class QuizManager: ObservableObject {
             if self.countDown > 0 {
                 self.countDown -= 1
                 if self.countDown == 0 {
+                    self.countDownTimer?.invalidate()
+                    self.countDownTimer = nil
                     self.startTimerForQuiz()
                 }
             }
@@ -115,16 +107,6 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // タイマー破棄
-    func resetTimer() {
-        self.countDown = 3
-        self.eachQuizWordNumber = 0
-        self.countDownTimer?.invalidate()
-        self.quizTimer?.invalidate()
-        self.countDownTimer = nil
-        self.quizTimer = nil
-    }
-
     // 正誤判定
     func judgeAnswer() {
         userAnswer = textFieldInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -134,9 +116,20 @@ final class QuizManager: ObservableObject {
             isAnswerCorrect = true
             correctCount += 1
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { 
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.isShowMaruBatsu = false
             self.isShowDescriptionModalView = true
+        }
+    }
+
+    // カウントリセット
+    func resetCount() {
+        countDown = 3
+        eachQuizWordNumber = 0
+        // TryAgain用に今の問題を残しておく
+        quizContentForTryAgain = productionQuizContentArray
+        if isTryAgainTriggered {
+            isTryAgainTriggered = false
         }
     }
 
@@ -147,7 +140,6 @@ final class QuizManager: ObservableObject {
         isAnswerCorrect = false
         isFlipHint = false
         textFieldInputs = ""
-        countDown = 3
         tryAgainRemainCount = 2
         userAnswer = []
         correctAnswer = []
@@ -160,25 +152,34 @@ final class QuizManager: ObservableObject {
         correctCount = 0
         countDown = 3
         tryAgainRemainCount = 2
-        isShowResultView = false
+        textFieldInputs = ""
+        formattedCorrectAnswer = ""
+        levelTitle = ""
         isShowQuizDetailView = false
         isShowQuizView = false
-        isSetNextQuiz = false
-        isShowHint = false
-        isFlipHint = false
         isShowAnswerView = false
-        isTryAgainTriggered = false
         isShowDescriptionModalView = false
+        isShowResultView = false
+        isSetNextQuiz = false
+        isTryAgainTriggered = false
+        isTryNextQuiz = false
         isAnswerCorrect = false
         isShowMaruBatsu = false
+        isShowAlert = false
+        isShowHint = false
+        isFlipHint = false
         isShowPerfectAnimation = false
         formattedQuizArray = []
         productionQuizContentArray = []
         quizContentForTryAgain = []
-        textFieldInputs = ""
-        levelTitle = ""
         userAnswer = []
         correctAnswer = []
+        countDownTimer?.invalidate()
+        countDownTimer = nil
+        quizTimer?.invalidate()
+        quizTimer = nil
+        quizLevel = nil
+        quizData = QuizData()
     }
 
     func isLevelCompleted(level: String) -> Bool {
