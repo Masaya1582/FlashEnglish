@@ -57,9 +57,9 @@ struct AnswerDetailView: View {
                 .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
             nextQuizButton()
         }
+        .frame(maxWidth: .infinity)
         .padding(4)
         .background(.white)
-        .frame(maxWidth: .infinity)
         .cornerRadius(20)
     }
 
