@@ -76,7 +76,7 @@ struct AnswerDetailView: View {
                     navigationManager.path.append(.quizView)
                 }
             }
-            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+            .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
             Button("ホームに戻る") {
                 quizManager.isShowAlert = true
             }
