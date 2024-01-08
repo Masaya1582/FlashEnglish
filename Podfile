@@ -8,5 +8,6 @@ target 'FlashEnglish' do
   # Pods for FlashEnglish
     pod 'SwiftGen', '~> 6.0'
     pod 'lottie-ios'
+    pod 'Google-Mobile-Ads-SDK'
 
 end
