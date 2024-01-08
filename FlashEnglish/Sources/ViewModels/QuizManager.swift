@@ -71,12 +71,14 @@ final class QuizManager: ObservableObject {
         formattedQuizArray = quizData.allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        for content in quizData.allQuizContents {
-            let processedContent = content
-                .components(separatedBy: ",")
-                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .joined(separator: " ")
-            quizDataForScoreView.append(processedContent)
+        if !isSetNextQuiz {
+            for content in quizData.allQuizContents {
+                let processedContent = content
+                    .components(separatedBy: ",")
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .joined(separator: " ")
+                quizDataForScoreView.append(processedContent)
+            }
         }
         productionQuizContentArray = formattedQuizArray
         productionQuizContentArray.shuffle()
@@ -185,8 +187,8 @@ final class QuizManager: ObservableObject {
         correctAnswer = []
         quizDataForScoreView = []
         countDownTimer?.invalidate()
-        countDownTimer = nil
         quizTimer?.invalidate()
+        countDownTimer = nil
         quizTimer = nil
         quizLevel = nil
         quizData = QuizData()
