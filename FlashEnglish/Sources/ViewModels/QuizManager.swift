@@ -9,7 +9,7 @@ import SwiftUI
 
 enum QuizLevel: String, CaseIterable {
     case juniorHighSchool = "JuniorHighSchool"
-    case hightSchool = "HighSchool"
+    case highSchool = "HighSchool"
     case college = "College"
     case businessman = "Businessman"
     case expert = "Expert"
@@ -18,7 +18,7 @@ enum QuizLevel: String, CaseIterable {
     var levelTitle: String {
         switch self {
         case .juniorHighSchool: return "中学生レベル"
-        case .hightSchool: return "高校生レベル"
+        case .highSchool: return "高校生レベル"
         case .college: return "大学生レベル"
         case .businessman: return "社会人レベル"
         case .expert: return "専門家レベル"
@@ -37,7 +37,6 @@ final class QuizManager: ObservableObject {
     @Published var textFieldInputs = ""
     @Published var formattedCorrectAnswer = ""
     @Published var levelTitle = ""
-    @Published var scoreTitle = ""
     @Published var isShowQuizDetailView = false
     @Published var isShowQuizView = false
     @Published var isShowAnswerView = false
@@ -155,7 +154,6 @@ final class QuizManager: ObservableObject {
         textFieldInputs = ""
         formattedCorrectAnswer = ""
         levelTitle = ""
-        scoreTitle = ""
         isShowQuizDetailView = false
         isShowQuizView = false
         isShowAnswerView = false
@@ -187,7 +185,7 @@ final class QuizManager: ObservableObject {
         UserDefaults.standard.bool(forKey: "\(level)Completed")
     }
 
-    func takeAllScreenShot() -> UIImage {
+    private func takeAllScreenShot() -> UIImage {
         let window = UIApplication.shared.windows.first { $0.isKeyWindow }
         let size = window?.bounds.size ?? UIScreen.main.bounds.size
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)

@@ -20,10 +20,8 @@ struct ScoreView: View {
                     Text("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解")
                         .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
                     Spacer()
-                    medalView()
+                    levelCircleView()
                     Spacer().frame(height: 80)
-                    Text(quizManager.scoreTitle)
-                        .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
                     Button("シェアする") {
                         quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                     }
@@ -54,26 +52,37 @@ struct ScoreView: View {
     }
 
     @ViewBuilder
-    private func medalView() -> some View {
+    private func levelCircleView() -> some View {
         VStack {
-            if quizManager.quizData.allQuizContents.count == quizManager.correctCount {
-                Asset.Assets.imgScoreGold.swiftUIImage
+            switch quizManager.quizLevel {
+            case .juniorHighSchool:
+                Asset.Assets.imgJuniorHighSchool.swiftUIImage
                     .resizable()
                     .modifier(CustomImage(width: 200, height: 200))
-                Text("You are a Genius!")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
-            } else if quizManager.correctCount / quizManager.quizData.allQuizContents.count * 100 > 50 {
-                Asset.Assets.imgScoreSilver.swiftUIImage
+            case .highSchool:
+                Asset.Assets.imgHighSchool.swiftUIImage
                     .resizable()
                     .modifier(CustomImage(width: 200, height: 200))
-                Text("You are awesome!")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
-            } else {
-                Asset.Assets.imgScoreBronze.swiftUIImage
+            case .college:
+                Asset.Assets.imgCollege.swiftUIImage
                     .resizable()
                     .modifier(CustomImage(width: 200, height: 200))
-                Text("Let's try again!")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 28, fontName: FontFamily.NotoSansJP.bold))
+            case .businessman:
+                Asset.Assets.imgBusinessman.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+            case .expert:
+                Asset.Assets.imgExpert.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+            case .monster:
+                Asset.Assets.imgMonster.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
+            default:
+                Asset.Assets.imgJuniorHighSchool.swiftUIImage
+                    .resizable()
+                    .modifier(CustomImage(width: 200, height: 200))
             }
         }
     }
