@@ -30,7 +30,7 @@
 		1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19A2B494A6300E0A468 /* lottie_correct.json */; };
 		1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */; };
 		1E1BB1A92B4A898F00E0A468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */; };
-		1E1BB1AC2B4B89AB00E0A468 /* GoogleMobileAdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1AB2B4B89AB00E0A468 /* GoogleMobileAdsManager.swift */; };
+		1E1BB1AC2B4B89AB00E0A468 /* AdMobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -67,7 +67,7 @@
 		1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = lottie_perfect.json; sourceTree = "<group>"; };
 		1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1E1BB1AB2B4B89AB00E0A468 /* GoogleMobileAdsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleMobileAdsManager.swift; sourceTree = "<group>"; };
+		1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 			children = (
 				1E1BB1702B47FCBF00E0A468 /* QuizData.swift */,
 				1E1BB1802B48F6D400E0A468 /* NavigationManager.swift */,
-				1E1BB1AB2B4B89AB00E0A468 /* GoogleMobileAdsManager.swift */,
+				1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -457,7 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E1BB1AC2B4B89AB00E0A468 /* GoogleMobileAdsManager.swift in Sources */,
+				1E1BB1AC2B4B89AB00E0A468 /* AdMobBannerView.swift in Sources */,
 				1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */,
 				1E1BB17B2B48DC5000E0A468 /* HomeView.swift in Sources */,
 				400A9C122B467BA60086914E /* QuizView.swift in Sources */,

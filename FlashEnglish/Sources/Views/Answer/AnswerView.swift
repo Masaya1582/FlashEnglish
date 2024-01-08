@@ -112,8 +112,6 @@ struct AnswerView: View {
             quizManager.isShowAlert = true
         }
     }
-
-
 }
 
 // MARK: - Preview
