@@ -69,10 +69,6 @@ struct QuizDetailView: View {
                 quizManager.resetAllQuiz()
                 navigationManager.path.removeAll()
             }
-            // TODO: - 後で消す
-            Button("Score (DEBUG)") {
-                navigationManager.path.append(.scoreView)
-            }
             Spacer()
             AdMobBannerView()
                 .frame(maxWidth: .infinity)
