@@ -21,7 +21,25 @@ struct ScoreView: View {
                         .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
                     Spacer()
                     levelCircleView()
-                    Spacer().frame(height: 80)
+                    Spacer().frame(height: 12)
+                    Button(action: {
+                        withAnimation {
+                            quizManager.isShowAllQuizData.toggle()
+                        }
+                    }) {
+                        HStack {
+                            Text(quizManager.isShowAllQuizData ? "閉じる" : "問題一覧を見る")
+                            Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
+                        }
+                        .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
+                    }
+                    if quizManager.isShowAllQuizData {
+                        List(quizManager.quizDataForScoreView, id: \.self) { quizContent in
+                            Text(quizContent)
+                                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
+                        }
+                        .listStyle(.inset)
+                    }
                     Button("シェアする") {
                         quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                     }

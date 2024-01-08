@@ -51,11 +51,13 @@ final class QuizManager: ObservableObject {
     @Published var isShowHint = false
     @Published var isFlipHint = false
     @Published var isShowPerfectAnimation = false
+    @Published var isShowAllQuizData = false
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
     @Published var quizContentForTryAgain: [String] = []
     @Published var userAnswer: [String] = []
     @Published var correctAnswer: [String] = []
+    @Published var quizDataForScoreView: [String] = []
     @Published var countDownTimer: Timer?
     @Published var quizTimer: Timer?
     @Published var quizLevel: QuizLevel?
@@ -69,6 +71,13 @@ final class QuizManager: ObservableObject {
         formattedQuizArray = quizData.allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        for content in quizData.allQuizContents {
+            let processedContent = content
+                .components(separatedBy: ",")
+                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                .joined(separator: " ")
+            quizDataForScoreView.append(processedContent)
+        }
         productionQuizContentArray = formattedQuizArray
         productionQuizContentArray.shuffle()
         print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
@@ -168,11 +177,13 @@ final class QuizManager: ObservableObject {
         isShowHint = false
         isFlipHint = false
         isShowPerfectAnimation = false
+        isShowAllQuizData = false
         formattedQuizArray = []
         productionQuizContentArray = []
         quizContentForTryAgain = []
         userAnswer = []
         correctAnswer = []
+        quizDataForScoreView = []
         countDownTimer?.invalidate()
         countDownTimer = nil
         quizTimer?.invalidate()
