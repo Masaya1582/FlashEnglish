@@ -99,7 +99,7 @@ struct AnswerView: View {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             quizManager.judgeAnswer()
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.textFieldInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+        .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.textFieldInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
         .disabled(quizManager.textFieldInputs.isEmpty)
         Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
             quizManager.isTryAgainTriggered = true

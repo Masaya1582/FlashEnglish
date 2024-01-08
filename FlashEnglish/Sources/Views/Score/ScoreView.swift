@@ -45,12 +45,12 @@ struct ScoreView: View {
                         Button("シェアする") {
                             quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                         }
-                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold))
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                         Button("ホームに戻る") {
                             quizManager.resetAllQuiz()
                             navigationManager.path.removeAll()
                         }
-                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                     }
                     Spacer()
                     AdMobBannerView()

@@ -64,7 +64,7 @@ struct QuizDetailView: View {
             Button("始める") {
                 navigationManager.path.append(.quizView)
             }
-            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold))
+            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
             Button("ホームに戻る") {
                 quizManager.resetAllQuiz()
                 navigationManager.path.removeAll()

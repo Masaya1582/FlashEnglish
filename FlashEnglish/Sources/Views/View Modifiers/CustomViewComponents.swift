@@ -25,11 +25,13 @@ struct CustomButton: ViewModifier {
     let foregroundColor: Color
     let backgroundColor: Color
     let fontName: FontConvertible
+    let width: CGFloat
+    let height: CGFloat
 
     func body(content: Content) -> some View {
         content
             .font(.custom(fontName, size: 24))
-            .frame(width: 280, height: 24, alignment: .center)
+            .frame(width: width, height: height, alignment: .center)
             .padding()
             .foregroundColor(foregroundColor)
             .background(backgroundColor)
