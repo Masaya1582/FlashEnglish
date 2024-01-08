@@ -51,6 +51,9 @@ struct QuizDetailView: View {
             Text(L10n.subDescription)
                 .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
                 .padding()
+            Text(L10n.shuffleDescription)
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.alertRed.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.regular))
+                .padding()
         }
         .padding(4)
         .background(Asset.Colors.descriptionBackground.swiftUIColor.opacity(0.3))
@@ -61,6 +64,12 @@ struct QuizDetailView: View {
 
     var quizButton: some View {
         VStack {
+            Toggle(isOn: $quizManager.isQuizDataShuffled) {
+                Text("単語をシャッフルして挑戦する")
+                    .multilineTextAlignment(.center)
+                    .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                    .padding()
+            }
             Button("始める") {
                 quizManager.setQuiz()
                 navigationManager.path.append(.quizView)

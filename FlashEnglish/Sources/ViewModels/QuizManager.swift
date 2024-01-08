@@ -52,6 +52,7 @@ final class QuizManager: ObservableObject {
     @Published var isFlipHint = false
     @Published var isShowPerfectAnimation = false
     @Published var isShowAllQuizData = false
+    @Published var isQuizDataShuffled = false
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
     @Published var quizContentForTryAgain: [String] = []
@@ -87,7 +88,9 @@ final class QuizManager: ObservableObject {
             }
         }
         productionQuizContentArray = formattedQuizArray
-        // productionQuizContentArray.shuffle()
+        if isQuizDataShuffled {
+            productionQuizContentArray.shuffle()
+        }
         print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
@@ -186,6 +189,7 @@ final class QuizManager: ObservableObject {
         isFlipHint = false
         isShowPerfectAnimation = false
         isShowAllQuizData = false
+        isQuizDataShuffled = false
         formattedQuizArray = []
         productionQuizContentArray = []
         quizContentForTryAgain = []
