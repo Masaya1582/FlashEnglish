@@ -75,7 +75,7 @@ struct AnswerView: View {
             .keyboardType(.asciiCapable)
             .modifier(CustomTextField())
         // ヒント
-        if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 {
+        if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 && quizManager.isQuizDataShuffled {
             Button(action: {
                 withAnimation {
                     quizManager.isFlipHint.toggle()

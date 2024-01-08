@@ -49,7 +49,7 @@ struct QuizDetailView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             Text(L10n.subDescription)
-                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.alertRed.swiftUIColor, size: 14, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
         }
         .padding(4)
@@ -61,7 +61,14 @@ struct QuizDetailView: View {
 
     var quizButton: some View {
         VStack {
+            Toggle(isOn: $quizManager.isQuizDataShuffled) {
+                Text("単語をシャッフルして挑戦する")
+                    .multilineTextAlignment(.center)
+                    .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                    .padding()
+            }
             Button("始める") {
+                quizManager.setQuiz()
                 navigationManager.path.append(.quizView)
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))

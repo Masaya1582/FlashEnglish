@@ -44,7 +44,7 @@ struct QuizView: View {
             }
             .onAppear {
                 if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
-                    quizManager.setQuiz(isSetNextQuiz: quizManager.isSetNextQuiz, quizLevel: quizManager.quizLevel ?? .juniorHighSchool)
+                    quizManager.setQuiz()
                 }
                 if quizManager.isTryAgainTriggered {
                     quizManager.resetAndRestartQuiz()
