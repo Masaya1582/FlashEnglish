@@ -73,6 +73,10 @@ struct QuizDetailView: View {
             Button("Score (DEBUG)") {
                 navigationManager.path.append(.scoreView)
             }
+            Spacer()
+            AdMobBannerView()
+                .frame(maxWidth: .infinity)
+                .frame(height: UIScreen.main.bounds.height / 12)
         }
     }
 }

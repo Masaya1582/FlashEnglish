@@ -6,6 +6,7 @@
 //  
 
 import SwiftUI
+import GoogleMobileAds
 
 struct ScoreView: View {
     // MARK: - Properties
@@ -40,16 +41,21 @@ struct ScoreView: View {
                         }
                         .listStyle(.inset)
                     }
-                    Button("シェアする") {
-                        quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
+                    if !quizManager.isShowAllQuizData {
+                        Button("シェアする") {
+                            quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
+                        }
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold))
+                        Button("ホームに戻る") {
+                            quizManager.resetAllQuiz()
+                            navigationManager.path.removeAll()
+                        }
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
                     }
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold))
-                    Button("ホームに戻る") {
-                        quizManager.resetAllQuiz()
-                        navigationManager.path.removeAll()
-                    }
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold))
                     Spacer()
+                    AdMobBannerView()
+                        .frame(maxWidth: .infinity)
+                        .frame(height: UIScreen.main.bounds.height / 12)
                 }
                 quizManager.isShowPerfectAnimation ? LottieView(lottieFile: L10n.lottiePerfect) : nil
             }
