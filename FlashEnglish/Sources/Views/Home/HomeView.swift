@@ -58,8 +58,8 @@ struct HomeView: View {
                     ForEach(levelItem) { levelItem in
                         LevelGridItem(levelItem: levelItem, tapAction: {
                             withAnimation {
+                                quizManager.loadQuizData(quizLevel: levelItem.levelCase)
                                 navigationManager.path.append(.quizDetailView)
-                                quizManager.setQuiz(isSetNextQuiz: false, quizLevel: levelItem.levelCase)
                             }
                         })
                         .overlay(

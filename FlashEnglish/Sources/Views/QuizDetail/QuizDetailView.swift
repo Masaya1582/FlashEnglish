@@ -62,6 +62,7 @@ struct QuizDetailView: View {
     var quizButton: some View {
         VStack {
             Button("始める") {
+                quizManager.setQuiz()
                 navigationManager.path.append(.quizView)
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
