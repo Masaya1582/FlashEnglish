@@ -72,6 +72,7 @@ struct AnswerView: View {
     @ViewBuilder
     private func textFieldAndHint() -> some View {
         TextField("正しい順番に並び替える", text: $quizManager.textFieldInputs)
+            .keyboardType(.asciiCapable)
             .modifier(CustomTextField())
         // ヒント
         if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 {
