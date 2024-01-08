@@ -187,8 +187,22 @@ final class QuizManager: ObservableObject {
         UserDefaults.standard.bool(forKey: "\(level)Completed")
     }
 
-    func shareApp(_ shareText: String) {
-        let activityViewController = UIActivityViewController(activityItems: [shareText], applicationActivities: nil)
+    func takeAllScreenShot() -> UIImage {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        let size = window?.bounds.size ?? UIScreen.main.bounds.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        window?.drawHierarchy(in: window?.bounds ?? .zero, afterScreenUpdates: true)
+        guard let screenShotImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            fatalError("スクショ取得失敗")
+        }
+        UIGraphicsEndImageContext()
+        return screenShotImage
+    }
+
+    func shareApp(shareText: String) {
+        let image = takeAllScreenShot()
+        let items = [shareText, image] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         let rootViewController = windowscene?.windows.first?.rootViewController
         rootViewController?.present(activityViewController, animated: true)
