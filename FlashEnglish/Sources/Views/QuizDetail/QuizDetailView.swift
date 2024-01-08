@@ -49,10 +49,7 @@ struct QuizDetailView: View {
                 .multilineTextAlignment(.center)
                 .padding()
             Text(L10n.subDescription)
-                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.regular))
-                .padding()
-            Text(L10n.shuffleDescription)
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.alertRed.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.regular))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.alertRed.swiftUIColor, size: 14, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
         }
         .padding(4)

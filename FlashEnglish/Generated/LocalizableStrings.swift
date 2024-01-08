@@ -21,11 +21,9 @@ internal enum L10n {
   internal static let lottiePerfect = L10n.tr("Localizable", "lottie_perfect", fallback: "lottie_perfect")
   /// 3カウント後、フラッシュ算式に問題が出題されます
   internal static let mainDescription = L10n.tr("Localizable", "main_description", fallback: "3カウント後、フラッシュ算式に問題が出題されます")
-  /// 単語をシャッフルするとより難しく感じます、お好みでぜひ
-  internal static let shuffleDescription = L10n.tr("Localizable", "shuffle_description", fallback: "単語をシャッフルするとより難しく感じます、お好みでぜひ")
   /// *全て肯定文で並び替えを行なってください
-  /// *稀に並び替え不要、その時はラッキー
-  internal static let subDescription = L10n.tr("Localizable", "sub_description", fallback: "*全て肯定文で並び替えを行なってください\n*稀に並び替え不要、その時はラッキー")
+  /// *単語をシャッフルするとより難易度が上がります
+  internal static let subDescription = L10n.tr("Localizable", "sub_description", fallback: "*全て肯定文で並び替えを行なってください\n*単語をシャッフルするとより難易度が上がります")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
