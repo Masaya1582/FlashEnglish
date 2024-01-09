@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/06.
-//  
+//
 
 import SwiftUI
 
@@ -20,22 +20,22 @@ struct QuizDetailView: View {
                 quizButton
             }
             .padding(16)
-                .navigationDestination(for: ViewType.self) { viewType in
-                    switch viewType {
-                    case .homeView:
-                        HomeView()
-                    case .quizDetailView:
-                        QuizDetailView()
-                    case .quizView:
-                        QuizView()
-                    case .answerView:
-                        AnswerView()
-                    case .answerDetailView:
-                        AnswerDetailView()
-                    case .scoreView:
-                        ScoreView()
-                    }
+            .navigationDestination(for: ViewType.self) { viewType in
+                switch viewType {
+                case .homeView:
+                    HomeView()
+                case .quizDetailView:
+                    QuizDetailView()
+                case .quizView:
+                    QuizView()
+                case .answerView:
+                    AnswerView()
+                case .answerDetailView:
+                    AnswerDetailView()
+                case .scoreView:
+                    ScoreView()
                 }
+            }
         }
         .navigationBarBackButtonHidden()
     }
@@ -67,11 +67,13 @@ struct QuizDetailView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
                     .padding()
             }
-            Button("始める") {
+            Button {
                 quizManager.setQuizData()
                 navigationManager.path.append(.quizView)
+            } label: {
+                Text("始める")
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
             }
-            .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
             Button("ホームに戻る") {
                 quizManager.resetAllQuiz()
                 navigationManager.path.removeAll()

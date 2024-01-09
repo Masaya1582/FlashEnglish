@@ -18,24 +18,24 @@ struct AnswerView: View {
             ZStack {
                 if quizManager.isShowDescriptionModalView {
                     AnswerDetailView()
-                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                    .zIndex(1)
+                        .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        .zIndex(1)
                 }
                 VStack(spacing: 20) {
                     userAnswerField
                     textFieldAndHint()
                     bottomField()
-                    .alert(isPresented: $quizManager.isShowAlertView) {
-                        Alert(
-                            title: Text("確認"),
-                            message: Text(L10n.alertDetail),
-                            primaryButton: .destructive(Text("ホームに戻る")) {
-                                quizManager.resetAllQuiz()
-                                navigationManager.path.removeAll()
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
+                        .alert(isPresented: $quizManager.isShowAlertView) {
+                            Alert(
+                                title: Text("確認"),
+                                message: Text(L10n.alertDetail),
+                                primaryButton: .destructive(Text("ホームに戻る")) {
+                                    quizManager.resetAllQuiz()
+                                    navigationManager.path.removeAll()
+                                },
+                                secondaryButton: .cancel()
+                            )
+                        }
                 }
                 .padding(.horizontal, 12)
                 if quizManager.isShowAnswerResultAnimation {
@@ -96,12 +96,13 @@ struct AnswerView: View {
 
     @ViewBuilder
     private func bottomField() -> some View {
-        Button("解答") {
+        Button {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             quizManager.judgeAnswer()
+        } label: {
+            Text("解答")
+                .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.userAnswerInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.userAnswerInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
-        .disabled(quizManager.userAnswerInputs.isEmpty)
         Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
             quizManager.isTryAgainTriggered = true
             quizManager.isShowAnswerView = false
