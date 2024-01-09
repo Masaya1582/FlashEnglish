@@ -100,7 +100,6 @@ final class QuizManager: ObservableObject {
         if countDownTimer == nil {
             countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
                 if self.countDown > 0 {
-                    print("大麻カウント: \(self.countDown)")
                     self.countDown -= 1
                     if self.countDown == 0 {
                         self.countDownTimer?.invalidate()
