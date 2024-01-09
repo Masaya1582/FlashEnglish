@@ -15,7 +15,7 @@ enum QuizLevel: String, CaseIterable {
     case expert = "Expert"
     case monster = "Monster"
 
-    var levelTitle: String {
+    var quizLevelTitle: String {
         switch self {
         case .juniorHighSchool: return "中学生レベル"
         case .highSchool: return "高校生レベル"
@@ -29,14 +29,14 @@ enum QuizLevel: String, CaseIterable {
 
 final class QuizManager: ObservableObject {
     // MARK: - Properties
-    @Published var quizNumber: Int = 0
-    @Published var eachQuizWordNumber: Int = 0
+    @Published var quizNumber = 0
+    @Published var eachQuizWordNumber = 0
     @Published var correctCount = 0
     @Published var countDown = 3
     @Published var tryAgainRemainCount = 2
-    @Published var textFieldInputs = ""
+    @Published var userAnswerInputs = ""
     @Published var formattedCorrectAnswer = ""
-    @Published var levelTitle = ""
+    @Published var quizLevelTitle = ""
     @Published var isShowQuizDetailView = false
     @Published var isShowQuizView = false
     @Published var isShowAnswerView = false
@@ -46,11 +46,11 @@ final class QuizManager: ObservableObject {
     @Published var isTryAgainTriggered = false
     @Published var isTryNextQuiz = false
     @Published var isAnswerCorrect = false
-    @Published var isShowMaruBatsu = false
-    @Published var isShowAlert = false
+    @Published var isShowAnswerResultAnimation = false
+    @Published var isShowPerfectAnimation = false
+    @Published var isShowAlertView = false
     @Published var isShowHint = false
     @Published var isFlipHint = false
-    @Published var isShowPerfectAnimation = false
     @Published var isShowAllQuizData = false
     @Published var isQuizDataShuffled = false
     @Published var formattedQuizArray: [String] = []
@@ -65,32 +65,28 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
 
     // MARK: - Functions
-
     func loadQuizData(quizLevel: QuizLevel) {
         quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
-        levelTitle = quizLevel.levelTitle
+        quizLevelTitle = quizLevel.quizLevelTitle
     }
 
-    func setQuiz() {
-        if isSetNextQuiz {
-            quizNumber += 1
+    func setQuizData() {
+        isSetNextQuiz ? (quizNumber += 1) : nil
+        // ScoreView用に元のクイズデータを保管しておく
+        if !isSetNextQuiz {
+            for quizContent in quizData.allQuizContents {
+                let formattedContentForScoreView = quizContent
+                    .components(separatedBy: ",")
+                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+                    .joined(separator: " ")
+                quizDataForScoreView.append(formattedContentForScoreView)
+            }
         }
         formattedQuizArray = quizData.allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        if !isSetNextQuiz {
-            for content in quizData.allQuizContents {
-                let processedContent = content
-                    .components(separatedBy: ",")
-                    .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                    .joined(separator: " ")
-                quizDataForScoreView.append(processedContent)
-            }
-        }
         productionQuizContentArray = formattedQuizArray
-        if isQuizDataShuffled {
-            productionQuizContentArray.shuffle()
-        }
+        isQuizDataShuffled ? productionQuizContentArray.shuffle() : nil
         print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
@@ -101,13 +97,16 @@ final class QuizManager: ObservableObject {
 
     // カウントダウンタイマー
     func startTimerForCountDown() {
-        countDownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            if self.countDown > 0 {
-                self.countDown -= 1
-                if self.countDown == 0 {
-                    self.countDownTimer?.invalidate()
-                    self.countDownTimer = nil
-                    self.startTimerForQuiz()
+        if countDownTimer == nil {
+            countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+                if self.countDown > 0 {
+                    print("大麻カウント: \(self.countDown)")
+                    self.countDown -= 1
+                    if self.countDown == 0 {
+                        self.countDownTimer?.invalidate()
+                        self.countDownTimer = nil
+                        self.startTimerForQuiz()
+                    }
                 }
             }
         }
@@ -115,28 +114,30 @@ final class QuizManager: ObservableObject {
 
     // 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
-        quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
-            if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
-                self.eachQuizWordNumber += 1
-            } else {
-                self.quizTimer?.invalidate()
-                self.quizTimer = nil
-                self.correctAnswer = self.formattedQuizArray
-                self.isShowAnswerView = true
+        if countDownTimer == nil {
+            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+                if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
+                    self.eachQuizWordNumber += 1
+                } else {
+                    self.quizTimer?.invalidate()
+                    self.quizTimer = nil
+                    self.correctAnswer = self.formattedQuizArray
+                    self.isShowAnswerView = true
+                }
             }
         }
     }
 
     // 正誤判定
     func judgeAnswer() {
-        userAnswer = textFieldInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        isShowMaruBatsu = true
+        userAnswer = userAnswerInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        isShowAnswerResultAnimation = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
             correctCount += 1
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.isShowMaruBatsu = false
+            self.isShowAnswerResultAnimation = false
             self.isShowDescriptionModalView = true
         }
     }
@@ -158,7 +159,7 @@ final class QuizManager: ObservableObject {
         isShowAnswerView = false
         isAnswerCorrect = false
         isFlipHint = false
-        textFieldInputs = ""
+        userAnswerInputs = ""
         tryAgainRemainCount = 2
         userAnswer = []
         correctAnswer = []
@@ -171,9 +172,9 @@ final class QuizManager: ObservableObject {
         correctCount = 0
         countDown = 3
         tryAgainRemainCount = 2
-        textFieldInputs = ""
+        userAnswerInputs = ""
         formattedCorrectAnswer = ""
-        levelTitle = ""
+        quizLevelTitle = ""
         isShowQuizDetailView = false
         isShowQuizView = false
         isShowAnswerView = false
@@ -183,8 +184,8 @@ final class QuizManager: ObservableObject {
         isTryAgainTriggered = false
         isTryNextQuiz = false
         isAnswerCorrect = false
-        isShowMaruBatsu = false
-        isShowAlert = false
+        isShowAnswerResultAnimation = false
+        isShowAlertView = false
         isShowHint = false
         isFlipHint = false
         isShowPerfectAnimation = false

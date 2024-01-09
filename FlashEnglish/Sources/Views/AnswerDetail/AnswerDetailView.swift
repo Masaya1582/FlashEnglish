@@ -78,9 +78,9 @@ struct AnswerDetailView: View {
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             Button("ホームに戻る") {
-                quizManager.isShowAlert = true
+                quizManager.isShowAlertView = true
             }
-            .alert(isPresented: $quizManager.isShowAlert) {
+            .alert(isPresented: $quizManager.isShowAlertView) {
                 Alert(
                     title: Text("確認"),
                     message: Text(L10n.alertDetail),

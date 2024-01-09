@@ -63,7 +63,7 @@ struct ScoreView: View {
                 // 全問正解且つヒントを見ないでクリアしたら王冠をつける
                 if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
                     quizManager.isShowPerfectAnimation = true
-                    UserDefaults.standard.set(true, forKey: "\(quizManager.levelTitle)Completed")
+                    UserDefaults.standard.set(true, forKey: "\(quizManager.quizLevelTitle)Completed")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
                         withAnimation {
                             quizManager.isShowPerfectAnimation = false

@@ -42,7 +42,7 @@ struct QuizDetailView: View {
 
     var quizDetailDescription: some View {
         VStack(alignment: .center) {
-            Text("\(quizManager.levelTitle): \(quizManager.quizData.allQuizContents.count)問")
+            Text("\(quizManager.quizLevelTitle): \(quizManager.quizData.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
             Text(L10n.mainDescription)
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
@@ -68,7 +68,7 @@ struct QuizDetailView: View {
                     .padding()
             }
             Button("始める") {
-                quizManager.setQuiz()
+                quizManager.setQuizData()
                 navigationManager.path.append(.quizView)
             }
             .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))

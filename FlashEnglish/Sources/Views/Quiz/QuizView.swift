@@ -43,13 +43,13 @@ struct QuizView: View {
                 }
             }
             .onAppear {
+                quizManager.startTimerForCountDown()
                 if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
-                    quizManager.setQuiz()
+                    quizManager.setQuizData()
                 }
                 if quizManager.isTryAgainTriggered {
                     quizManager.resetAndRestartQuiz()
                 }
-                quizManager.startTimerForCountDown()
             }
             .onDisappear {
                 quizManager.resetCount()
