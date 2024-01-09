@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
-//  
+//
 
 import SwiftUI
 
@@ -66,7 +66,7 @@ struct AnswerDetailView: View {
     @ViewBuilder
     private func nextQuizButton() -> some View {
         VStack {
-            Button(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題") {
+            Button {
                 if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
                     navigationManager.path.append(.scoreView)
                 } else {
@@ -75,12 +75,14 @@ struct AnswerDetailView: View {
                     quizManager.resetQuiz()
                     navigationManager.path.append(.quizView)
                 }
+            } label: {
+                Text(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             }
-            .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             Button("ホームに戻る") {
-                quizManager.isShowAlert = true
+                quizManager.isShowAlertView = true
             }
-            .alert(isPresented: $quizManager.isShowAlert) {
+            .alert(isPresented: $quizManager.isShowAlertView) {
                 Alert(
                     title: Text("確認"),
                     message: Text(L10n.alertDetail),

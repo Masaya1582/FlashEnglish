@@ -18,27 +18,27 @@ struct AnswerView: View {
             ZStack {
                 if quizManager.isShowDescriptionModalView {
                     AnswerDetailView()
-                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                    .zIndex(1)
+                        .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        .zIndex(1)
                 }
                 VStack(spacing: 20) {
                     userAnswerField
                     textFieldAndHint()
                     bottomField()
-                    .alert(isPresented: $quizManager.isShowAlert) {
-                        Alert(
-                            title: Text("確認"),
-                            message: Text(L10n.alertDetail),
-                            primaryButton: .destructive(Text("ホームに戻る")) {
-                                quizManager.resetAllQuiz()
-                                navigationManager.path.removeAll()
-                            },
-                            secondaryButton: .cancel()
-                        )
-                    }
+                        .alert(isPresented: $quizManager.isShowAlertView) {
+                            Alert(
+                                title: Text("確認"),
+                                message: Text(L10n.alertDetail),
+                                primaryButton: .destructive(Text("ホームに戻る")) {
+                                    quizManager.resetAllQuiz()
+                                    navigationManager.path.removeAll()
+                                },
+                                secondaryButton: .cancel()
+                            )
+                        }
                 }
                 .padding(.horizontal, 12)
-                if quizManager.isShowMaruBatsu {
+                if quizManager.isShowAnswerResultAnimation {
                     if quizManager.isAnswerCorrect {
                         LottieView(lottieFile: L10n.lottieCorrect)
                     } else {
@@ -59,7 +59,7 @@ struct AnswerView: View {
         VStack {
             Text("あなたの解答:")
                 .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
-            Text("\(quizManager.textFieldInputs)")
+            Text("\(quizManager.userAnswerInputs)")
                 .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
         }
@@ -71,7 +71,7 @@ struct AnswerView: View {
 
     @ViewBuilder
     private func textFieldAndHint() -> some View {
-        TextField("正しい順番に並び替える", text: $quizManager.textFieldInputs)
+        TextField("正しい順番に並び替える", text: $quizManager.userAnswerInputs)
             .keyboardType(.asciiCapable)
             .modifier(CustomTextField())
         // ヒント
@@ -96,12 +96,14 @@ struct AnswerView: View {
 
     @ViewBuilder
     private func bottomField() -> some View {
-        Button("解答") {
+        Button {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             quizManager.judgeAnswer()
+        } label: {
+            Text("解答")
+                .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.userAnswerInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
         }
-        .modifier(CustomButton(foregroundColor: .white, backgroundColor: quizManager.textFieldInputs.isEmpty ? Asset.Colors.gray7.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
-        .disabled(quizManager.textFieldInputs.isEmpty)
+        .disabled(quizManager.userAnswerInputs.isEmpty)
         Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
             quizManager.isTryAgainTriggered = true
             quizManager.isShowAnswerView = false
@@ -110,7 +112,7 @@ struct AnswerView: View {
         }
         .disabled(quizManager.tryAgainRemainCount < 1)
         Button("ホームに戻る") {
-            quizManager.isShowAlert = true
+            quizManager.isShowAlertView = true
         }
     }
 }

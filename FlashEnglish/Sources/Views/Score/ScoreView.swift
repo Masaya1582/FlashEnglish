@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
-//  
+//
 
 import SwiftUI
 import GoogleMobileAds
@@ -42,15 +42,19 @@ struct ScoreView: View {
                         .listStyle(.inset)
                     }
                     if !quizManager.isShowAllQuizData {
-                        Button("シェアする") {
+                        Button {
                             quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
+                        } label: {
+                            Text("シェアする")
+                                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                         }
-                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
-                        Button("ホームに戻る") {
+                        Button {
                             quizManager.resetAllQuiz()
                             navigationManager.path.removeAll()
+                        } label: {
+                            Text("ホームに戻る")
+                                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                         }
-                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                     }
                     Spacer()
                     AdMobBannerView()
@@ -63,7 +67,7 @@ struct ScoreView: View {
                 // 全問正解且つヒントを見ないでクリアしたら王冠をつける
                 if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
                     quizManager.isShowPerfectAnimation = true
-                    UserDefaults.standard.set(true, forKey: "\(quizManager.levelTitle)Completed")
+                    UserDefaults.standard.set(true, forKey: "\(quizManager.quizLevelTitle)Completed")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
                         withAnimation {
                             quizManager.isShowPerfectAnimation = false
