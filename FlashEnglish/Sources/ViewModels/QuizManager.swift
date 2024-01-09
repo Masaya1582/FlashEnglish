@@ -129,7 +129,10 @@ final class QuizManager: ObservableObject {
 
     // 正誤判定
     func judgeAnswer() {
-        userAnswer = userAnswerInputs.components(separatedBy: " ").map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+        userAnswer = userAnswerInputs.components(separatedBy: " ")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+        print("User Answer: \(userAnswer)")
         isShowAnswerResultAnimation = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
