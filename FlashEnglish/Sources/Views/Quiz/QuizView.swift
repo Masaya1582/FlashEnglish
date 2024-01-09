@@ -11,6 +11,7 @@ struct QuizView: View {
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
+    @State private var isViewAppeared = false
 
     // MARK: - Body
     var body: some View {
@@ -43,16 +44,20 @@ struct QuizView: View {
                 }
             }
             .onAppear {
-                quizManager.startTimerForCountDown()
-                if !quizManager.isTryAgainTriggered && quizManager.isSetNextQuiz {
-                    quizManager.setQuizData()
-                }
-                if quizManager.isTryAgainTriggered {
-                    quizManager.resetAndRestartQuiz()
+                if !isViewAppeared {
+                    if !quizManager.isTryAgainTriggered {
+                        quizManager.setQuizData()
+                    }
+                    if quizManager.isTryAgainTriggered {
+                        quizManager.resetAndRestartQuiz()
+                    }
+                    quizManager.startTimerForCountDown()
+                    isViewAppeared = true
                 }
             }
             .onDisappear {
                 quizManager.resetCount()
+                isViewAppeared = false
             }
             .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
                 if isShowAnswerView {

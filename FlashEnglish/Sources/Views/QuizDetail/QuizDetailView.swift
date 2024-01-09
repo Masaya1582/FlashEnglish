@@ -68,7 +68,6 @@ struct QuizDetailView: View {
                     .padding()
             }
             Button {
-                quizManager.setQuizData()
                 navigationManager.path.append(.quizView)
             } label: {
                 Text("始める")

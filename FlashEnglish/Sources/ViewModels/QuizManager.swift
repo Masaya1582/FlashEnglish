@@ -71,7 +71,9 @@ final class QuizManager: ObservableObject {
     }
 
     func setQuizData() {
-        isSetNextQuiz ? (quizNumber += 1) : nil
+        if isSetNextQuiz {
+            quizNumber += 1
+        }
         // ScoreView用に元のクイズデータを保管しておく
         if !isSetNextQuiz {
             for quizContent in quizData.allQuizContents {
