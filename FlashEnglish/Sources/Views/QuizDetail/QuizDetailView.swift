@@ -23,7 +23,7 @@ struct QuizDetailView: View {
             .navigationDestination(for: ViewType.self) { viewType in
                 switch viewType {
                 case .homeView:
-                    HomeView()
+                    HomeView(presentSideMenu: .constant(false))
                 case .quizDetailView:
                     QuizDetailView()
                 case .quizView:
