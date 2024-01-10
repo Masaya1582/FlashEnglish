@@ -9,7 +9,7 @@
 import Foundation
 
 enum SideMenuManager: Int, CaseIterable {
-    case home = 0
+    case home
     case developer
 
     var title: String {
@@ -17,7 +17,7 @@ enum SideMenuManager: Int, CaseIterable {
         case .home:
             return "Home"
         case .developer:
-            return "開発者について"
+            return "開発者"
         }
     }
 
@@ -26,7 +26,7 @@ enum SideMenuManager: Int, CaseIterable {
         case .home:
             return "house"
         case .developer:
-            return "apple.logo"
+            return "iphone"
         }
     }
 }

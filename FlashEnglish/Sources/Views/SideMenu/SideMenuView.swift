@@ -80,17 +80,15 @@ struct SideMenuView: View {
                             .resizable()
                             .renderingMode(.template)
                             .foregroundColor(isSelected ? .black : .gray)
-                            .frame(width: 26, height: 26)
+                            .frame(width: 24, height: 24)
                     }
-                    .frame(width: 30, height: 30)
                     Text(title)
-                        .font(.system(size: 14, weight: .regular))
-                        .foregroundColor(isSelected ? .black : .gray)
+                        .modifier(CustomLabel(foregroundColor: isSelected ? Asset.Colors.gray1.swiftUIColor : Asset.Colors.gray5.swiftUIColor, size: 14, fontName: FontFamily.NotoSans.bold))
                     Spacer()
                 }
             }
         }
-        .frame(height: 50)
+        .frame(height: UIScreen.main.bounds.height / 12)
         .background(
             LinearGradient(colors: [isSelected ? Asset.Colors.buttonColor.swiftUIColor : .white, .white], startPoint: .leading, endPoint: .trailing)
         )
