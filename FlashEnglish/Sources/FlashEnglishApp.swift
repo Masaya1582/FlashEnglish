@@ -19,9 +19,10 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct FlashEnglishApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    @State static var presentSideMenu = false
     var body: some Scene {
         WindowGroup {
-            HomeView()
+            MainTabView()
                 .environmentObject(QuizManager())
                 .environmentObject(NavigationManager())
         }

@@ -23,6 +23,7 @@ struct HomeView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    @Binding var presentSideMenu: Bool
 
     // MARK: - Body
     var body: some View {
@@ -31,7 +32,7 @@ struct HomeView: View {
                 .navigationDestination(for: ViewType.self) { viewType in
                     switch viewType {
                     case .homeView:
-                        HomeView()
+                        HomeView(presentSideMenu: .constant(false))
                     case .quizDetailView:
                         QuizDetailView()
                     case .quizView:
@@ -44,6 +45,15 @@ struct HomeView: View {
                         ScoreView()
                     }
                 }
+                .navigationBarItems(
+                    leading: // 左側
+                    Button {
+                        presentSideMenu.toggle()
+                    } label: {
+                        Image(systemName: "list.bullet")
+                            .foregroundColor(.black)
+                    }
+                )
         }
     }
 
@@ -82,7 +92,7 @@ struct HomeView: View {
 // MARK: - Preview
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        HomeView(presentSideMenu: .constant(false))
             .environmentObject(QuizManager())
             .environmentObject(NavigationManager())
     }

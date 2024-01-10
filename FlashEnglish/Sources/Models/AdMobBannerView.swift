@@ -12,7 +12,7 @@ import GoogleMobileAds
 struct AdMobBannerView: UIViewRepresentable {
     func makeUIView(context: Context) -> GADBannerView {
         let bannerView = GADBannerView(adSize: GADAdSizeBanner)
-        bannerView.adUnitID = "ca-app-pub-3728831230250514/7341630907" // Prod
+        bannerView.adUnitID = "ca-app-pub-3728831230250514/8345583201" // Prod
         // bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" // TEST
         let windowScenes = UIApplication.shared.connectedScenes.first as? UIWindowScene
         bannerView.rootViewController = windowScenes?.keyWindow?.rootViewController
