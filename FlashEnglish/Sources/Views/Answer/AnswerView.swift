@@ -22,6 +22,7 @@ struct AnswerView: View {
                         .zIndex(1)
                 }
                 VStack(spacing: 20) {
+                    Spacer()
                     userAnswerField
                     textFieldAndHint()
                     bottomField()
@@ -114,6 +115,10 @@ struct AnswerView: View {
         Button("ホームに戻る") {
             quizManager.isShowAlertView = true
         }
+        Spacer()
+        AdMobBannerView()
+            .frame(maxWidth: .infinity)
+            .frame(height: UIScreen.main.bounds.height / 12)
     }
 }
 
