@@ -44,6 +44,15 @@ struct HomeView: View {
                         ScoreView()
                     }
                 }
+                .navigationBarItems(
+                    leading: // 左側
+                    Button {
+                        // TODO: - Show Menuリスト
+                    } label: {
+                        Image(systemName: "list.bullet")
+                            .foregroundColor(.black)
+                    }
+                )
         }
     }
 
