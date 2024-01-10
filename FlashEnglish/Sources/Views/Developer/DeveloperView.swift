@@ -34,17 +34,18 @@ struct DeveloperView: View {
                     .padding()
                 HStack(spacing: 24) {
                     ForEach(iconArray) { icon in
-                        icon.image
-                            .resizable()
-                            .modifier(CustomImage(width: 60, height: 60))
-                            .onTapGesture {
-                                isShowWebView = true
+                        Button {
+                            isShowWebView = true
+                        } label: {
+                            icon.image
+                                .resizable()
+                                .modifier(CustomImage(width: 60, height: 60))
+                        }
+                        .fullScreenCover(isPresented: $isShowWebView) {
+                            if let url = icon.url {
+                                SafariView(url: url, onDismiss: { isShowWebView = false })
                             }
-                            .fullScreenCover(isPresented: $isShowWebView) {
-                                if let url = icon.url {
-                                    SafariView(url: url, onDismiss: { isShowWebView = false })
-                                }
-                            }
+                        }
                     }
                 }
             }
@@ -59,7 +60,6 @@ struct DeveloperView: View {
             )
         }
     }
-
 }
 
 // MARK: - Preview
