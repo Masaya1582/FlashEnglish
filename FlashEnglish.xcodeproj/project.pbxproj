@@ -14,6 +14,7 @@
 		1E046D7C2B4E4FD20016C390 /* SideMenuContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D7B2B4E4FD20016C390 /* SideMenuContent.swift */; };
 		1E046D7E2B4E4FFB0016C390 /* TabItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D7D2B4E4FFB0016C390 /* TabItemView.swift */; };
 		1E046D812B4E51330016C390 /* DeveloperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D802B4E51330016C390 /* DeveloperView.swift */; };
+		1E046D842B4E5F430016C390 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D832B4E5F430016C390 /* SafariView.swift */; };
 		1E1BB15F2B47D60700E0A468 /* AnswerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB15E2B47D60700E0A468 /* AnswerView.swift */; };
 		1E1BB1692B47D6E300E0A468 /* JuniorHighSchool.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1682B47D6E300E0A468 /* JuniorHighSchool.csv */; };
 		1E1BB16B2B47D7E000E0A468 /* AnswerDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB16A2B47D7E000E0A468 /* AnswerDetailView.swift */; };
@@ -56,6 +57,7 @@
 		1E046D7B2B4E4FD20016C390 /* SideMenuContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuContent.swift; sourceTree = "<group>"; };
 		1E046D7D2B4E4FFB0016C390 /* TabItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItemView.swift; sourceTree = "<group>"; };
 		1E046D802B4E51330016C390 /* DeveloperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperView.swift; sourceTree = "<group>"; };
+		1E046D832B4E5F430016C390 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		1E1BB15E2B47D60700E0A468 /* AnswerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerView.swift; sourceTree = "<group>"; };
 		1E1BB1682B47D6E300E0A468 /* JuniorHighSchool.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = JuniorHighSchool.csv; sourceTree = "<group>"; };
 		1E1BB16A2B47D7E000E0A468 /* AnswerDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerDetailView.swift; sourceTree = "<group>"; };
@@ -125,6 +127,14 @@
 				1E046D802B4E51330016C390 /* DeveloperView.swift */,
 			);
 			path = Developer;
+			sourceTree = "<group>";
+		};
+		1E046D822B4E5F360016C390 /* Safari */ = {
+			isa = PBXGroup;
+			children = (
+				1E046D832B4E5F430016C390 /* SafariView.swift */,
+			);
+			path = Safari;
 			sourceTree = "<group>";
 		};
 		1E1BB1622B47D65F00E0A468 /* Models */ = {
@@ -308,6 +318,7 @@
 				1E1BB1A52B4972D800E0A468 /* AnswerDetail */,
 				1E1BB1A62B4972DF00E0A468 /* Score */,
 				1E046D7F2B4E512C0016C390 /* Developer */,
+				1E046D822B4E5F360016C390 /* Safari */,
 				1E046D762B4E4EF10016C390 /* SideMenu */,
 				400A9C342B4682F00086914E /* View Modifiers */,
 				1E1BB1A72B4A897100E0A468 /* LaunchScreen */,
@@ -495,6 +506,7 @@
 				1E1BB1982B4949F700E0A468 /* LottieView.swift in Sources */,
 				1E046D7A2B4E4F1D0016C390 /* SideMenuView.swift in Sources */,
 				1E1BB17B2B48DC5000E0A468 /* HomeView.swift in Sources */,
+				1E046D842B4E5F430016C390 /* SafariView.swift in Sources */,
 				400A9C122B467BA60086914E /* QuizView.swift in Sources */,
 				400A9C312B467E640086914E /* Fonts.swift in Sources */,
 				1E046D782B4E4F040016C390 /* MainTabView.swift in Sources */,

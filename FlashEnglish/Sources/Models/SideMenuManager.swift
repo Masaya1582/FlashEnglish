@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 enum SideMenuManager: Int, CaseIterable {
     case home
@@ -17,7 +18,7 @@ enum SideMenuManager: Int, CaseIterable {
         case .home:
             return "Home"
         case .developer:
-            return "開発者"
+            return "開発者を知る"
         }
     }
 
@@ -29,4 +30,10 @@ enum SideMenuManager: Int, CaseIterable {
             return "iphone"
         }
     }
+}
+
+struct IconImage: Identifiable {
+    let id = UUID()
+    let image: Image
+    let url: URL?
 }
