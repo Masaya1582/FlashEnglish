@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DeveloperView: View {
     @State private var isShowWebView = false
-    @State private var currentURL: URL?
+    @State private var currentURL: URL = URL(string: "https://twitter.com/TaroTaro2025/")!
     @Binding var presentSideMenu: Bool
     private let iconArray: [IconImage] = [
         IconImage(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
@@ -35,18 +35,18 @@ struct DeveloperView: View {
                 HStack(spacing: 24) {
                     ForEach(iconArray) { icon in
                         Button {
+                            currentURL = icon.url!
+                            print("URLは: \(currentURL)")
                             isShowWebView = true
                         } label: {
                             icon.image
                                 .resizable()
                                 .modifier(CustomImage(width: 60, height: 60))
                         }
-                        .fullScreenCover(isPresented: $isShowWebView) {
-                            if let url = icon.url {
-                                SafariView(url: url, onDismiss: { isShowWebView = false })
-                            }
-                        }
                     }
+                }
+                .fullScreenCover(isPresented: $isShowWebView) {
+                    SafariView(url: currentURL, onDismiss: { isShowWebView = false })
                 }
             }
             .navigationBarItems(
