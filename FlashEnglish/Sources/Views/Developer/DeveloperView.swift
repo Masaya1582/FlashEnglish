@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DeveloperView: View {
     @State private var isShowWebView = false
-    @State private var currentURL: URL = URL(string: "https://twitter.com/TaroTaro2025/")!
+    @State private var currentURL = URL(string: "https://twitter.com/TaroTaro2025/")!
     @Binding var presentSideMenu: Bool
     private let iconArray: [IconImage] = [
         IconImage(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
@@ -36,7 +36,6 @@ struct DeveloperView: View {
                     ForEach(iconArray) { icon in
                         Button {
                             currentURL = icon.url!
-                            print("URLは: \(currentURL)")
                             isShowWebView = true
                         } label: {
                             icon.image
