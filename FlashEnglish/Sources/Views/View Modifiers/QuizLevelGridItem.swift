@@ -5,7 +5,6 @@
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/06.
 //  
 
-import Foundation
 import SwiftUI
 
 struct LevelItem: Identifiable {

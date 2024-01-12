@@ -32,7 +32,7 @@ struct AnswerView: View {
                                 message: Text(L10n.alertDetail),
                                 primaryButton: .destructive(Text("ホームに戻る")) {
                                     quizManager.resetAllQuiz()
-                                    navigationManager.path.removeAll()
+                                    navigationManager.navigationPath.removeAll()
                                 },
                                 secondaryButton: .cancel()
                             )
@@ -109,7 +109,7 @@ struct AnswerView: View {
             quizManager.isTryAgainTriggered = true
             quizManager.isShowAnswerView = false
             quizManager.tryAgainRemainCount -= 1
-            navigationManager.path.removeLast()
+            navigationManager.navigationPath.removeLast()
         }
         .disabled(quizManager.tryAgainRemainCount < 1)
         Button("ホームに戻る") {

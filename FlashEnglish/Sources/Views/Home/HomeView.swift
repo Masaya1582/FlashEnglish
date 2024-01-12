@@ -27,7 +27,7 @@ struct HomeView: View {
 
     // MARK: - Body
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $navigationManager.navigationPath) {
             homeDescription
                 .navigationDestination(for: ViewType.self) { viewType in
                     switch viewType {
@@ -69,7 +69,7 @@ struct HomeView: View {
                         LevelGridItem(levelItem: levelItem, tapAction: {
                             withAnimation {
                                 quizManager.loadQuizData(quizLevel: levelItem.levelCase)
-                                navigationManager.path.append(.quizDetailView)
+                                navigationManager.navigationPath.append(.quizDetailView)
                             }
                         })
                         .overlay(

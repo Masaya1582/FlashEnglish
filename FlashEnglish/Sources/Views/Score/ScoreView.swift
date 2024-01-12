@@ -50,7 +50,7 @@ struct ScoreView: View {
                         }
                         Button {
                             quizManager.resetAllQuiz()
-                            navigationManager.path.removeAll()
+                            navigationManager.navigationPath.removeAll()
                         } label: {
                             Text("ホームに戻る")
                                 .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))

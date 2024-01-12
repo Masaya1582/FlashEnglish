@@ -5,6 +5,9 @@
 // AnswerView
 "alert_detail" = "ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます";
 
+// Developer
+"developer_description" = "ピヨピヨエンジニアです、アプリ開発に出会って物作りの楽しさに目覚めました。\nSNSやブログもお時間あればぜひご覧ください";
+
 // Lottie
 "lottie_correct" = "lottie_correct";
 "lottie_incorrect" = "lottie_incorrect";
