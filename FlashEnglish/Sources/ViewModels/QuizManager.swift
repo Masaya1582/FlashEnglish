@@ -65,15 +65,43 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
 
     // MARK: - Functions
+    // SNSでのシェア用に画面のスクショを撮る
+    private func takeAllScreenShot() -> UIImage {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        let size = window?.bounds.size ?? UIScreen.main.bounds.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        window?.drawHierarchy(in: window?.bounds ?? .zero, afterScreenUpdates: true)
+        guard let screenShotImage = UIGraphicsGetImageFromCurrentImageContext() else {
+            fatalError("Failed to take a screenshot")
+        }
+        UIGraphicsEndImageContext()
+        return screenShotImage
+    }
+
+    // CSVファイルの読み込み
+    private func loadCSV(with name: String) -> [String] {
+        guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
+            fatalError("CSV not found")
+        }
+        var csvDataArray: [String] = []
+        do {
+            let csvData = try String(contentsOfFile: csvBundle, encoding: .utf8)
+            csvDataArray = csvData.components(separatedBy: "\n")
+            csvDataArray.removeLast()
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        return csvDataArray
+    }
+
+    // クイズデータをCSVから持ってくる
     func loadQuizData(quizLevel: QuizLevel) {
         quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         quizLevelTitle = quizLevel.quizLevelTitle
     }
 
     func setQuizData() {
-        if isSetNextQuiz {
-            quizNumber += 1
-        }
+        isSetNextQuiz ? quizNumber += 1 : nil
         // ScoreView用に元のクイズデータを保管しておく
         if !isSetNextQuiz {
             for quizContent in quizData.allQuizContents {
@@ -100,7 +128,8 @@ final class QuizManager: ObservableObject {
     // カウントダウンタイマー
     func startTimerForCountDown() {
         if countDownTimer == nil {
-            countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
                 if self.countDown > 0 {
                     self.countDown -= 1
                     if self.countDown == 0 {
@@ -116,7 +145,8 @@ final class QuizManager: ObservableObject {
     // 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
         if countDownTimer == nil {
-            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
                 if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
                     self.eachQuizWordNumber += 1
                 } else {
@@ -134,7 +164,6 @@ final class QuizManager: ObservableObject {
         userAnswer = userAnswerInputs.components(separatedBy: " ")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
-        print("User Answer: \(userAnswer)")
         isShowAnswerResultAnimation = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
@@ -157,7 +186,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 次の問題用にリセット
+    // 次の問題出題前にリセット
     func resetQuiz() {
         isShowDescriptionModalView = false
         isShowAnswerView = false
@@ -167,6 +196,20 @@ final class QuizManager: ObservableObject {
         tryAgainRemainCount = 2
         userAnswer = []
         correctAnswer = []
+    }
+
+    // レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
+    func isLevelCompleted(level: String) -> Bool {
+        UserDefaults.standard.bool(forKey: "\(level)Completed")
+    }
+
+    func shareApp(shareText: String) {
+        let image = takeAllScreenShot()
+        let items = [shareText, image] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let rootViewController = windowscene?.windows.first?.rootViewController
+        rootViewController?.present(activityViewController, animated: true)
     }
 
     // 全てリセット
@@ -209,44 +252,4 @@ final class QuizManager: ObservableObject {
         quizData = QuizData()
     }
 
-    func isLevelCompleted(level: String) -> Bool {
-        UserDefaults.standard.bool(forKey: "\(level)Completed")
-    }
-
-    private func takeAllScreenShot() -> UIImage {
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        let size = window?.bounds.size ?? UIScreen.main.bounds.size
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        window?.drawHierarchy(in: window?.bounds ?? .zero, afterScreenUpdates: true)
-        guard let screenShotImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            fatalError("スクショ取得失敗")
-        }
-        UIGraphicsEndImageContext()
-        return screenShotImage
-    }
-
-    func shareApp(shareText: String) {
-        let image = takeAllScreenShot()
-        let items = [shareText, image] as [Any]
-        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let rootViewController = windowscene?.windows.first?.rootViewController
-        rootViewController?.present(activityViewController, animated: true)
-    }
-
-    // CSVファイルの読み込み
-    private func loadCSV(with name: String) -> [String] {
-        guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
-            fatalError("CSV not found")
-        }
-        var csvDataArray: [String] = []
-        do {
-            let csvData = try String(contentsOfFile: csvBundle, encoding: .utf8)
-            csvDataArray = csvData.components(separatedBy: "\n")
-            csvDataArray.removeLast()
-        } catch {
-            print("Error: \(error.localizedDescription)")
-        }
-        return csvDataArray
-    }
 }
