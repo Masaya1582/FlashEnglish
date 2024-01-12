@@ -66,14 +66,15 @@ final class QuizManager: ObservableObject {
 
     // MARK: - Functions
     // SNSでのシェア用に画面のスクショを撮る
-    private func takeAllScreenShot() -> UIImage {
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        let size = window?.bounds.size ?? UIScreen.main.bounds.size
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        window?.drawHierarchy(in: window?.bounds ?? .zero, afterScreenUpdates: true)
-        guard let screenShotImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            fatalError("Failed to take a screenshot")
+    private func takeAllScreenShot() -> UIImage? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return nil
         }
+        let size = window.bounds.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+        let screenShotImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return screenShotImage
     }
