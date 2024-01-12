@@ -9,10 +9,12 @@
 import SwiftUI
 
 struct SideMenu: View {
+    // MARK: - Properties
     @Binding var isShowing: Bool
     var content: AnyView
     var edgeTransition: AnyTransition = .move(edge: .leading)
 
+    // MARK: - Body
     var body: some View {
         ZStack(alignment: .bottom) {
             if isShowing {
@@ -35,6 +37,7 @@ struct SideMenu: View {
     }
 }
 
+// MARK: - Preview
 struct SideMenu_Previews: PreviewProvider {
     static var previews: some View {
         SideMenu(isShowing: .constant(false), content: AnyView(MainTabView()))

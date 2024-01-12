@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
-//  
+//
 
 import SwiftUI
 
@@ -65,7 +65,7 @@ final class QuizManager: ObservableObject {
     @Published var quizData = QuizData()
 
     // MARK: - Functions
-    // SNSでのシェア用に画面のスクショを撮る
+    /// SNSでのシェア用に画面のスクショを撮る
     private func takeAllScreenShot() -> UIImage? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
@@ -79,7 +79,7 @@ final class QuizManager: ObservableObject {
         return screenShotImage
     }
 
-    // CSVファイルの読み込み
+    /// CSVファイルの読み込み
     private func loadCSV(with name: String) -> [String] {
         guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
             fatalError("CSV not found")
@@ -95,7 +95,7 @@ final class QuizManager: ObservableObject {
         return csvDataArray
     }
 
-    // クイズデータをCSVから持ってくる
+    /// クイズデータをCSVから持ってくる
     func loadQuizData(quizLevel: QuizLevel) {
         quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         quizLevelTitle = quizLevel.quizLevelTitle
@@ -121,12 +121,12 @@ final class QuizManager: ObservableObject {
         print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
-    // TryAgain用
+    /// TryAgain用
     func resetAndRestartQuiz() {
         productionQuizContentArray = quizContentForTryAgain
     }
 
-    // カウントダウンタイマー
+    /// カウントダウンタイマー
     func startTimerForCountDown() {
         if countDownTimer == nil {
             countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
@@ -143,7 +143,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 英単語フラッシュ表示用タイマー
+    /// 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
         if countDownTimer == nil {
             quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
@@ -160,7 +160,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 正誤判定
+    /// 正誤判定
     func judgeAnswer() {
         userAnswer = userAnswerInputs.components(separatedBy: " ")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -176,7 +176,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // カウントリセット
+    /// カウントリセット
     func resetCount() {
         countDown = 3
         eachQuizWordNumber = 0
@@ -187,7 +187,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 次の問題出題前にリセット
+    /// 次の問題出題前にリセット
     func resetQuiz() {
         isShowDescriptionModalView = false
         isShowAnswerView = false
@@ -199,11 +199,26 @@ final class QuizManager: ObservableObject {
         correctAnswer = []
     }
 
-    // レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
+    /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
     func isLevelCompleted(level: String) -> Bool {
         UserDefaults.standard.bool(forKey: "\(level)Completed")
     }
 
+    /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
+    func checkIfUserAchievedPerfect() {
+        // 全問正解且つヒントを見ないでクリアしたら王冠をつける
+        if (quizData.allQuizContents.count == correctCount) && !isShowHint {
+            isShowPerfectAnimation = true
+            UserDefaults.standard.set(true, forKey: "\(quizLevelTitle)Completed")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                withAnimation {
+                    self.isShowPerfectAnimation = false
+                }
+            }
+        }
+    }
+
+    /// シェア用のハーフモーダルView表示
     func shareApp(shareText: String) {
         let image = takeAllScreenShot()
         let items = [shareText, image] as [Any]
@@ -213,7 +228,7 @@ final class QuizManager: ObservableObject {
         rootViewController?.present(activityViewController, animated: true)
     }
 
-    // 全てリセット
+    /// 全てリセット
     func resetAllQuiz() {
         countDownTimer?.invalidate()
         countDownTimer = nil

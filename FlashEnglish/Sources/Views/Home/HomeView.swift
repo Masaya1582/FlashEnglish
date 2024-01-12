@@ -11,6 +11,7 @@ struct HomeView: View {
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
+    @Binding var presentSideMenu: Bool
     private let levelItem: [LevelItem] = [
         LevelItem(image: Asset.Assets.imgJuniorHighSchool.swiftUIImage, title: "中学生レベル", levelCase: .juniorHighSchool),
         LevelItem(image: Asset.Assets.imgHighSchool.swiftUIImage, title: "高校生レベル", levelCase: .highSchool),
@@ -23,7 +24,6 @@ struct HomeView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
-    @Binding var presentSideMenu: Bool
 
     // MARK: - Body
     var body: some View {
@@ -46,7 +46,7 @@ struct HomeView: View {
                     }
                 }
                 .navigationBarItems(
-                    leading: // 左側
+                    leading:
                     Button {
                         presentSideMenu.toggle()
                     } label: {

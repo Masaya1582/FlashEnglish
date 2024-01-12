@@ -10,14 +10,15 @@ import SwiftUI
 import SafariServices
 
 struct SafariView: View {
+    // MARK: - Properties
     let url: URL
     let onDismiss: (() -> Void)?
 
+    // MARK: - Body
     var body: some View {
         SafeAreaSafariView(url: url, onDismiss: onDismiss)
             .ignoresSafeArea()
     }
-
 }
 
 private struct SafeAreaSafariView: UIViewControllerRepresentable {
@@ -31,8 +32,7 @@ private struct SafeAreaSafariView: UIViewControllerRepresentable {
         return safariViewController
     }
 
-    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafeAreaSafariView>) {
-    }
+    func updateUIViewController(_ uiViewController: SFSafariViewController, context: UIViewControllerRepresentableContext<SafeAreaSafariView>) {}
 
     func makeCoordinator() -> Coordinator {
         return Coordinator(onDismiss: onDismiss)

@@ -10,9 +10,11 @@ import SwiftUI
 
 /// 各タブアイテムのView
 struct TabItemView: View {
+    // MARK: - Properties
     @Binding var presentSideMenu: Bool
     let title: String
 
+    // MARK: - Body
     var body: some View {
         VStack {
             HStack {

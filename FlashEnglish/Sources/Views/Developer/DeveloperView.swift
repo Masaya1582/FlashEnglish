@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct DeveloperView: View {
+    // MARK: - Properties
     @State private var isShowWebView = false
     @Binding var presentSideMenu: Bool
     private let iconItemArray: [Icon] = [
@@ -18,6 +19,7 @@ struct DeveloperView: View {
         Icon(image: Asset.Assets.imgGithub.swiftUIImage, url: URL(string: "https://github.com/Masaya1582"))
     ]
 
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {

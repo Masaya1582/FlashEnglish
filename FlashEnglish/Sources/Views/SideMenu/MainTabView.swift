@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct MainTabView: View {
+    // MARK: - Properties
     @State var presentSideMenu = false
     @State var selectedSideMenuTab = 0
 
+    // MARK: - Body
     var body: some View {
         ZStack {
             TabView(selection: $selectedSideMenuTab) {
@@ -25,6 +27,7 @@ struct MainTabView: View {
     }
 }
 
+// MARK: - Preview
 struct MainTabView_Previews: PreviewProvider {
     static var previews: some View {
         MainTabView()
