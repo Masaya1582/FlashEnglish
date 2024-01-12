@@ -67,6 +67,10 @@ struct QuizDetailView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
                     .padding()
             }
+            Text("フラッシュ表示間隔: \(quizManager.flashCountInterval, specifier: "%.1f")秒毎に表示")
+                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+            Slider(value: $quizManager.flashCountInterval, in: 0.1...1, step: 0.1)
+                .padding()
             Button {
                 navigationManager.navigationPath.append(.quizView)
             } label: {

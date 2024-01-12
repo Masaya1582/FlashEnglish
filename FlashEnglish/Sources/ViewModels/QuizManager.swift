@@ -36,6 +36,7 @@ final class QuizManager: ObservableObject {
     @Published var correctCount = 0
     @Published var countDown = 3
     @Published var tryAgainRemainCount = 2
+    @Published var flashCountInterval = 0.3
     @Published var userAnswerInputs = ""
     @Published var formattedCorrectAnswer = ""
     @Published var quizLevelTitle = ""
@@ -146,7 +147,7 @@ final class QuizManager: ObservableObject {
     /// 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
         if countDownTimer == nil {
-            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
+            quizTimer = Timer.scheduledTimer(withTimeInterval: flashCountInterval, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
                 if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
                     self.eachQuizWordNumber += 1
@@ -239,6 +240,7 @@ final class QuizManager: ObservableObject {
         correctCount = 0
         countDown = 3
         tryAgainRemainCount = 2
+        flashCountInterval = 0.3
         userAnswerInputs = ""
         formattedCorrectAnswer = ""
         quizLevelTitle = ""
