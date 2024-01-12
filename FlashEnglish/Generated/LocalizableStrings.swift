@@ -13,6 +13,9 @@ internal enum L10n {
   /// ホーム画面に戻りますがよろしいですか？
   /// *クイズデータは破棄されます
   internal static let alertDetail = L10n.tr("Localizable", "alert_detail", fallback: "ホーム画面に戻りますがよろしいですか？\n*クイズデータは破棄されます")
+  /// ピヨピヨエンジニアです、アプリ開発に出会って物作りの楽しさに目覚めました。
+  /// SNSやブログもお時間あればぜひご覧ください
+  internal static let developerDescription = L10n.tr("Localizable", "developer_description", fallback: "ピヨピヨエンジニアです、アプリ開発に出会って物作りの楽しさに目覚めました。\nSNSやブログもお時間あればぜひご覧ください")
   /// lottie_correct
   internal static let lottieCorrect = L10n.tr("Localizable", "lottie_correct", fallback: "lottie_correct")
   /// lottie_incorrect

@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import GoogleMobileAds
 
 struct ScoreView: View {
     // MARK: - Properties
@@ -18,65 +17,68 @@ struct ScoreView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    Text("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解")
-                        .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
-                    Spacer()
-                    levelCircleView()
-                    Spacer().frame(height: 12)
-                    Button(action: {
-                        withAnimation {
-                            quizManager.isShowAllQuizData.toggle()
-                        }
-                    }) {
-                        HStack {
-                            Text(quizManager.isShowAllQuizData ? "閉じる" : "問題一覧を見る")
-                            Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
-                        }
-                        .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
-                    }
-                    if quizManager.isShowAllQuizData {
-                        List(quizManager.quizDataForScoreView, id: \.self) { quizContent in
-                            Text(quizContent)
-                                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
-                        }
-                        .listStyle(.inset)
-                    }
-                    if !quizManager.isShowAllQuizData {
-                        Button {
-                            quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
-                        } label: {
-                            Text("シェアする")
-                                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
-                        }
-                        Button {
-                            quizManager.resetAllQuiz()
-                            navigationManager.path.removeAll()
-                        } label: {
-                            Text("ホームに戻る")
-                                .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
-                        }
-                    }
-                    Spacer()
-                    AdMobBannerView()
-                        .frame(maxWidth: .infinity)
-                        .frame(height: UIScreen.main.bounds.height / 12)
+                    topField
+                    bottomField
                 }
                 quizManager.isShowPerfectAnimation ? LottieView(lottieFile: L10n.lottiePerfect) : nil
             }
             .onAppear {
-                // 全問正解且つヒントを見ないでクリアしたら王冠をつける
-                if (quizManager.quizData.allQuizContents.count == quizManager.correctCount) && !quizManager.isShowHint {
-                    quizManager.isShowPerfectAnimation = true
-                    UserDefaults.standard.set(true, forKey: "\(quizManager.quizLevelTitle)Completed")
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
-                        withAnimation {
-                            quizManager.isShowPerfectAnimation = false
-                        }
-                    }
-                }
+                quizManager.checkIfUserAchievedPerfect()
             }
         }
         .navigationBarBackButtonHidden()
+    }
+
+    var topField: some View {
+        VStack {
+            Text("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解")
+                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
+            Spacer()
+            levelCircleView()
+            Spacer().frame(height: 12)
+        }
+    }
+
+    var bottomField: some View {
+        VStack {
+            Button {
+                withAnimation {
+                    quizManager.isShowAllQuizData.toggle()
+                }
+            } label: {
+                HStack {
+                    Text(quizManager.isShowAllQuizData ? "閉じる" : "問題一覧を見る")
+                    Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
+                }
+                .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
+            }
+            if quizManager.isShowAllQuizData {
+                List(quizManager.quizDataForScoreView, id: \.self) { quizContent in
+                    Text(quizContent)
+                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
+                }
+                .listStyle(.inset)
+            }
+            if !quizManager.isShowAllQuizData {
+                Button {
+                    quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
+                } label: {
+                    Text("シェアする")
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
+                }
+                Button {
+                    quizManager.resetAllQuiz()
+                    navigationManager.navigationPath.removeAll()
+                } label: {
+                    Text("ホームに戻る")
+                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
+                }
+            }
+            Spacer()
+            AdMobBannerView()
+                .frame(maxWidth: .infinity)
+                .frame(height: UIScreen.main.bounds.height / 12)
+        }
     }
 
     @ViewBuilder

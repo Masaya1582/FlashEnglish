@@ -9,15 +9,17 @@
 import SwiftUI
 
 struct DeveloperView: View {
+    // MARK: - Properties
     @State private var isShowWebView = false
     @Binding var presentSideMenu: Bool
-    private let iconArray: [IconImage] = [
-        IconImage(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
-        IconImage(image: Asset.Assets.imgInstagram.swiftUIImage, url: URL(string: "https://www.instagram.com/cookie_ios_developer/")),
-        IconImage(image: Asset.Assets.imgBlog.swiftUIImage, url: URL(string: "https://masasophi.com/")),
-        IconImage(image: Asset.Assets.imgGithub.swiftUIImage, url: URL(string: "https://github.com/Masaya1582"))
+    private let iconItemArray: [Icon] = [
+        Icon(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
+        Icon(image: Asset.Assets.imgInstagram.swiftUIImage, url: URL(string: "https://www.instagram.com/cookie_ios_developer/")),
+        Icon(image: Asset.Assets.imgBlog.swiftUIImage, url: URL(string: "https://masasophi.com/")),
+        Icon(image: Asset.Assets.imgGithub.swiftUIImage, url: URL(string: "https://github.com/Masaya1582"))
     ]
 
+    // MARK: - Body
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
@@ -28,11 +30,11 @@ struct DeveloperView: View {
                     .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
                 Text("iOSエンジニア")
                     .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.semiBold))
-                Text("ピヨピヨエンジニアです、アプリ開発に出会って物作りの楽しさに目覚めました。\nSNSやブログもお時間あればぜひご覧ください")
+                Text(L10n.developerDescription)
                     .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSans.regular))
                     .padding()
                 HStack(spacing: 24) {
-                    ForEach(iconArray) { icon in
+                    ForEach(iconItemArray) { icon in
                         Button {
                             // FIXME: SafariViewを使いたい
                             guard let url = icon.url else { return }

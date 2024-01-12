@@ -14,7 +14,7 @@ struct AnswerDetailView: View {
 
     // MARK: - Body
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 modalView
             }
@@ -68,12 +68,12 @@ struct AnswerDetailView: View {
         VStack {
             Button {
                 if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
-                    navigationManager.path.append(.scoreView)
+                    navigationManager.navigationPath.append(.scoreView)
                 } else {
                     quizManager.isTryNextQuiz = true
                     quizManager.isSetNextQuiz = true
                     quizManager.resetQuiz()
-                    navigationManager.path.append(.quizView)
+                    navigationManager.navigationPath.append(.quizView)
                 }
             } label: {
                 Text(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
@@ -88,7 +88,7 @@ struct AnswerDetailView: View {
                     message: Text(L10n.alertDetail),
                     primaryButton: .destructive(Text("ホームに戻る")) {
                         quizManager.resetAllQuiz()
-                        navigationManager.path.removeAll()
+                        navigationManager.navigationPath.removeAll()
                     },
                     secondaryButton: .cancel()
                 )

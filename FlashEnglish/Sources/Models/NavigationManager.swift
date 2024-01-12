@@ -17,5 +17,5 @@ enum ViewType: Hashable {
 }
 
 final class NavigationManager: ObservableObject {
-    @Published var path: [ViewType] = []
+    @Published var navigationPath: [ViewType] = []
 }

@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/05.
-//  
+//
 
 import SwiftUI
 
@@ -29,6 +29,8 @@ enum QuizLevel: String, CaseIterable {
 
 final class QuizManager: ObservableObject {
     // MARK: - Properties
+    @Published var countDownTimer: Timer?
+    @Published var quizTimer: Timer?
     @Published var quizNumber = 0
     @Published var eachQuizWordNumber = 0
     @Published var correctCount = 0
@@ -42,16 +44,16 @@ final class QuizManager: ObservableObject {
     @Published var isShowAnswerView = false
     @Published var isShowDescriptionModalView = false
     @Published var isShowScoreView = false
-    @Published var isSetNextQuiz = false
-    @Published var isTryAgainTriggered = false
-    @Published var isTryNextQuiz = false
-    @Published var isAnswerCorrect = false
     @Published var isShowAnswerResultAnimation = false
     @Published var isShowPerfectAnimation = false
     @Published var isShowAlertView = false
     @Published var isShowHint = false
-    @Published var isFlipHint = false
     @Published var isShowAllQuizData = false
+    @Published var isSetNextQuiz = false
+    @Published var isTryAgainTriggered = false
+    @Published var isTryNextQuiz = false
+    @Published var isAnswerCorrect = false
+    @Published var isFlipHint = false
     @Published var isQuizDataShuffled = false
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
@@ -59,21 +61,48 @@ final class QuizManager: ObservableObject {
     @Published var userAnswer: [String] = []
     @Published var correctAnswer: [String] = []
     @Published var quizDataForScoreView: [String] = []
-    @Published var countDownTimer: Timer?
-    @Published var quizTimer: Timer?
     @Published var quizLevel: QuizLevel?
     @Published var quizData = QuizData()
 
     // MARK: - Functions
+    /// SNSでのシェア用に画面のスクショを撮る
+    private func takeAllScreenShot() -> UIImage? {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
+            return nil
+        }
+        let size = window.bounds.size
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        window.drawHierarchy(in: window.bounds, afterScreenUpdates: true)
+        let screenShotImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return screenShotImage
+    }
+
+    /// CSVファイルの読み込み
+    private func loadCSV(with name: String) -> [String] {
+        guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
+            fatalError("CSV not found")
+        }
+        var csvDataArray: [String] = []
+        do {
+            let csvData = try String(contentsOfFile: csvBundle, encoding: .utf8)
+            csvDataArray = csvData.components(separatedBy: "\n")
+            csvDataArray.removeLast()
+        } catch {
+            print("Error: \(error.localizedDescription)")
+        }
+        return csvDataArray
+    }
+
+    /// クイズデータをCSVから持ってくる
     func loadQuizData(quizLevel: QuizLevel) {
         quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         quizLevelTitle = quizLevel.quizLevelTitle
     }
 
     func setQuizData() {
-        if isSetNextQuiz {
-            quizNumber += 1
-        }
+        isSetNextQuiz ? quizNumber += 1 : nil
         // ScoreView用に元のクイズデータを保管しておく
         if !isSetNextQuiz {
             for quizContent in quizData.allQuizContents {
@@ -92,15 +121,16 @@ final class QuizManager: ObservableObject {
         print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
-    // TryAgain用
+    /// TryAgain用
     func resetAndRestartQuiz() {
         productionQuizContentArray = quizContentForTryAgain
     }
 
-    // カウントダウンタイマー
+    /// カウントダウンタイマー
     func startTimerForCountDown() {
         if countDownTimer == nil {
-            countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            countDownTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
                 if self.countDown > 0 {
                     self.countDown -= 1
                     if self.countDown == 0 {
@@ -113,10 +143,11 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 英単語フラッシュ表示用タイマー
+    /// 英単語フラッシュ表示用タイマー
     func startTimerForQuiz() {
         if countDownTimer == nil {
-            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { _ in
+            quizTimer = Timer.scheduledTimer(withTimeInterval: 0.3, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
                 if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
                     self.eachQuizWordNumber += 1
                 } else {
@@ -129,12 +160,11 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 正誤判定
+    /// 正誤判定
     func judgeAnswer() {
         userAnswer = userAnswerInputs.components(separatedBy: " ")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
             .filter { !$0.isEmpty }
-        print("User Answer: \(userAnswer)")
         isShowAnswerResultAnimation = true
         if userAnswer == correctAnswer {
             isAnswerCorrect = true
@@ -146,7 +176,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // カウントリセット
+    /// カウントリセット
     func resetCount() {
         countDown = 3
         eachQuizWordNumber = 0
@@ -157,7 +187,7 @@ final class QuizManager: ObservableObject {
         }
     }
 
-    // 次の問題用にリセット
+    /// 次の問題出題前にリセット
     func resetQuiz() {
         isShowDescriptionModalView = false
         isShowAnswerView = false
@@ -169,8 +199,41 @@ final class QuizManager: ObservableObject {
         correctAnswer = []
     }
 
-    // 全てリセット
+    /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
+    func isLevelCompleted(level: String) -> Bool {
+        UserDefaults.standard.bool(forKey: "\(level)Completed")
+    }
+
+    /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
+    func checkIfUserAchievedPerfect() {
+        // 全問正解且つヒントを見ないでクリアしたら王冠をつける
+        if (quizData.allQuizContents.count == correctCount) && !isShowHint {
+            isShowPerfectAnimation = true
+            UserDefaults.standard.set(true, forKey: "\(quizLevelTitle)Completed")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
+                withAnimation {
+                    self.isShowPerfectAnimation = false
+                }
+            }
+        }
+    }
+
+    /// シェア用のハーフモーダルView表示
+    func shareApp(shareText: String) {
+        let image = takeAllScreenShot()
+        let items = [shareText, image] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
+        let rootViewController = windowscene?.windows.first?.rootViewController
+        rootViewController?.present(activityViewController, animated: true)
+    }
+
+    /// 全てリセット
     func resetAllQuiz() {
+        countDownTimer?.invalidate()
+        countDownTimer = nil
+        quizTimer?.invalidate()
+        quizTimer = nil
         quizNumber = 0
         eachQuizWordNumber = 0
         correctCount = 0
@@ -184,16 +247,16 @@ final class QuizManager: ObservableObject {
         isShowAnswerView = false
         isShowDescriptionModalView = false
         isShowScoreView = false
+        isShowAnswerResultAnimation = false
+        isShowPerfectAnimation = false
+        isShowAlertView = false
+        isShowHint = false
+        isShowAllQuizData = false
         isSetNextQuiz = false
         isTryAgainTriggered = false
         isTryNextQuiz = false
         isAnswerCorrect = false
-        isShowAnswerResultAnimation = false
-        isShowAlertView = false
-        isShowHint = false
         isFlipHint = false
-        isShowPerfectAnimation = false
-        isShowAllQuizData = false
         isQuizDataShuffled = false
         formattedQuizArray = []
         productionQuizContentArray = []
@@ -201,52 +264,8 @@ final class QuizManager: ObservableObject {
         userAnswer = []
         correctAnswer = []
         quizDataForScoreView = []
-        countDownTimer?.invalidate()
-        quizTimer?.invalidate()
-        countDownTimer = nil
-        quizTimer = nil
         quizLevel = nil
         quizData = QuizData()
     }
 
-    func isLevelCompleted(level: String) -> Bool {
-        UserDefaults.standard.bool(forKey: "\(level)Completed")
-    }
-
-    private func takeAllScreenShot() -> UIImage {
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        let size = window?.bounds.size ?? UIScreen.main.bounds.size
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
-        window?.drawHierarchy(in: window?.bounds ?? .zero, afterScreenUpdates: true)
-        guard let screenShotImage = UIGraphicsGetImageFromCurrentImageContext() else {
-            fatalError("スクショ取得失敗")
-        }
-        UIGraphicsEndImageContext()
-        return screenShotImage
-    }
-
-    func shareApp(shareText: String) {
-        let image = takeAllScreenShot()
-        let items = [shareText, image] as [Any]
-        let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
-        let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
-        let rootViewController = windowscene?.windows.first?.rootViewController
-        rootViewController?.present(activityViewController, animated: true)
-    }
-
-    // CSVファイルの読み込み
-    private func loadCSV(with name: String) -> [String] {
-        guard let csvBundle = Bundle.main.path(forResource: name, ofType: "csv") else {
-            fatalError("CSV not found")
-        }
-        var csvDataArray: [String] = []
-        do {
-            let csvData = try String(contentsOfFile: csvBundle, encoding: .utf8)
-            csvDataArray = csvData.components(separatedBy: "\n")
-            csvDataArray.removeLast()
-        } catch {
-            print("Error: \(error.localizedDescription)")
-        }
-        return csvDataArray
-    }
 }

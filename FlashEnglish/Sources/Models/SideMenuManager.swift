@@ -6,7 +6,6 @@
 //  Copyright (c) 2024 ReNKCHANNEL. All rihgts reserved.
 //
 
-import Foundation
 import SwiftUI
 
 enum SideMenuManager: Int, CaseIterable {
@@ -32,7 +31,7 @@ enum SideMenuManager: Int, CaseIterable {
     }
 }
 
-struct IconImage: Identifiable {
+struct Icon: Identifiable {
     let id = UUID()
     let image: Image
     let url: URL?

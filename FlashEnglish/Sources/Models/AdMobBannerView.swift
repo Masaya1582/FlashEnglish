@@ -20,6 +20,5 @@ struct AdMobBannerView: UIViewRepresentable {
         return bannerView
     }
 
-    func updateUIView(_ uiView: GADBannerView, context: Context) {
-    }
+    func updateUIView(_ uiView: GADBannerView, context: Context) {}
 }

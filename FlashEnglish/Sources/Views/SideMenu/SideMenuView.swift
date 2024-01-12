@@ -9,9 +9,11 @@
 import SwiftUI
 
 struct SideMenuView: View {
+    // MARK: - Properties
     @Binding var selectedSideMenuTab: Int
     @Binding var presentSideMenu: Bool
 
+    // MARK: - Body
     var body: some View {
         HStack {
             ZStack {
@@ -96,6 +98,7 @@ struct SideMenuView: View {
 
 }
 
+// MARK: - Preview
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
         SideMenuView(selectedSideMenuTab: .constant(0), presentSideMenu: .constant(false))

@@ -32,7 +32,7 @@ struct AnswerView: View {
                                 message: Text(L10n.alertDetail),
                                 primaryButton: .destructive(Text("ホームに戻る")) {
                                     quizManager.resetAllQuiz()
-                                    navigationManager.path.removeAll()
+                                    navigationManager.navigationPath.removeAll()
                                 },
                                 secondaryButton: .cancel()
                             )
@@ -40,11 +40,7 @@ struct AnswerView: View {
                 }
                 .padding(.horizontal, 12)
                 if quizManager.isShowAnswerResultAnimation {
-                    if quizManager.isAnswerCorrect {
-                        LottieView(lottieFile: L10n.lottieCorrect)
-                    } else {
-                        LottieView(lottieFile: L10n.lottieIncorrect)
-                    }
+                    LottieView(lottieFile: quizManager.isAnswerCorrect ? L10n.lottieCorrect : L10n.lottieIncorrect)
                 }
             }
         }
@@ -77,11 +73,11 @@ struct AnswerView: View {
             .modifier(CustomTextField())
         // ヒント
         if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 && quizManager.isQuizDataShuffled {
-            Button(action: {
+            Button {
                 withAnimation {
                     quizManager.isFlipHint.toggle()
                 }
-            }) {
+            } label: {
                 HStack {
                     Text(quizManager.isFlipHint ? "閉じる" : "ヒントを見る(並び替える前の単語がみれます)")
                     Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
@@ -109,7 +105,7 @@ struct AnswerView: View {
             quizManager.isTryAgainTriggered = true
             quizManager.isShowAnswerView = false
             quizManager.tryAgainRemainCount -= 1
-            navigationManager.path.removeLast()
+            navigationManager.navigationPath.removeLast()
         }
         .disabled(quizManager.tryAgainRemainCount < 1)
         Button("ホームに戻る") {

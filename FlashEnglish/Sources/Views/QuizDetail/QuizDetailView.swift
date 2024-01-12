@@ -14,7 +14,7 @@ struct QuizDetailView: View {
 
     // MARK: - Body
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 quizDetailDescription
                 quizButton
@@ -68,14 +68,14 @@ struct QuizDetailView: View {
                     .padding()
             }
             Button {
-                navigationManager.path.append(.quizView)
+                navigationManager.navigationPath.append(.quizView)
             } label: {
                 Text("始める")
                     .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
             }
             Button("ホームに戻る") {
                 quizManager.resetAllQuiz()
-                navigationManager.path.removeAll()
+                navigationManager.navigationPath.removeAll()
             }
             Spacer()
             AdMobBannerView()

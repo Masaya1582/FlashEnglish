@@ -15,7 +15,7 @@ struct QuizView: View {
 
     // MARK: - Body
     var body: some View {
-        NavigationStack(path: $navigationManager.path) {
+        NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 Text("Question \(quizManager.quizNumber + 1)")
                     .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
@@ -45,9 +45,11 @@ struct QuizView: View {
             }
             .onAppear {
                 if !isViewAppeared {
+                    // 次の問題を表示
                     if !quizManager.isTryAgainTriggered {
                         quizManager.setQuizData()
                     }
+                    // 同じ問題を表示
                     if quizManager.isTryAgainTriggered {
                         quizManager.resetAndRestartQuiz()
                     }
@@ -60,9 +62,7 @@ struct QuizView: View {
                 isViewAppeared = false
             }
             .onChange(of: quizManager.isShowAnswerView) { isShowAnswerView in
-                if isShowAnswerView {
-                    navigationManager.path.append(.answerView)
-                }
+                isShowAnswerView ? navigationManager.navigationPath.append(.answerView) : nil
             }
         }
         .navigationBarBackButtonHidden()
