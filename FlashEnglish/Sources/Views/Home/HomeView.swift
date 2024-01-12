@@ -29,6 +29,14 @@ struct HomeView: View {
     var body: some View {
         NavigationStack(path: $navigationManager.navigationPath) {
             homeDescription
+                .gesture(
+                    DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                        .onEnded { value in
+                            if value.translation.width > 0 && value.translation.height < value.translation.width {
+                                presentSideMenu.toggle()
+                            }
+                        }
+                )
                 .navigationDestination(for: ViewType.self) { viewType in
                     switch viewType {
                     case .homeView:

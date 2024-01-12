@@ -47,6 +47,14 @@ struct DeveloperView: View {
                     }
                 }
             }
+            .gesture(
+                DragGesture(minimumDistance: 50, coordinateSpace: .local)
+                    .onEnded { value in
+                        if value.translation.width > 0 && value.translation.height < value.translation.width {
+                            presentSideMenu.toggle()
+                        }
+                    }
+            )
             .navigationBarItems(
                 leading:
                     Button {
