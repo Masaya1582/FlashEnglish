@@ -29,6 +29,8 @@ enum QuizLevel: String, CaseIterable {
 
 final class QuizManager: ObservableObject {
     // MARK: - Properties
+    @Published var countDownTimer: Timer?
+    @Published var quizTimer: Timer?
     @Published var quizNumber = 0
     @Published var eachQuizWordNumber = 0
     @Published var correctCount = 0
@@ -42,16 +44,16 @@ final class QuizManager: ObservableObject {
     @Published var isShowAnswerView = false
     @Published var isShowDescriptionModalView = false
     @Published var isShowScoreView = false
-    @Published var isSetNextQuiz = false
-    @Published var isTryAgainTriggered = false
-    @Published var isTryNextQuiz = false
-    @Published var isAnswerCorrect = false
     @Published var isShowAnswerResultAnimation = false
     @Published var isShowPerfectAnimation = false
     @Published var isShowAlertView = false
     @Published var isShowHint = false
-    @Published var isFlipHint = false
     @Published var isShowAllQuizData = false
+    @Published var isSetNextQuiz = false
+    @Published var isTryAgainTriggered = false
+    @Published var isTryNextQuiz = false
+    @Published var isAnswerCorrect = false
+    @Published var isFlipHint = false
     @Published var isQuizDataShuffled = false
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
@@ -59,8 +61,6 @@ final class QuizManager: ObservableObject {
     @Published var userAnswer: [String] = []
     @Published var correctAnswer: [String] = []
     @Published var quizDataForScoreView: [String] = []
-    @Published var countDownTimer: Timer?
-    @Published var quizTimer: Timer?
     @Published var quizLevel: QuizLevel?
     @Published var quizData = QuizData()
 
@@ -171,6 +171,10 @@ final class QuizManager: ObservableObject {
 
     // 全てリセット
     func resetAllQuiz() {
+        countDownTimer?.invalidate()
+        countDownTimer = nil
+        quizTimer?.invalidate()
+        quizTimer = nil
         quizNumber = 0
         eachQuizWordNumber = 0
         correctCount = 0
@@ -184,16 +188,16 @@ final class QuizManager: ObservableObject {
         isShowAnswerView = false
         isShowDescriptionModalView = false
         isShowScoreView = false
+        isShowAnswerResultAnimation = false
+        isShowPerfectAnimation = false
+        isShowAlertView = false
+        isShowHint = false
+        isShowAllQuizData = false
         isSetNextQuiz = false
         isTryAgainTriggered = false
         isTryNextQuiz = false
         isAnswerCorrect = false
-        isShowAnswerResultAnimation = false
-        isShowAlertView = false
-        isShowHint = false
         isFlipHint = false
-        isShowPerfectAnimation = false
-        isShowAllQuizData = false
         isQuizDataShuffled = false
         formattedQuizArray = []
         productionQuizContentArray = []
@@ -201,10 +205,6 @@ final class QuizManager: ObservableObject {
         userAnswer = []
         correctAnswer = []
         quizDataForScoreView = []
-        countDownTimer?.invalidate()
-        quizTimer?.invalidate()
-        countDownTimer = nil
-        quizTimer = nil
         quizLevel = nil
         quizData = QuizData()
     }
