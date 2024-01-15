@@ -41,11 +41,6 @@ internal enum Asset {
     internal static let imgProfile = ImageAsset(name: "img_profile")
   }
   internal enum Colors {
-    internal static let alertRed = ColorAsset(name: "alert_red")
-    internal static let black = ColorAsset(name: "black")
-    internal static let blue = ColorAsset(name: "blue")
-    internal static let buttonColor = ColorAsset(name: "button_color")
-    internal static let descriptionBackground = ColorAsset(name: "description_background")
     internal static let gray1 = ColorAsset(name: "gray1")
     internal static let gray2 = ColorAsset(name: "gray2")
     internal static let gray3 = ColorAsset(name: "gray3")
@@ -55,6 +50,11 @@ internal enum Asset {
     internal static let gray7 = ColorAsset(name: "gray7")
     internal static let gray8 = ColorAsset(name: "gray8")
     internal static let gray9 = ColorAsset(name: "gray9")
+    internal static let alertRed = ColorAsset(name: "alert_red")
+    internal static let black = ColorAsset(name: "black")
+    internal static let blue = ColorAsset(name: "blue")
+    internal static let buttonColor = ColorAsset(name: "button_color")
+    internal static let descriptionBackground = ColorAsset(name: "description_background")
     internal static let ivory = ColorAsset(name: "ivory")
     internal static let white = ColorAsset(name: "white")
   }
