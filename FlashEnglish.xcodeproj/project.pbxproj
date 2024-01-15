@@ -225,6 +225,16 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		1E994C2E2B54D20100DBFC94 /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				1E1BB19A2B494A6300E0A468 /* lottie_correct.json */,
+				1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */,
+				1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */,
+			);
+			path = Lottie;
+			sourceTree = "<group>";
+		};
 		400A9C032B467BA60086914E = {
 			isa = PBXGroup;
 			children = (
@@ -269,9 +279,7 @@
 				400A9C132B467BA70086914E /* Assets.xcassets */,
 				400A9C202B467D710086914E /* Colors.xcassets */,
 				400A9C222B467D860086914E /* Localizable.strings */,
-				1E1BB19A2B494A6300E0A468 /* lottie_correct.json */,
-				1E1BB1992B494A6300E0A468 /* lottie_incorrect.json */,
-				1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */,
+				1E994C2E2B54D20100DBFC94 /* Lottie */,
 				1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */,
 				400A9C242B467D980086914E /* Fonts */,
 			);
