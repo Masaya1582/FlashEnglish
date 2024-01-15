@@ -142,7 +142,6 @@
 			children = (
 				1E1BB1702B47FCBF00E0A468 /* QuizData.swift */,
 				1E1BB1802B48F6D400E0A468 /* NavigationManager.swift */,
-				1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */,
 				1E046D742B4E4EB70016C390 /* SideMenuManager.swift */,
 			);
 			path = Models;
@@ -328,20 +327,21 @@
 				1E046D7F2B4E512C0016C390 /* Developer */,
 				1E046D822B4E5F360016C390 /* Safari */,
 				1E046D762B4E4EF10016C390 /* SideMenu */,
-				400A9C342B4682F00086914E /* View Modifiers */,
+				400A9C342B4682F00086914E /* CustomViews */,
 				1E1BB1A72B4A897100E0A468 /* LaunchScreen */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		400A9C342B4682F00086914E /* View Modifiers */ = {
+		400A9C342B4682F00086914E /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */,
 				400A9C352B46830E0086914E /* CustomViewComponents.swift */,
 				1E1BB1862B49349200E0A468 /* QuizLevelGridItem.swift */,
 				1E1BB1972B4949F700E0A468 /* LottieView.swift */,
 			);
-			path = "View Modifiers";
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
 		5644C387C454A9AA54646018 /* Pods */ = {

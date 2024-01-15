@@ -20,7 +20,7 @@ enum SideMenuManager: Int, CaseIterable {
         }
     }
 
-    var iconName: String {
+    var iconSystemName: String {
         switch self {
         case .home:
             return "house"

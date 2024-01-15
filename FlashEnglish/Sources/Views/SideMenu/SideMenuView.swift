@@ -24,7 +24,7 @@ struct SideMenuView: View {
                         .frame(height: 140)
                         .padding(.bottom, 30)
                     ForEach(SideMenuManager.allCases, id: \.self) { row in
-                        rowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconName, title: row.title) {
+                        rowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconSystemName, title: row.title) {
                             selectedSideMenuTab = row.rawValue
                             presentSideMenu.toggle()
                         }
@@ -42,6 +42,7 @@ struct SideMenuView: View {
         .background(.clear)
     }
 
+    @ViewBuilder
     private func profileImageView() -> some View {
         VStack(alignment: .center) {
             HStack {
@@ -67,6 +68,7 @@ struct SideMenuView: View {
         }
     }
 
+    @ViewBuilder
     private func rowView(isSelected: Bool, imageName: String, title: String, hideDivider: Bool = false, action: @escaping (() -> Void)) -> some View {
         Button {
             action()

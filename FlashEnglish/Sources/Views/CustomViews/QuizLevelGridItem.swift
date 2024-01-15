@@ -31,8 +31,7 @@ struct LevelGridItem: View {
                 )
 
             Text(levelItem.title)
-                .font(.headline)
-                .foregroundColor(.primary)
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
         }
         .onTapGesture {
             tapAction()
