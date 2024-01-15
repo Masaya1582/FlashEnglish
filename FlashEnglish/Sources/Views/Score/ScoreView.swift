@@ -31,7 +31,7 @@ struct ScoreView: View {
 
     var topField: some View {
         VStack {
-            Text("\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解")
+            Text("\(quizManager.correctCount)/\(quizManager.allQuizContents.count)問正解")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
             Spacer()
             levelCircleView()
@@ -61,7 +61,7 @@ struct ScoreView: View {
             }
             if !quizManager.isShowAllQuizData {
                 Button {
-                    quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.quizData.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
+                    quizManager.shareApp(shareText: "\(quizManager.correctCount)/\(quizManager.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                 } label: {
                     Text("シェアする")
                         .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.blue.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))

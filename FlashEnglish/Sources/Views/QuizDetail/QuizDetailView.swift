@@ -42,7 +42,7 @@ struct QuizDetailView: View {
 
     var quizDetailDescription: some View {
         VStack(alignment: .center) {
-            Text("\(quizManager.quizLevelTitle): \(quizManager.quizData.allQuizContents.count)問")
+            Text("\(quizManager.quizLevelTitle): \(quizManager.allQuizContents.count)問")
                 .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
             Text(L10n.mainDescription)
                 .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))

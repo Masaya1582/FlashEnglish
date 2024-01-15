@@ -56,6 +56,7 @@ final class QuizManager: ObservableObject {
     @Published var isAnswerCorrect = false
     @Published var isFlipHint = false
     @Published var isQuizDataShuffled = false
+    @Published var allQuizContents: [String] = []
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
     @Published var quizContentForTryAgain: [String] = []
@@ -63,7 +64,6 @@ final class QuizManager: ObservableObject {
     @Published var correctAnswer: [String] = []
     @Published var quizDataForScoreView: [String] = []
     @Published var quizLevel: QuizLevel?
-    @Published var quizData = QuizData()
 
     // MARK: - Functions
     /// SNSでのシェア用に画面のスクショを撮る
@@ -98,7 +98,7 @@ final class QuizManager: ObservableObject {
 
     /// クイズデータをCSVから持ってくる
     func loadQuizData(quizLevel: QuizLevel) {
-        quizData.allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
+        allQuizContents = loadCSV(with: quizLevel.rawValue).shuffled()
         quizLevelTitle = quizLevel.quizLevelTitle
     }
 
@@ -106,7 +106,7 @@ final class QuizManager: ObservableObject {
         isSetNextQuiz ? quizNumber += 1 : nil
         // ScoreView用に元のクイズデータを保管しておく
         if !isSetNextQuiz {
-            for quizContent in quizData.allQuizContents {
+            for quizContent in allQuizContents {
                 let formattedContentForScoreView = quizContent
                     .components(separatedBy: ",")
                     .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -114,12 +114,12 @@ final class QuizManager: ObservableObject {
                 quizDataForScoreView.append(formattedContentForScoreView)
             }
         }
-        formattedQuizArray = quizData.allQuizContents[quizNumber]
+        formattedQuizArray = allQuizContents[quizNumber]
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         productionQuizContentArray = formattedQuizArray
         isQuizDataShuffled ? productionQuizContentArray.shuffle() : nil
-        print("インデックス: \(quizNumber), 全データ: \(quizData.allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
+        print("インデックス: \(quizNumber), 全データ: \(allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
     /// TryAgain用
@@ -208,7 +208,7 @@ final class QuizManager: ObservableObject {
     /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
     func checkIfUserAchievedPerfect() {
         // 全問正解且つヒントを見ないでクリアしたら王冠をつける
-        if (quizData.allQuizContents.count == correctCount) && !isShowHint {
+        if (allQuizContents.count == correctCount) && !isShowHint {
             isShowPerfectAnimation = true
             UserDefaults.standard.set(true, forKey: "\(quizLevelTitle)Completed")
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.8) {
@@ -260,6 +260,7 @@ final class QuizManager: ObservableObject {
         isAnswerCorrect = false
         isFlipHint = false
         isQuizDataShuffled = false
+        allQuizContents = []
         formattedQuizArray = []
         productionQuizContentArray = []
         quizContentForTryAgain = []
@@ -267,7 +268,6 @@ final class QuizManager: ObservableObject {
         correctAnswer = []
         quizDataForScoreView = []
         quizLevel = nil
-        quizData = QuizData()
     }
 
 }

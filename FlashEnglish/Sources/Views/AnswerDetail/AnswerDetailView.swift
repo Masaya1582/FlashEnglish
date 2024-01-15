@@ -67,7 +67,7 @@ struct AnswerDetailView: View {
     private func nextQuizButton() -> some View {
         VStack {
             Button {
-                if quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 {
+                if quizManager.allQuizContents.count - quizManager.quizNumber == 1 {
                     navigationManager.navigationPath.append(.scoreView)
                 } else {
                     quizManager.isTryNextQuiz = true
@@ -76,8 +76,8 @@ struct AnswerDetailView: View {
                     navigationManager.navigationPath.append(.quizView)
                 }
             } label: {
-                Text(quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.quizData.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
+                Text(quizManager.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
+                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             }
             Button("ホームに戻る") {
                 quizManager.isShowAlertView = true
