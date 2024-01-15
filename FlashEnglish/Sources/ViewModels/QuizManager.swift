@@ -67,7 +67,7 @@ final class QuizManager: ObservableObject {
 
     // MARK: - Functions
     /// SNSでのシェア用に画面のスクショを撮る
-    private func takeAllScreenShot() -> UIImage? {
+    private func takeDisplayScreenShot() -> UIImage? {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first(where: { $0.isKeyWindow }) else {
             return nil
@@ -220,8 +220,8 @@ final class QuizManager: ObservableObject {
     }
 
     /// シェア用のハーフモーダルView表示
-    func shareApp(shareText: String) {
-        let image = takeAllScreenShot()
+    func shareApp(with shareText: String) {
+        guard let image = takeDisplayScreenShot() else { return }
         let items = [shareText, image] as [Any]
         let activityViewController = UIActivityViewController(activityItems: items, applicationActivities: nil)
         let windowscene = UIApplication.shared.connectedScenes.first as? UIWindowScene
