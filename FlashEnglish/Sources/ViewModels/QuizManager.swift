@@ -102,6 +102,7 @@ final class QuizManager: ObservableObject {
         quizLevelTitle = quizLevel.quizLevelTitle
     }
 
+    /// クイズデータの準備
     func setQuizData() {
         isSetNextQuiz ? quizNumber += 1 : nil
         // ScoreView用に元のクイズデータを保管しておく
