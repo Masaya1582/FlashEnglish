@@ -9,8 +9,8 @@ import SwiftUI
 
 struct MainTabView: View {
     // MARK: - Properties
-    @State var presentSideMenu = false
-    @State var selectedSideMenuTab = 0
+    @State private var presentSideMenu = false
+    @State private var selectedSideMenuTab = 0
 
     // MARK: - Body
     var body: some View {

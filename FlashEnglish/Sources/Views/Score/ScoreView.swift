@@ -17,8 +17,8 @@ struct ScoreView: View {
         NavigationView {
             ZStack {
                 VStack {
-                    topField
-                    bottomField
+                    topFieldView
+                    bottomFieldView
                 }
                 quizManager.isShowPerfectAnimation ? LottieView(lottieFile: L10n.lottiePerfect) : nil
             }
@@ -29,17 +29,17 @@ struct ScoreView: View {
         .navigationBarBackButtonHidden()
     }
 
-    var topField: some View {
+    private var topFieldView: some View {
         VStack {
             Text("\(quizManager.correctCount)/\(quizManager.allQuizContents.count)問正解")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.bold))
             Spacer()
             levelCircleView()
             Spacer().frame(height: 12)
         }
     }
 
-    var bottomField: some View {
+    private var bottomFieldView: some View {
         VStack {
             Button {
                 withAnimation {
@@ -50,12 +50,12 @@ struct ScoreView: View {
                     Text(quizManager.isShowAllQuizData ? "閉じる" : "問題一覧を見る")
                     Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
                 }
-                .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.blue.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.bold))
             }
             if quizManager.isShowAllQuizData {
                 List(quizManager.quizDataForScoreView, id: \.self) { quizContent in
                     Text(quizContent)
-                        .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
+                        .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.bold))
                 }
                 .listStyle(.inset)
             }
@@ -71,7 +71,7 @@ struct ScoreView: View {
                     navigationManager.navigationPath.removeAll()
                 } label: {
                     Text("ホームに戻る")
-                        .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
+                        .modifier(CustomButton(foregroundColor: Asset.Colors.white.swiftUIColor, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                 }
             }
             Spacer()

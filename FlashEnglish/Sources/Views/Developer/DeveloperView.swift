@@ -26,11 +26,11 @@ struct DeveloperView: View {
                     .resizable()
                     .modifier(CustomImage(width: 200, height: 200))
                 Text("Masaya Nakakuki")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
                 Text("iOSエンジニア")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.semiBold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.semiBold))
                 Text(L10n.developerDescription)
-                    .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSans.regular))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSans.regular))
                     .padding()
                 HStack(spacing: 24) {
                     ForEach(iconItemArray) { icon in
@@ -48,8 +48,8 @@ struct DeveloperView: View {
             }
             .gesture(
                 DragGesture(minimumDistance: 50, coordinateSpace: .local)
-                    .onEnded { value in
-                        if value.translation.width > 0 && value.translation.height < value.translation.width {
+                    .onEnded { dragValue in
+                        if dragValue.translation.width > 0 && dragValue.translation.height < dragValue.translation.width {
                             presentSideMenu.toggle()
                         }
                     }
@@ -60,7 +60,7 @@ struct DeveloperView: View {
                         presentSideMenu.toggle()
                     } label: {
                         Image(systemName: "list.bullet")
-                            .foregroundColor(.black)
+                            .foregroundColor(Asset.Colors.black.swiftUIColor)
                     }
             )
         }

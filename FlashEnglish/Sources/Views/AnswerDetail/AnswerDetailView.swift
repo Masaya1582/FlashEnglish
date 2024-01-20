@@ -49,12 +49,12 @@ struct AnswerDetailView: View {
         }
     }
 
-    var modalView: some View {
+    private var modalView: some View {
         VStack(spacing: 42) {
             Text(quizManager.isAnswerCorrect ? "正解!" : "不正解...")
-                .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 20, fontName: FontFamily.NotoSansJP.bold))
             Text(quizManager.formattedCorrectAnswer)
-                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.bold))
             nextQuizButton()
         }
         .frame(maxWidth: .infinity)
@@ -77,7 +77,7 @@ struct AnswerDetailView: View {
                 }
             } label: {
                 Text(quizManager.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: (quizManager.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
+                    .modifier(CustomButton(foregroundColor: Asset.Colors.white.swiftUIColor, backgroundColor: (quizManager.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             }
             Button("ホームに戻る") {
                 quizManager.isShowAlertView = true

@@ -37,8 +37,8 @@ struct LevelGridItem: View {
             tapAction()
         }
         .padding(16)
-        .background(Color.white)
+        .background(Asset.Colors.white.swiftUIColor)
         .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.2), radius: 8, x: 0, y: 4)
+        .shadow(color: Asset.Colors.black.swiftUIColor.opacity(0.2), radius: 8, x: 0, y: 4)
     }
 }

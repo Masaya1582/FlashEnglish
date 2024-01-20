@@ -23,13 +23,13 @@ struct TabItemView: View {
                     Image(systemName: "list.bullet")
                         .resizable()
                         .frame(width: 32, height: 32)
-                        .foregroundColor(.black)
+                        .foregroundColor(Asset.Colors.black.swiftUIColor)
                 }
                 Spacer()
             }
             Spacer()
             Text(title)
-                .font(.system(size: 32, weight: .medium))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.medium))
             Spacer()
         }
     }
