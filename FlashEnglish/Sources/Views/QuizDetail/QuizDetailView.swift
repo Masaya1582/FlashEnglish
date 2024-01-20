@@ -16,7 +16,7 @@ struct QuizDetailView: View {
     var body: some View {
         NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
-                quizDetailDescription
+                quizDescriptionView
                 quizButton
             }
             .padding(16)
@@ -40,12 +40,13 @@ struct QuizDetailView: View {
         .navigationBarBackButtonHidden()
     }
 
-    var quizDetailDescription: some View {
+    // クイズ詳細説明View
+    private var quizDescriptionView: some View {
         VStack(alignment: .center) {
             Text("\(quizManager.quizLevelTitle): \(quizManager.allQuizContents.count)問")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
             Text(L10n.mainDescription)
-                .modifier(CustomLabel(foregroundColor: .black, size: 20, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
             Text(L10n.subDescription)
@@ -59,14 +60,14 @@ struct QuizDetailView: View {
         .padding(.bottom, 20)
     }
 
-    var quizButton: some View {
+    private var quizButton: some View {
         VStack {
-            optionSetting
+            quizOptionSettingView
             Button {
                 navigationManager.navigationPath.append(.quizView)
             } label: {
                 Text("始める")
-                    .modifier(CustomButton(foregroundColor: .white, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
+                    .modifier(CustomButton(foregroundColor: Asset.Colors.white.swiftUIColor, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
             }
             Button("ホームに戻る") {
                 quizManager.resetAllQuiz()
@@ -79,16 +80,17 @@ struct QuizDetailView: View {
         }
     }
 
-    var optionSetting: some View {
+    // クイズオプション設定View
+    private var quizOptionSettingView: some View {
         VStack(alignment: .leading) {
             Toggle(isOn: $quizManager.isQuizDataShuffled) {
                 Text("単語をシャッフルして挑戦する")
                     .multilineTextAlignment(.center)
-                    .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
                     .padding()
             }
             Text("フラッシュ表示間隔: \(quizManager.flashCountInterval, specifier: "%.1f")秒毎に表示")
-                .modifier(CustomLabel(foregroundColor: .black, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
             Slider(value: $quizManager.flashCountInterval, in: 0.1...1, step: 0.1)
         }
         .padding(4)
