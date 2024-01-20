@@ -17,7 +17,7 @@ struct SideMenuView: View {
         HStack {
             ZStack {
                 Rectangle()
-                    .fill(.white)
+                    .fill(Asset.Colors.white.swiftUIColor)
                     .frame(width: 270)
                 VStack(alignment: .leading, spacing: 0) {
                     profileImageView()
@@ -34,7 +34,7 @@ struct SideMenuView: View {
                 .padding(.top, 100)
                 .frame(width: 270)
                 .background(
-                    Color.white
+                    Asset.Colors.white.swiftUIColor
                 )
             }
             Spacer()
@@ -60,11 +60,10 @@ struct SideMenuView: View {
             }
 
             Text("Masaya Nakakuki")
-                .modifier(CustomLabel(foregroundColor: .black, size: 18, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 18, fontName: FontFamily.NotoSans.bold))
 
             Text("iOSエンジニア")
-                .modifier(CustomLabel(foregroundColor: .black, size: 14, fontName: FontFamily.NotoSans.bold))
-                .foregroundColor(.black.opacity(0.5))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor.opacity(0.5), size: 14, fontName: FontFamily.NotoSans.bold))
         }
     }
 
@@ -76,13 +75,13 @@ struct SideMenuView: View {
             VStack(alignment: .leading) {
                 HStack(spacing: 20) {
                     Rectangle()
-                        .fill(isSelected ? Asset.Colors.buttonColor.swiftUIColor : .white)
+                        .fill(isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.white.swiftUIColor)
                         .frame(width: 5)
                     ZStack {
                         Image(systemName: imageName)
                             .resizable()
                             .renderingMode(.template)
-                            .foregroundColor(isSelected ? .black : .gray)
+                            .foregroundColor(isSelected ? Asset.Colors.black.swiftUIColor : Asset.Colors.gray4.swiftUIColor)
                             .frame(width: 24, height: 24)
                     }
                     Text(title)
@@ -93,7 +92,7 @@ struct SideMenuView: View {
         }
         .frame(height: UIScreen.main.bounds.height / 12)
         .background(
-            LinearGradient(colors: [isSelected ? Asset.Colors.buttonColor.swiftUIColor : .white, .white], startPoint: .leading, endPoint: .trailing)
+            LinearGradient(colors: [isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.white.swiftUIColor, Asset.Colors.white.swiftUIColor], startPoint: .leading, endPoint: .trailing)
         )
     }
 
