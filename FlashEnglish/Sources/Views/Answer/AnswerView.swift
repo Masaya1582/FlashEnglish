@@ -23,9 +23,9 @@ struct AnswerView: View {
                 }
                 VStack(spacing: 20) {
                     Spacer()
-                    userAnswerField
-                    textFieldAndHint()
-                    bottomField()
+                    userAnswerFieldView
+                    textFieldAndHintView()
+                    bottomFieldView()
                         .alert(isPresented: $quizManager.isShowAlertView) {
                             Alert(
                                 title: Text("確認"),
@@ -52,12 +52,12 @@ struct AnswerView: View {
         .navigationBarBackButtonHidden()
     }
 
-    var userAnswerField: some View {
+    private var userAnswerFieldView: some View {
         VStack {
             Text("あなたの解答:")
-                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
             Text("\(quizManager.userAnswerInputs)")
-                .modifier(CustomLabel(foregroundColor: .black, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
@@ -67,7 +67,7 @@ struct AnswerView: View {
     }
 
     @ViewBuilder
-    private func textFieldAndHint() -> some View {
+    private func textFieldAndHintView() -> some View {
         TextField("正しい順番に並び替える", text: $quizManager.userAnswerInputs)
             .keyboardType(.asciiCapable)
             .modifier(CustomTextField())
@@ -82,7 +82,7 @@ struct AnswerView: View {
                     Text(quizManager.isFlipHint ? "閉じる" : "ヒントを見る(並び替える前の単語がみれます)")
                     Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
                 }
-                .modifier(CustomLabel(foregroundColor: .blue, size: 12, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.blue.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.bold))
             }
             if quizManager.isFlipHint {
                 Text(quizManager.productionQuizContentArray.joined(separator: " "))
@@ -92,7 +92,7 @@ struct AnswerView: View {
     }
 
     @ViewBuilder
-    private func bottomField() -> some View {
+    private func bottomFieldView() -> some View {
         Button {
             UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             quizManager.judgeAnswer()
