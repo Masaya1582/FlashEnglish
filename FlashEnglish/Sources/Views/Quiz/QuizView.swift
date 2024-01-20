@@ -11,6 +11,7 @@ struct QuizView: View {
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
+    // FIXME: - iOS17.1以降だとタイマーインスタンスが二重に設定される？からここでフラグを入れることになっている
     @State private var isViewAppeared = false
 
     // MARK: - Body
@@ -18,12 +19,13 @@ struct QuizView: View {
         NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 Text("Question \(quizManager.quizNumber + 1)")
-                    .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSans.bold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
                 Spacer()
+                // 3秒のカウント後、フラッシュ式にクイズを出題する
                 if quizManager.countDown > 0 {
-                    countDownCircle
+                    countDownCircleView
                 } else if quizManager.eachQuizWordNumber < quizManager.productionQuizContentArray.count {
-                    quizContent
+                    quizContentView
                 }
                 Spacer()
             }
@@ -69,9 +71,9 @@ struct QuizView: View {
     }
 
     // カウントダウン表示
-    var countDownCircle: some View {
+    private var countDownCircleView: some View {
         Text("\(quizManager.countDown)")
-            .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
+            .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 120)
@@ -82,11 +84,11 @@ struct QuizView: View {
     }
 
     // クイズ内容
-    var quizContent: some View {
+    private var quizContentView: some View {
         VStack {
             Spacer()
             Text(quizManager.isTryAgainTriggered ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
-                .modifier(CustomLabel(foregroundColor: .black, size: 48, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
             Spacer()
         }
     }
