@@ -3,7 +3,7 @@
 //  FlashEnglish
 //
 //  Created by 中久木 雅哉(Nakakuki Masaya) on 2024/01/06.
-//  
+//
 
 import SwiftUI
 
@@ -28,11 +28,11 @@ struct HomeView: View {
     // MARK: - Body
     var body: some View {
         NavigationStack(path: $navigationManager.navigationPath) {
-            homeDescription
+            stageSelectorView
                 .gesture(
                     DragGesture(minimumDistance: 50, coordinateSpace: .local)
-                        .onEnded { value in
-                            if value.translation.width > 0 && value.translation.height < value.translation.width {
+                        .onEnded { dragValue in
+                            if dragValue.translation.width > 0 && dragValue.translation.height < dragValue.translation.width {
                                 presentSideMenu.toggle()
                             }
                         }
@@ -55,20 +55,20 @@ struct HomeView: View {
                 }
                 .navigationBarItems(
                     leading:
-                    Button {
-                        presentSideMenu.toggle()
-                    } label: {
-                        Image(systemName: "list.bullet")
-                            .foregroundColor(.black)
-                    }
+                        Button {
+                            presentSideMenu.toggle()
+                        } label: {
+                            Image(systemName: "list.bullet")
+                                .foregroundColor(Asset.Colors.black.swiftUIColor)
+                        }
                 )
         }
     }
 
-    var homeDescription: some View {
+    private var stageSelectorView: some View {
         VStack {
             Text("フラッシュ英文法")
-                .modifier(CustomLabel(foregroundColor: .black, size: 32, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
             Spacer().frame(height: 20)
             ScrollView {
