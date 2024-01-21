@@ -30,7 +30,7 @@ enum SideMenuManager: Int, CaseIterable {
     }
 }
 
-struct Icon: Identifiable {
+struct SocialServiceIcon: Identifiable {
     let id = UUID()
     let image: Image
     let url: URL?

@@ -11,11 +11,11 @@ struct DeveloperView: View {
     // MARK: - Properties
     @State private var isShowWebView = false
     @Binding var presentSideMenu: Bool
-    private let iconItemArray: [Icon] = [
-        Icon(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
-        Icon(image: Asset.Assets.imgInstagram.swiftUIImage, url: URL(string: "https://www.instagram.com/cookie_ios_developer/")),
-        Icon(image: Asset.Assets.imgBlog.swiftUIImage, url: URL(string: "https://masasophi.com/")),
-        Icon(image: Asset.Assets.imgGithub.swiftUIImage, url: URL(string: "https://github.com/Masaya1582"))
+    private let socialServiceIconArray: [SocialServiceIcon] = [
+        SocialServiceIcon(image: Asset.Assets.imgX.swiftUIImage, url: URL(string: "https://twitter.com/TaroTaro2025/")),
+        SocialServiceIcon(image: Asset.Assets.imgInstagram.swiftUIImage, url: URL(string: "https://www.instagram.com/cookie_ios_developer/")),
+        SocialServiceIcon(image: Asset.Assets.imgBlog.swiftUIImage, url: URL(string: "https://masasophi.com/")),
+        SocialServiceIcon(image: Asset.Assets.imgGithub.swiftUIImage, url: URL(string: "https://github.com/Masaya1582"))
     ]
 
     // MARK: - Body
@@ -33,7 +33,7 @@ struct DeveloperView: View {
                     .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSans.regular))
                     .padding()
                 HStack(spacing: 24) {
-                    ForEach(iconItemArray) { icon in
+                    ForEach(socialServiceIconArray) { icon in
                         Button {
                             // FIXME: SafariViewを使いたい
                             guard let url = icon.url else { return }
