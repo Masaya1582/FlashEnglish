@@ -24,7 +24,7 @@ struct SideMenuView: View {
                         .frame(height: 140)
                         .padding(.bottom, 30)
                     ForEach(SideMenuManager.allCases, id: \.self) { row in
-                        rowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.iconSystemName, title: row.title) {
+                        rowView(isSelected: selectedSideMenuTab == row.rawValue, imageName: row.sideMenuIcon, title: row.title) {
                             selectedSideMenuTab = row.rawValue
                             presentSideMenu.toggle()
                         }
