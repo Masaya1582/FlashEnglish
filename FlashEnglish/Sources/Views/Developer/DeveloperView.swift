@@ -33,13 +33,13 @@ struct DeveloperView: View {
                     .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSans.regular))
                     .padding()
                 HStack(spacing: 24) {
-                    ForEach(socialServiceIconArray) { icon in
+                    ForEach(socialServiceIconArray) { socialService in
                         Button {
                             // FIXME: SafariViewを使いたい
-                            guard let url = icon.url else { return }
+                            guard let url = socialService.url else { return }
                             UIApplication.shared.open(url)
                         } label: {
-                            icon.image
+                            socialService.image
                                 .resizable()
                                 .modifier(CustomImage(width: 60, height: 60))
                         }
