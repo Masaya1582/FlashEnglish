@@ -35,7 +35,7 @@ struct DeveloperView: View {
                 HStack(spacing: 24) {
                     ForEach(socialServiceIconArray) { socialService in
                         Button {
-                            // FIXME: SafariViewを使いたい
+                            // FIXME: - SafariViewを使いたい
                             guard let url = socialService.url else { return }
                             UIApplication.shared.open(url)
                         } label: {

@@ -207,7 +207,7 @@ final class QuizManager: ObservableObject {
     }
 
     /// レベル項目の右上に王冠をつけるかどうか判定 (UserDefaultsで持たせる)
-    func checkIfUserAchievedPerfect() {
+    func isUserAchievePerfectScore() {
         // 全問正解且つヒントを見ないでクリアしたら王冠をつける
         if (allQuizContents.count == correctCount) && !isShowHint {
             isShowPerfectAnimation = true

@@ -23,7 +23,7 @@ struct ScoreView: View {
                 quizManager.isShowPerfectAnimation ? LottieView(lottieFile: L10n.lottiePerfect) : nil
             }
             .onAppear {
-                quizManager.checkIfUserAchievedPerfect()
+                quizManager.isUserAchievePerfectScore()
             }
         }
         .navigationBarBackButtonHidden()
@@ -58,8 +58,7 @@ struct ScoreView: View {
                         .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.bold))
                 }
                 .listStyle(.inset)
-            }
-            if !quizManager.isShowAllQuizData {
+            } else {
                 Button {
                     quizManager.shareApp(with: "\(quizManager.correctCount)/\(quizManager.allQuizContents.count)問正解しました!\n#フラッシュ英文法")
                 } label: {

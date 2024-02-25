@@ -39,15 +39,11 @@ struct AnswerView: View {
                         }
                 }
                 .padding(.horizontal, 12)
-                if quizManager.isShowAnswerResultAnimation {
-                    LottieView(lottieFile: quizManager.isAnswerCorrect ? L10n.lottieCorrect : L10n.lottieIncorrect)
-                }
+                quizManager.isShowAnswerResultAnimation ? LottieView(lottieFile: quizManager.isAnswerCorrect ? L10n.lottieCorrect : L10n.lottieIncorrect) : nil
             }
         }
         .onDisappear {
-            if quizManager.tryAgainRemainCount < 1 {
-                quizManager.isShowHint = true
-            }
+            quizManager.isShowHint = (quizManager.tryAgainRemainCount < 1)
         }
         .navigationBarBackButtonHidden()
     }
