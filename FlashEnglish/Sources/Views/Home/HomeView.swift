@@ -20,10 +20,7 @@ struct HomeView: View {
         LevelItem(image: Asset.Assets.imgExpert.swiftUIImage, title: "専門家レベル", levelCase: .expert),
         LevelItem(image: Asset.Assets.imgMonster.swiftUIImage, title: "人外レベル", levelCase: .monster)
     ]
-    private let gridItems = [
-        GridItem(.flexible()),
-        GridItem(.flexible())
-    ]
+    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
 
     // MARK: - Body
     var body: some View {
