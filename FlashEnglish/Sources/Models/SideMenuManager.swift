@@ -11,7 +11,7 @@ enum SideMenuManager: Int, CaseIterable {
     case home
     case developer
 
-    var title: String {
+    var sideMenuTitle: String {
         switch self {
         case .home:
             return "Home"
