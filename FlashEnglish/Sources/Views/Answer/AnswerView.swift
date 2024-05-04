@@ -68,7 +68,7 @@ struct AnswerView: View {
             .keyboardType(.asciiCapable)
             .modifier(CustomTextField())
         // ヒント
-        if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 && quizManager.isQuizDataShuffled {
+        if quizManager.isShowHint && quizManager.tryAgainRemainCount < 1 && quizManager.shouldShuffleQuizData {
             Button {
                 withAnimation {
                     quizManager.isFlipHint.toggle()
@@ -98,7 +98,7 @@ struct AnswerView: View {
         }
         .disabled(quizManager.userAnswerInputs.isEmpty)
         Button("もう一度みる (あと\(quizManager.tryAgainRemainCount)回)") {
-            quizManager.isTryAgainTriggered = true
+            quizManager.isTryAgainSelected = true
             quizManager.isShowAnswerView = false
             quizManager.tryAgainRemainCount -= 1
             navigationManager.navigationPath.removeLast()

@@ -83,7 +83,7 @@ struct QuizDetailView: View {
     // クイズオプション設定View
     private var quizOptionSettingView: some View {
         VStack(alignment: .leading) {
-            Toggle(isOn: $quizManager.isQuizDataShuffled) {
+            Toggle(isOn: $quizManager.shouldShuffleQuizData) {
                 Text("単語をシャッフルして挑戦する")
                     .multilineTextAlignment(.center)
                     .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))

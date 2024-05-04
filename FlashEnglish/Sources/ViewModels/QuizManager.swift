@@ -51,11 +51,11 @@ final class QuizManager: ObservableObject {
     @Published var isShowHint = false
     @Published var isShowAllQuizData = false
     @Published var isSetNextQuiz = false
-    @Published var isTryAgainTriggered = false
+    @Published var isTryAgainSelected = false
     @Published var isTryNextQuiz = false
     @Published var isAnswerCorrect = false
     @Published var isFlipHint = false
-    @Published var isQuizDataShuffled = false
+    @Published var shouldShuffleQuizData = false
     @Published var allQuizContents: [String] = []
     @Published var formattedQuizArray: [String] = []
     @Published var productionQuizContentArray: [String] = []
@@ -119,7 +119,7 @@ final class QuizManager: ObservableObject {
             .components(separatedBy: ",")
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
         productionQuizContentArray = formattedQuizArray
-        isQuizDataShuffled ? productionQuizContentArray.shuffle() : nil
+        shouldShuffleQuizData ? productionQuizContentArray.shuffle() : nil
         print("インデックス: \(quizNumber), 全データ: \(allQuizContents)\nフォーマット: \(formattedQuizArray)\n本番用: \(productionQuizContentArray)\n-----------------------------------------")
     }
 
@@ -150,7 +150,7 @@ final class QuizManager: ObservableObject {
         if countDownTimer == nil {
             quizTimer = Timer.scheduledTimer(withTimeInterval: flashCountInterval, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
-                if self.eachQuizWordNumber < (self.isTryAgainTriggered ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
+                if self.eachQuizWordNumber < (self.isTryAgainSelected ? self.quizContentForTryAgain.count : self.productionQuizContentArray.count) {
                     self.eachQuizWordNumber += 1
                 } else {
                     self.quizTimer?.invalidate()
@@ -184,8 +184,8 @@ final class QuizManager: ObservableObject {
         eachQuizWordNumber = 0
         // TryAgain用に今の問題を残しておく
         quizContentForTryAgain = productionQuizContentArray
-        if isTryAgainTriggered {
-            isTryAgainTriggered = false
+        if isTryAgainSelected {
+            isTryAgainSelected = false
         }
     }
 
@@ -256,11 +256,11 @@ final class QuizManager: ObservableObject {
         isShowHint = false
         isShowAllQuizData = false
         isSetNextQuiz = false
-        isTryAgainTriggered = false
+        isTryAgainSelected = false
         isTryNextQuiz = false
         isAnswerCorrect = false
         isFlipHint = false
-        isQuizDataShuffled = false
+        shouldShuffleQuizData = false
         allQuizContents = []
         formattedQuizArray = []
         productionQuizContentArray = []

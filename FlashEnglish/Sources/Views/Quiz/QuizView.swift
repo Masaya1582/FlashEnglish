@@ -48,11 +48,11 @@ struct QuizView: View {
             .onAppear {
                 if !isViewAppeared {
                     // 次の問題を表示
-                    if !quizManager.isTryAgainTriggered {
+                    if !quizManager.isTryAgainSelected {
                         quizManager.setQuizData()
                     }
                     // 同じ問題を表示
-                    if quizManager.isTryAgainTriggered {
+                    if quizManager.isTryAgainSelected {
                         quizManager.resetAndRestartQuiz()
                     }
                     quizManager.startTimerForCountDown()
@@ -87,7 +87,7 @@ struct QuizView: View {
     private var quizContentView: some View {
         VStack {
             Spacer()
-            Text(quizManager.isTryAgainTriggered ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
+            Text(quizManager.isTryAgainSelected ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
                 .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
             Spacer()
         }
