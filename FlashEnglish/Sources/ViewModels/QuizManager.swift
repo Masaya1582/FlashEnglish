@@ -230,7 +230,7 @@ final class QuizManager: ObservableObject {
         rootViewController?.present(activityViewController, animated: true)
     }
 
-    /// 全てリセット
+    // FIXME: - 全てリセット (長すぎる,,,)
     func resetAllQuiz() {
         countDownTimer?.invalidate()
         countDownTimer = nil
