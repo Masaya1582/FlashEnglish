@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum QuizLevel: String, CaseIterable {
+enum QuizLevel: String {
     case juniorHighSchool = "JuniorHighSchool"
     case highSchool = "HighSchool"
     case college = "College"
