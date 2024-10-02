@@ -1,7 +1,5 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
 jobs:
   beta-build:
     macos:
@@ -25,7 +23,6 @@ jobs:
           name: Build and Upload to TestFlight
           command: fastlane beta # Fastfileに定義した 'beta' レーンを実行
 
-# ワークフローの定義
 workflows:
   version: 2
   beta-deployment:
@@ -33,8 +30,7 @@ workflows:
       - beta-build:
           filters:
             branches:
-              only:
-                - develop # 必要に応じてデプロイしたいブランチ名を指定してください
+              ignore:
+                - develop # developブランチのPushは無視
             tags:
               only: /^v\d+\.\d+\.\d+$/ # タグ名が "v1.2.3" の形式である場合にのみ実行
-
