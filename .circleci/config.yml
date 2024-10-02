@@ -1,31 +1,40 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
 # Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/executor-intro/ & https://circleci.com/docs/configuration-reference/#executor-job
-    docker:
-      # Specify the version you desire here
-      # See: https://circleci.com/developer/images/image/cimg/base
-      - image: cimg/base:current
-
-    # Add steps to the job
-    # See: https://circleci.com/docs/jobs-steps/#steps-overview & https://circleci.com/docs/configuration-reference/#steps
+  beta-build:
+    macos:
+      xcode: "15.3.0" # 適切なXcodeのバージョンを使用してください
     steps:
-      # Checkout the code as the first step.
+      # プロジェクトのチェックアウト
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
 
-# Orchestrate jobs using workflows
-# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
+      # CocoaPodsのインストール
+      - run:
+          name: Install CocoaPods
+          command: pod install
+
+      # Fastlaneのインストール
+      - run:
+          name: Install Fastlane
+          command: brew install fastlane
+
+      # TestFlightへのベータ版アップロード
+      - run:
+          name: Build and Upload to TestFlight
+          command: fastlane beta # Fastfileに定義した 'beta' レーンを実行
+
+# ワークフローの定義
 workflows:
-  say-hello-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  version: 2
+  beta-deployment:
     jobs:
-      - say-hello
+      - beta-build:
+          filters:
+            branches:
+              only:
+                - develop # 必要に応じてデプロイしたいブランチ名を指定してください
+            tags:
+              only: /^v\d+\.\d+\.\d+$/ # タグ名が "v1.2.3" の形式である場合にのみ実行
+
