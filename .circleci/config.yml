@@ -18,6 +18,11 @@ jobs:
           name: Install Fastlane
           command: brew install fastlane
 
+      # 環境変数の確認
+      - run:
+          name: Check MATCH_GIT_BASIC_AUTHORIZATION
+          command: echo $MATCH_GIT_BASIC_AUTHORIZATION
+
       # TestFlightへのベータ版アップロード
       - run:
           name: Build and Upload to TestFlight
