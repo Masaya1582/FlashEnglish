@@ -3,16 +3,21 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    # Use environment variable for the personal access token to avoid exposing it in code
     git_url = "https://Masaya1582:#{ENV['GIT_AUTH_TOKEN']}@github.com/Masaya1582/ios-certificates"
+    
     match(
       type: "appstore", 
       readonly: true,
-      git_url: git_url
+      git_url: git_url, # Update to use the authenticated URL with token
+      clone_branch_directly: true # Add this option to speed up cloning by cloning only the necessary branch
     )
+    
     build_app(
-      scheme: "FlashEnglish", # スキーム名をプロジェクトに合わせて設定
-      export_method: "app-store" # App Store用のビルドをエクスポート
+      scheme: "FlashEnglish", # Ensure this matches your project's scheme
+      export_method: "app-store"
     )
+    
     upload_to_testflight(
       skip_waiting_for_build_processing: true
     )
