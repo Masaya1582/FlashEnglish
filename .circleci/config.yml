@@ -11,7 +11,7 @@ jobs:
       # CircleCIが追加したSSHキーを使用する
       - add_ssh_keys:
           fingerprints:
-            - "eGwq4Vhw1e+pcGPsqvo4+GqgubDfV79UiJxh0c79fEQ" # CircleCIで表示されているSSHキーのフィンガープリントを設定
+            - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
 
       # CocoaPodsのインストール
       - run:
