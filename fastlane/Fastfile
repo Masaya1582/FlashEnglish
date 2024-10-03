@@ -7,7 +7,7 @@ platform :ios do
     match(
       api_key_path: "/Users/masayanakakuki/keys/app-store-connect-api-key.json",
       type: "appstore", 
-      readonly: true,
+      readonly: false,
       git_url: "git@github.com:Masaya1582/ios-certificates.git"
     )
     
@@ -16,6 +16,8 @@ platform :ios do
       scheme: "FlashEnglish", 
       export_method: "app-store"
     )
-    upload_to_testflight()
+    upload_to_testflight(
+      api_key_path: "/Users/masayanakakuki/keys/app-store-connect-api-key.json"
+    )
   end
 end
