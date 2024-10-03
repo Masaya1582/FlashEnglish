@@ -6,7 +6,7 @@ platform :ios do
     match(
       type: "appstore", 
       readonly: true,
-      git_url: "https://github.com/Masaya1582/ios-certificates" # 証明書管理用のプライベートリポジトリを指定
+      git_url: "git@github.com:Masaya1582/ios-certificates.git" # 証明書管理用のプライベートリポジトリを指定
     )
     build_app(
       scheme: "FlashEnglish", # スキーム名をプロジェクトに合わせて設定
