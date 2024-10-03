@@ -3,22 +3,22 @@ version: 2.1
 jobs:
   beta-build:
     macos:
-      xcode: "15.3.0" # 適切なXcodeのバージョンを使用してください
+      xcode: "15.3.0"
     steps:
-      # プロジェクトのチェックアウト
       - checkout
-
-      # CocoaPodsのインストール
+      - run:
+          name: Setup SSH Keys
+          command: |
+            mkdir -p ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
       - run:
           name: Install CocoaPods
           command: pod install
-
-      # Fastlaneのインストール
       - run:
           name: Install Fastlane
           command: brew install fastlane
-
-      # TestFlightへのベータ版アップロード
       - run:
           name: Build and Upload to TestFlight
           command: fastlane beta # Fastfileに定義した 'beta' レーンを実行
