@@ -1,8 +1,13 @@
-app_identifier("com.masa4y44.FlashEnglish") # The bundle identifier of your app
-apple_id("masa4y44@gmail.com") # Your Apple Developer Portal username
+# Appfile
 
-itc_team_id("124132709") # App Store Connect Team ID
-team_id("L6Q3MJXV23") # Developer Portal Team ID
+# アプリのバンドルID
+app_identifier("com.masa4y44.FlashEnglish") # アプリのバンドルID
 
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
+# Apple Developer ポータルのユーザー名（Apple ID）
+apple_id("masa4y44@gmail.com") # あなたのApple Developer Portalのユーザー名
+
+# App Store Connect チームID
+itc_team_id("124132709") # App Store Connect のチームID
+
+# Apple Developer Portal チームID
+team_id("L6Q3MJXV23") # Developer Portal チームID
