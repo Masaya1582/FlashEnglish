@@ -5,7 +5,7 @@ platform :ios do
   lane :beta do
     # 証明書の取得
     match(
-      api_key_path: "./keys/app-store-connect-api-key.json",
+      api_key_path: "/Users/masayanakakuki/keys/app-store-connect-api-key.json",
       type: "appstore", 
       readonly: true,
       git_url: "git@github.com:Masaya1582/ios-certificates.git"
