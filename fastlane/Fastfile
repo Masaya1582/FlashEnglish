@@ -3,21 +3,18 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    # 証明書の取得
     match(
       type: "appstore", 
-      readonly: false,
+      readonly: true,
       git_url: "git@github.com:Masaya1582/ios-certificates.git"
     )
     
+    # アプリのビルドとアップロード
     build_app(
       scheme: "FlashEnglish", 
-      export_method: "app-store",
-      configuration: "Release" # 複数構成がある場合は明示的に指定
+      export_method: "app-store"
     )
-    
-    upload_to_testflight(
-      skip_waiting_for_build_processing: true,
-      changelog: "ベータ版への新しい変更点を追加"
-    )
+    upload_to_testflight()
   end
 end
