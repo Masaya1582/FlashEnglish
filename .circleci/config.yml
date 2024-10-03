@@ -31,6 +31,6 @@ workflows:
           filters:
             branches:
               ignore:
-                - develop # developブランチのPushは無視
+                - develop
             tags:
-              only: /^v\d+\.\d+\.\d+$/ # タグ名が "v1.2.3" の形式である場合にのみ実行
+              only: /^v\d+\.\d+\.\d+$/
