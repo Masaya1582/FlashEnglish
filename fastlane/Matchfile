@@ -1,3 +1,23 @@
 storage_mode("git")
 
-type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
+# Specify the type of certificates, e.g., for App Store distribution
+type("appstore") # Can be: appstore, adhoc, enterprise, development
+
+# Set the URL of the Git repository to store/manage the certificates
+git_url("git@github.com:Masaya1582/ios-certificates.git") # Use SSH URL for better security
+
+# Specify the branch in the repository
+git_branch("master") # Use the correct branch where certificates are stored
+
+# Provide the team ID that matches your Apple Developer account
+team_id("L6Q3MJXV23") # Replace with your actual Apple Developer team ID
+
+# Specify the app identifier for this match configuration
+app_identifier(["com.masa4y44.FlashEnglish"]) # Replace with your app's identifier
+
+# Set Git user information for committing changes
+git_full_name("Masaya1582")
+git_user_email("masa4y44@gmail.com")
+
+# Optional: Force the generation of certificates if needed for new devices
+force_for_new_devices(true)
