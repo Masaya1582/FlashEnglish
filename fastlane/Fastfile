@@ -18,6 +18,11 @@ platform :ios do
       f.write(api_key.to_json)
     end
 
+    # ファイルが正しく作成されたか確認
+    unless File.exist?(api_key_path)
+      UI.user_error!("Failed to create API key file at path: #{api_key_path}")
+    end
+
     # 証明書の取得
     match(
       api_key_path: api_key_path, # 一時ファイルを使用
