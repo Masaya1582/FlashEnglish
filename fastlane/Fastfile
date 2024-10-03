@@ -1,6 +1,8 @@
+default_platform(:ios)
+
 platform :ios do
   desc "Push a new beta build to TestFlight"
-  lane :ios beta do
+  lane :beta do
     match(
       type: "appstore", 
       readonly: true,
