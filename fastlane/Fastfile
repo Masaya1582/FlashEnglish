@@ -5,7 +5,7 @@ platform :ios do
   lane :beta do
     match(
       type: "appstore", 
-      readonly: true,
+      readonly: false,
       git_url: "git@github.com:Masaya1582/ios-certificates.git"
     )
     
