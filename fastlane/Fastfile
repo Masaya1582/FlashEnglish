@@ -1,23 +1,43 @@
+require 'json'
+
 default_platform(:ios)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    # 環境変数からAPIキー情報を取得
+    api_key_path = "./temporary_app_store_connect_api_key.json"
+    api_key = {
+      "key_id" => ENV["APP_STORE_CONNECT_KEY_ID"],          # 環境変数からkey_idを取得
+      "issuer_id" => ENV["APP_STORE_CONNECT_ISSUER_ID"],    # 環境変数からissuer_idを取得
+      "key" => ENV["APP_STORE_CONNECT_API_KEY"]             # 環境変数から秘密鍵を取得
+    }
+
+    # 一時的なAPIキー情報をJSONファイルに保存
+    File.open(api_key_path, "w") do |f|
+      f.write(api_key.to_json)
+    end
+
     # 証明書の取得
     match(
-      api_key_path: "/Users/masayanakakuki/keys/app-store-connect-api-key.json",
+      api_key_path: api_key_path, # 一時ファイルを使用
       type: "appstore", 
       readonly: false,
       git_url: "git@github.com:Masaya1582/ios-certificates.git"
     )
     
-    # アプリのビルドとアップロード
+    # アプリのビルド
     build_app(
       scheme: "FlashEnglish", 
       export_method: "app-store"
     )
+
+    # TestFlightへのアップロード
     upload_to_testflight(
-      api_key_path: "/Users/masayanakakuki/keys/app-store-connect-api-key.json"
+      api_key_path: api_key_path # 一時ファイルを使用
     )
+
+    # 使用後に一時的なJSONファイルを削除
+    File.delete(api_key_path) if File.exist?(api_key_path)
   end
 end
