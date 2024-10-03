@@ -28,7 +28,7 @@ jobs:
       # TestFlightへのベータ版アップロード
       - run:
           name: Build and Upload to TestFlight
-          command: bundle exec fastlane beta # Fastfileに定義した 'beta' レーンを実行
+          command: fastlane beta # Fastfileに定義した 'beta' レーンを実行
 
 workflows:
   version: 2
