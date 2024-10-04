@@ -11,14 +11,16 @@ platform :ios do
       git_url: "git@github.com:Masaya1582/ios-certificates.git",
       readonly: true
     )
-    deliver(
-      api_key_path: "./app-store-connect-api-key.json",
-      precheck_default_rule_level: :error,
-      precheck_include_in_app_purchases: false,
-      skip_metadata: true,
-      skip_screenshots: true,
-      submit_for_review: false,
-      force: true
+
+    # アプリのビルド
+    gym(
+      workspace: "FlashEnglish.xcworkspace",  # ワークスペースのパス
+      scheme: "FlashEnglish"                  # スキーム名
+    )
+
+    # TestFlightへのアップロード
+    pilot(
+      api_key_path: "./app-store-connect-api-key.json"
     )
   end
 end
