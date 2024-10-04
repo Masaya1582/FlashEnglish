@@ -19,26 +19,14 @@ commands:
       - run:
           name: Set MATCH_GIT_BASIC_AUTHORIZATION
           command: |
-            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)" # Encoding instead of decoding
+            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"  # Encoding instead of decoding
             echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
 
   setup_app_store_connect_api_key_json:
-    parameters:
-      value:
-        type: string
     steps:
       - run:
           name: Setup app-store-connect-api-key.json
-          command: echo "<< parameters.value >>" > ./app-store-connect-api-key.json
-      - run:
-          name: Debug app-store-connect-api-key.json
-          command: cat ./app-store-connect-api-key.json # Debugging step to check file content
-
-  decode_app_store_connect_api_key_json:
-    steps:
-      - run:
-          name: Decode app-store-connect-api-key.json
-          command: echo $APP_STORE_CONNECT_API_KEY_HERBERT_JSON | base64 --decode > ./app-store-connect-api-key.json
+          command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > ./app-store-connect-api-key.json
 
 jobs:
   deploy:
@@ -48,8 +36,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
-      - set-match-git-basic-authorization
-      - decode_app_store_connect_api_key_json # BASE64デコードしてファイルを作成
+      - set-match-git-basic-authorization:
+      - setup_app_store_connect_api_key_json:
       - run:
           name: Install ncurses (terminfo)
           command: brew install ncurses
@@ -64,14 +52,14 @@ jobs:
       - run:
           name: Install Bundler and Fastlane
           command: |
-            gem install bundler -v 2.3.0 # Install stable version of Bundler
+            gem install bundler -v 2.3.0  # Install stable version of Bundler
             bundle install
       - run:
           name: fastlane deploy
           command: |
             export FASTLANE_DISABLE_COLORS=1
             export FASTLANE_SKIP_TERMINAL_PROMPT=true
-            export TERM=dumb # Prevent terminal control sequences
+            export TERM=dumb  # Prevent terminal control sequences
             bundle exec fastlane deploy
 
 workflows:
