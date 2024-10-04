@@ -5,7 +5,7 @@ orbs:
   slack: circleci/slack@4
 
 executors:
-  FlashEnglish:
+  flash_english:
     macos:
       xcode: 15.3.0
     resource_class: macos.m1.medium.gen1
