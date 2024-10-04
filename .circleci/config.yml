@@ -49,18 +49,24 @@ jobs:
           name: Install ncurses (terminfo)
           command: brew install ncurses
       - run:
+          name: Add ncurses to path
+          command: |
+            export TERMINFO=$(brew --prefix ncurses)/share/terminfo
+            echo 'export TERMINFO=$(brew --prefix ncurses)/share/terminfo' >> $BASH_ENV
+      - run:
           name: Install CocoaPods
           command: pod install
       - run:
           name: Install Bundler and Fastlane
           command: |
-            gem install bundler
+            gem install bundler -v 2.3.0  # Install stable version of Bundler
             bundle install
       - run:
           name: fastlane deploy
           command: |
             export FASTLANE_DISABLE_COLORS=1
             export FASTLANE_SKIP_TERMINAL_PROMPT=true
+            export TERM=dumb  # Prevent terminal control sequences
             bundle exec fastlane deploy
 
 workflows:
