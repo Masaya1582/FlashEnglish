@@ -28,8 +28,7 @@ jobs:
       # App Store Connect API Key の設定
       - run:
           name: Setup App Store Connect API Key
-          command: |
-            echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > app-store-connect-api-key.json
+          command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" | base64 -d > app-store-connect-api-key.json
 
       # TestFlightへのベータ版アップロード
       - run:
