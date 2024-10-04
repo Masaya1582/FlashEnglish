@@ -30,6 +30,20 @@ jobs:
           name: Setup App Store Connect API Key
           command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" | base64 -d > app-store-connect-api-key.json
 
+      # 証明書のインストール
+      - run:
+          name: Install Certificates
+          command: bundle exec fastlane match appstore --api_key_path ./app-store-connect-api-key.json
+
+      # Keychainの設定
+      - run:
+          name: Setup Keychain
+          command: |
+            security create-keychain -p "" build.keychain
+            security import ./Certificates.p12 -k ~/Library/Keychains/build.keychain -P "certificate_password" -T /usr/bin/codesign
+            security list-keychains -d user -s ~/Library/Keychains/build.keychain
+            security unlock-keychain -p "" ~/Library/Keychains/build.keychain
+
       # TestFlightへのベータ版アップロード
       - run:
           name: Build and Upload to TestFlight
