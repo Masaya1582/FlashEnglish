@@ -19,7 +19,7 @@ commands:
       - run:
           name: Set MATCH_GIT_BASIC_AUTHORIZATION
           command: |
-            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"
+            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64 -d)"
             echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
 
   setup_app_store_connect_api_key_json:
