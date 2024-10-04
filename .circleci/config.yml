@@ -46,6 +46,9 @@ jobs:
       - setup_app_store_connect_api_key_json:
           value: "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}"
       - run:
+          name: Install ncurses (terminfo)
+          command: brew install ncurses
+      - run:
           name: Install CocoaPods
           command: pod install
       - run:
@@ -55,7 +58,10 @@ jobs:
             bundle install
       - run:
           name: fastlane deploy
-          command: bundle exec fastlane deploy
+          command: |
+            export FASTLANE_DISABLE_COLORS=1
+            export FASTLANE_SKIP_TERMINAL_PROMPT=true
+            bundle exec fastlane deploy
 
 workflows:
   version: 2
