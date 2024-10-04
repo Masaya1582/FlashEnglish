@@ -37,6 +37,7 @@
 		1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB19F2B496D3A00E0A468 /* lottie_perfect.json */; };
 		1E1BB1A92B4A898F00E0A468 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */; };
 		1E1BB1AC2B4B89AB00E0A468 /* AdMobBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */; };
+		400A5F682CAFF55D00C8D421 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 400A5F672CAFF55D00C8D421 /* GoogleService-Info.plist */; };
 		400A9C102B467BA60086914E /* FlashEnglishApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */; };
 		400A9C122B467BA60086914E /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C112B467BA60086914E /* QuizView.swift */; };
 		400A9C142B467BA70086914E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 400A9C132B467BA70086914E /* Assets.xcassets */; };
@@ -81,6 +82,7 @@
 		1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
 		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		400A5F672CAFF55D00C8D421 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
 		400A9C112B467BA60086914E /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
@@ -231,6 +233,14 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		400A5F662CAFF55300C8D421 /* Firebase */ = {
+			isa = PBXGroup;
+			children = (
+				400A5F672CAFF55D00C8D421 /* GoogleService-Info.plist */,
+			);
+			path = Firebase;
+			sourceTree = "<group>";
+		};
 		400A9C032B467BA60086914E = {
 			isa = PBXGroup;
 			children = (
@@ -277,6 +287,7 @@
 				400A9C222B467D860086914E /* Localizable.strings */,
 				1E994C2E2B54D20100DBFC94 /* Lottie */,
 				1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */,
+				400A5F662CAFF55300C8D421 /* Firebase */,
 				400A9C242B467D980086914E /* Fonts */,
 			);
 			path = Resources;
@@ -431,6 +442,7 @@
 				1E1BB1A92B4A898F00E0A468 /* LaunchScreen.storyboard in Resources */,
 				1E1BB19B2B494A6400E0A468 /* lottie_incorrect.json in Resources */,
 				400A9C142B467BA70086914E /* Assets.xcassets in Resources */,
+				400A5F682CAFF55D00C8D421 /* GoogleService-Info.plist in Resources */,
 				1E1BB18D2B49395700E0A468 /* Businessman.csv in Resources */,
 				1E1BB1A02B496D3A00E0A468 /* lottie_perfect.json in Resources */,
 				1E1BB19C2B494A6400E0A468 /* lottie_correct.json in Resources */,
