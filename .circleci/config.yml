@@ -25,6 +25,11 @@ jobs:
             gem install bundler
             bundle install
 
+     # app-store-connect-api-key.json のセットアップ
+      - run:
+          name: Setup app-store-connect-api-key.json
+          command: echo "<< parameters.app_store_connect_api_key_json >>" > ./app-store-connect-api-key.json
+
       # TestFlightへのベータ版アップロード
       - run:
           name: Build and Upload to TestFlight
