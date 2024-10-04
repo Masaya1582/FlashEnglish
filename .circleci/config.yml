@@ -19,7 +19,7 @@ commands:
       - run:
           name: Set MATCH_GIT_BASIC_AUTHORIZATION
           command: |
-            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64 -d)"
+            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"  # Encoding instead of decoding
             echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
 
   setup_app_store_connect_api_key_json:
@@ -30,6 +30,9 @@ commands:
       - run:
           name: Setup app-store-connect-api-key.json
           command: echo "<< parameters.value >>" > ./app-store-connect-api-key.json
+      - run:
+          name: Debug app-store-connect-api-key.json
+          command: cat ./app-store-connect-api-key.json  # Debugging step to check file content
 
 jobs:
   deploy:
@@ -39,9 +42,6 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
-      - run:
-          name: Set DANGER_GITHUB_BEARER_TOKEN
-          command: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
       - set-match-git-basic-authorization
       - setup_app_store_connect_api_key_json:
           value: "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}"
