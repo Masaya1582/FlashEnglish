@@ -5,6 +5,9 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
+    UI.message("APP_STORE_CONNECT_KEY_ID: #{ENV['APP_STORE_CONNECT_KEY_ID']}")
+    UI.message("APP_STORE_CONNECT_ISSUER_ID: #{ENV['APP_STORE_CONNECT_ISSUER_ID']}")
+    UI.message("APP_STORE_CONNECT_API_KEY: #{ENV['APP_STORE_CONNECT_API_KEY']}")
     # 証明書の取得
     match(
       api_key: {
