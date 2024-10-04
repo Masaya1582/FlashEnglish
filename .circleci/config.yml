@@ -1,50 +1,66 @@
 version: 2.1
 
-jobs:
-  beta-build:
-    macos:
-      xcode: "15.3.0" # 適切なXcodeのバージョンを使用してください
-    steps:
-      # プロジェクトのチェックアウト
-      - checkout
+orbs:
+  macos: circleci/macos@2
+  slack: circleci/slack@4
 
-      # CircleCIが追加したSSHキーを使用する
+executors:
+  FlashEnglish:
+    macos:
+      xcode: 15.3.0
+    resource_class: macos.m1.medium.gen1
+
+set-match-git-basic-authorization:
+    steps:
+      - run:
+          name: Unset git config
+          command: git config --global --unset url.ssh://git@github.com.insteadof
+      - run:
+          name: Set MATCH_GIT_BASIC_AUTHORIZATION
+          command: |
+            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"
+            echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
+
+setup_app_store_connect_api_key_json:
+    parameters:
+      value:
+        type: string
+    steps:
+      - run:
+          name: Setup app-store-connect-api-key.json
+          command: echo "<< parameters.value >>" > ./app-store-connect-api-key.json
+
+jobs:
+  deploy:
+    executor: herbert_member
+    steps:
+      - checkout
       - add_ssh_keys:
           fingerprints:
             - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
-
-      # CocoaPodsのインストール
+      - run:
+          name: Set DANGER_GITHUB_BEARER_TOKEN
+          command: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
+      - set-match-git-basic-authorization
+      - setup_app_store_connect_api_key_json:
+          value: "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}"
       - run:
           name: Install CocoaPods
           command: pod install
-
-      # BundlerとFastlaneのインストール
       - run:
           name: Install Bundler and Fastlane
           command: |
             gem install bundler
             bundle install
-
-      # App Store Connect API Key の設定
       - run:
-          name: Setup App Store Connect API Key
-          command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" | base64 -d > app-store-connect-api-key.json
-
-      # 証明書のインストール
-      - run:
-          name: Install Certificates
-          command: bundle exec fastlane match appstore --api_key_path ./app-store-connect-api-key.json
-
-      # TestFlightへのベータ版アップロード
-      - run:
-          name: Build and Upload to TestFlight
-          command: fastlane beta # Fastfileに定義した 'beta' レーンを実行
+          name: fastlane deploy
+          command: bundle exec fastlane deploy
 
 workflows:
   version: 2
-  beta-deployment:
+  deploy-workflow:
     jobs:
-      - beta-build:
+      - deploy:
           filters:
             branches:
               ignore:

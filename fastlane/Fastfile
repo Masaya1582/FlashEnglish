@@ -1,27 +1,34 @@
-require 'json'
-
 default_platform(:ios)
 
 platform :ios do
+  before_all do
+    if is_ci
+      setup_circle_ci
+    end
+  end
+
   desc "Push a new beta build to TestFlight"
-  lane :beta do
+  lane :deploy do
     # 証明書の取得
     match(
       api_key_path: "./app-store-connect-api-key.json",
-      type: "appstore", 
-      readonly: true,
-      git_url: "git@github.com:Masaya1582/ios-certificates.git"
+      type: "appstore",
+      app_identifier: ['com.masa4y44.FlashEnglish'],
+      git_url: generate_git_url(repo: "Masaya1582/ios-certificates"),
+      readonly: true
     )
-    
-    # アプリのビルド
-    build_app(
-      scheme: "FlashEnglish", 
-      export_method: "app-store"
+    gym(
+      export_method: "app-store",
+      configuration: "Release",
     )
-
-    # TestFlightへのアップロード
-    upload_to_testflight(
+    deliver(
       api_key_path: "./app-store-connect-api-key.json",
+      precheck_default_rule_level: :error,
+      precheck_include_in_app_purchases: false,
+      skip_metadata: true,
+      skip_screenshots: true,
+      submit_for_review: false,
+      force: true
     )
   end
 end
