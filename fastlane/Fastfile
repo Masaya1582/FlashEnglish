@@ -11,10 +11,6 @@ platform :ios do
       git_url: "git@github.com:Masaya1582/ios-certificates.git",
       readonly: true
     )
-    gym(
-      export_method: "app-store",
-      configuration: "Release",
-    )
     deliver(
       api_key_path: "./app-store-connect-api-key.json",
       precheck_default_rule_level: :error,
