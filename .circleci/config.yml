@@ -33,7 +33,7 @@ commands:
 
 jobs:
   deploy:
-    executor: herbert_member
+    executor: flash_english
     steps:
       - checkout
       - add_ssh_keys:
