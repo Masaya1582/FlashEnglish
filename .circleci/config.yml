@@ -54,14 +54,32 @@ jobs:
       FASTLANE_LANE: adhoc
     steps:
       - checkout
+      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
       - run: bundle install
+      - run: curl -sL https://firebase.tools | bash  # Added Firebase CLI installation
       - run:
           name: Fastlane
           command: bundle exec fastlane $FASTLANE_LANE
       - store_artifacts:
           path: output
 
-jobs:
+  upload_firebase:
+    macos:
+      xcode: 15.3.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: upload_firebase
+    steps:
+      - checkout
+      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
+      - run: bundle install
+      - run: curl -sL https://firebase.tools | bash  # Install Firebase CLI
+      - run:
+          name: Fastlane Upload to Firebase
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+
   deploy:
     executor: flash_english
     steps:
@@ -69,8 +87,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
-      - set-match-git-basic-authorization:
-      - setup_app_store_connect_api_key_json:
+      - set-match-git-basic-authorization
+      - setup_app_store_connect_api_key_json
       - run:
           name: Install ncurses (terminfo)
           command: brew install ncurses
@@ -116,3 +134,10 @@ workflows:
                 - develop
             tags:
               only: /^v\d+\.\d+\.\d+$/
+
+  firebase-workflow:
+    jobs:
+      - upload_firebase:
+          filters:
+            branches:
+              only: /feature\/.*/

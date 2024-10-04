@@ -65,4 +65,17 @@ platform :ios do
       changelog: "This is another new build from CircleCI!"
     )
   end
+
+  desc "Upload to Firebase"
+  lane :upload_firebase do
+    increment_build_number(
+      build_number: "$CIRCLE_BUILD_NUM"
+    )
+    match(type: "adhoc")
+    gym(scheme: "FlashEnglish")
+    firebase_app_distribution(
+      app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
+      release_notes: "This is a test release!"
+    )
+  end
 end
