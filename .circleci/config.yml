@@ -29,6 +29,39 @@ commands:
           command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > ./app-store-connect-api-key.json
 
 jobs:
+  build-and-test:
+    macos:
+      xcode: 15.3.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: test
+    steps:
+      - checkout
+      - run: bundle install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+      - store_test_results:
+          path: output/scan
+
+  adhoc:
+    macos:
+      xcode: 15.3.0
+    environment:
+      FL_OUTPUT_DIR: output
+      FASTLANE_LANE: adhoc
+    steps:
+      - checkout
+      - run: bundle install
+      - run:
+          name: Fastlane
+          command: bundle exec fastlane $FASTLANE_LANE
+      - store_artifacts:
+          path: output
+
+jobs:
   deploy:
     executor: flash_english
     steps:
@@ -64,6 +97,16 @@ jobs:
 
 workflows:
   version: 2
+  build-test-adhoc:
+    jobs:
+      - build-and-test
+      - adhoc:
+          filters:
+            branches:
+              only: development
+          requires:
+            - build-and-test
+
   deploy-workflow:
     jobs:
       - deploy:
