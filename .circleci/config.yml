@@ -4,9 +4,6 @@ jobs:
   beta-build:
     macos:
       xcode: "15.3.0" # 適切なXcodeのバージョンを使用してください
-    parameters:
-      app_store_connect_api_key_json: # ここでパラメータを宣言します
-        type: string
     steps:
       # プロジェクトのチェックアウト
       - checkout
@@ -28,10 +25,11 @@ jobs:
             gem install bundler
             bundle install
 
-      # app-store-connect-api-key.json のセットアップ
+      # App Store Connect API Key の設定
       - run:
-          name: Setup app-store-connect-api-key.json
-          command: echo "<< parameters.app_store_connect_api_key_json >>" > ./app-store-connect-api-key.json
+          name: Setup App Store Connect API Key
+          command: |
+            echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > app-store-connect-api-key.json
 
       # TestFlightへのベータ版アップロード
       - run:
@@ -43,7 +41,6 @@ workflows:
   beta-deployment:
     jobs:
       - beta-build:
-          app_store_connect_api_key_json: << pipeline.parameters.app_store_connect_api_key_json >>
           filters:
             branches:
               ignore:

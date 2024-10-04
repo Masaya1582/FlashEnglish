@@ -20,6 +20,8 @@ platform :ios do
     )
 
     # TestFlightへのアップロード
-    upload_to_testflight
+    upload_to_testflight(
+      api_key_path: "./app-store-connect-api-key.json",
+    )
   end
 end
