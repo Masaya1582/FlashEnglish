@@ -285,9 +285,9 @@
 				400A9C132B467BA70086914E /* Assets.xcassets */,
 				400A9C202B467D710086914E /* Colors.xcassets */,
 				400A9C222B467D860086914E /* Localizable.strings */,
+				400A5F662CAFF55300C8D421 /* Firebase */,
 				1E994C2E2B54D20100DBFC94 /* Lottie */,
 				1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */,
-				400A5F662CAFF55300C8D421 /* Firebase */,
 				400A9C242B467D980086914E /* Fonts */,
 			);
 			path = Resources;
