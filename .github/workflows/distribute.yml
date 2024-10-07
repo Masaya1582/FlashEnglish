@@ -16,8 +16,6 @@ jobs:
 
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '15.3.0' # Adjust based on your version requirement
 
       - name: Cache CocoaPods
         uses: actions/cache@v3
