@@ -24,19 +24,44 @@ jobs:
           brew install cocoapods
           pod install
 
+      - name: Set Up Code Signing
+        env:
+          CERTIFICATE_P12: ${{ secrets.CERTIFICATE_P12 }}
+          CERTIFICATE_PASSWORD: ${{ secrets.CERTIFICATE_PASSWORD }}
+          PROVISIONING_PROFILE: ${{ secrets.PROVISIONING_PROFILE }}
+        run: |
+          echo $CERTIFICATE_P12 | base64 --decode > signing_certificate.p12
+          security create-keychain -p "" build.keychain
+          security import signing_certificate.p12 -t agg -k ~/Library/Keychains/build.keychain -P $CERTIFICATE_PASSWORD -A
+          security list-keychains -s ~/Library/Keychains/build.keychain
+          security default-keychain -s ~/Library/Keychains/build.keychain
+          security unlock-keychain -p "" ~/Library/Keychains/build.keychain
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" ~/Library/Keychains/build.keychain
+
+          echo $PROVISIONING_PROFILE | base64 --decode > provisioning_profile.mobileprovision
+          mkdir -p ~/Library/MobileDevice/Provisioning\ Profiles
+          cp provisioning_profile.mobileprovision ~/Library/MobileDevice/Provisioning\ Profiles/
+
       - name: Build IPA
+        env:
+          DEVELOPER_TEAM_ID: ${{ secrets.DEVELOPER_TEAM_ID }}
+          EXPORT_METHOD: ${{ secrets.EXPORT_METHOD }}
+          SCHEME_NAME: ${{ secrets.SCHEME_NAME }}
         run: |
           xcodebuild -workspace FlashEnglish.xcworkspace \
-                     -scheme FlashEnglish \
+                     -scheme $SCHEME_NAME \
                      -sdk iphoneos \
                      -configuration Release \
                      -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
-                     archive
+                     clean archive \
+                     CODE_SIGN_STYLE=Automatic \
+                     DEVELOPMENT_TEAM=$DEVELOPER_TEAM_ID
 
           xcodebuild -exportArchive \
                      -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
                      -exportOptionsPlist ExportOptions.plist \
-                     -exportPath ${{ github.workspace }}/build
+                     -exportPath ${{ github.workspace }}/build \
+                     -allowProvisioningUpdates
 
       - name: Install Firebase CLI
         run: curl -sL https://firebase.tools | bash
