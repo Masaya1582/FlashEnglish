@@ -19,6 +19,14 @@ jobs:
         with:
           xcode-version: '15.3.0' # Adjust based on your version requirement
 
+      - name: Cache CocoaPods
+        uses: actions/cache@v3
+        with:
+          path: Pods
+          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-pods-
+
       - name: Install Dependencies
         run: |
           brew install cocoapods
