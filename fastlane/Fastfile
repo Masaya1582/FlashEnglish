@@ -1,81 +1,65 @@
-default_platform :ios
+fastlane_version "2.134.0"
+
+default_platform(:ios)
 
 platform :ios do
   before_all do
-    setup_circle_ci
+    ENV["FL_OUTPUT_DIR"] = 'temp'
+
+    clear_derived_data(derived_data_path: "./DerivedData")
+    sh "rm -rf ../build"
   end
 
-  desc "Upload Release to App Store"
-  lane :upload_release do
-    increment_build_number(
-      build_number: app_store_build_number(
-        initial_build_number: 1,
-        version: get_version_number(
-          workspace: "FlashEnglish.xcworkspace",
-          scheme: "FlashEnglish"
-        ),
-        live: false
-      ) + 1
-    )
-    match(type: "appstore")
-    gym(scheme: "FlashEnglish")
-    
-    # Set up App Store Connect API key
-    app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],        
-      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"], 
-      key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"]
-    )
-
-    deliver(
-      submit_for_review: false,
-      force: true
-    )
+  desc "Runs setup"
+  lane :setup do
+    unless File.exist?("../Pods/Manifest.lock") && FileUtils.cmp("../Podfile.lock", "../Pods/Manifest.lock") then
+      cocoapods(verbose: true)
+    end
   end
 
-  desc "Upload to Testflight"
-  lane :upload_testflight do
-    increment_build_number(
-      build_number: latest_testflight_build_number(
-        initial_build_number: 1,
-        version: get_version_number(
-          workspace: "FlashEnglish.xcworkspace",
-          scheme: "FlashEnglish"
-        )
-      ) + 1
-    )
-    
-    # Set up Distribution code signing and build the app
-    match(type: "appstore")
-    gym(scheme: "FlashEnglish")
-    
-    # Set up App Store Connect API key
-    app_store_connect_api_key(
-      key_id: ENV["APP_STORE_CONNECT_API_KEY_KEY_ID"],        
-      issuer_id: ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"], 
-      key_content: ENV["APP_STORE_CONNECT_API_KEY_KEY"]
+  # fadレーン 
+  desc "アプリをFirebase App Distributionで配布します"
+  lane :fad do
+    automatic_code_signing(
+      targets: ENV["PROJECT_NAME"],
+      use_automatic_signing: false
     )
 
-    # Upload the binary to TestFlight and automatically publish
-    # to the configured beta testing group
-    pilot(
-      distribute_external: true,
-      notify_external_testers: true,
-      groups: ["FlashEnglish Beta Testers"],
-      changelog: "This is another new build from CircleCI!"
+    update_app_identifier(
+      xcodeproj: ENV["PROJECT_NAME"] + ".xcodeproj",
+      plist_path: ENV["PLIST_PATH"],
+      app_identifier: ENV["BUNDLE_ID"]
     )
-  end
 
-  desc "Upload to Firebase"
-  lane :upload_firebase do
-    increment_build_number(
-      build_number: "$CIRCLE_BUILD_NUM"
+    # アプリをビルドし、ipaファイルを作成する
+    gym(
+      configuration: "Release",
+      derived_data_path: "./DerivedData",
+      clean: true,
+      verbose: true,
+      scheme: ENV["SCHEME_NAME"],
+      export_method: "ad-hoc",
+      output_directory: "./build/ipa/" + Time.new.strftime("%Y/%m/%d/%H%M"),
+      output_name: ENV["PROJECT_NAME"] + ".ipa",
+      include_bitcode: false,
+      xcargs: "OTHER_SWIFT_FLAGS='$(inherited) -DSTGING' PROVISIONING_PROFILE='" + ENV["PROVISIONING_PROFILE_NAME"] + "' PROVISIONING_PROFILE_SPECIFIER='" + ENV["PROVISIONING_PROFILE_SPECIFIER"] + "' CODE_SIGN_IDENTITY='" + ENV["CODE_SIGN_IDENTITY"] + "'",
+      export_xcargs: "-allowProvisioningUpdates",
+      export_options: {
+        method: "ad-hoc",
+        compileBitcode: false,
+        uploadBitcode: false,
+        provisioningProfiles: {
+          ENV["BUNDLE_ID"] => ENV["PROVISIONING_PROFILE_SPECIFIER"]
+        }
+      }
     )
-    match(type: "adhoc")
-    gym(scheme: "FlashEnglish")
+
+    # Firebase App Distribution にアプリをアップロードする
     firebase_app_distribution(
-      app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
-      release_notes: "This is a test release!"
+      app: ENV["FIREBASE_APP_ID"],
+      testers: ENV["FIREBASE_TESTERS"],
+      release_notes: "Firebase App Distributionからの配信 " + Time.new.strftime("%Y/%m/%d %H:%M") + "版リリース(" + ENV["CIRCLE_BRANCH"] + ")",
+      firebase_cli_path: "./node_modules/.bin/firebase"
     )
   end
 end
