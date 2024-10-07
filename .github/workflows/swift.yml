@@ -40,7 +40,7 @@ jobs:
         CODE_SIGN_IDENTITY: ${{ secrets.CODE_SIGN_IDENTITY }}
         PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
       run: |
-        xcodebuild -workspace YourProject.xcworkspace \
+        xcodebuild -workspace FlashEnglish.xcworkspace \
           -scheme ${{ secrets.SCHEME_NAME }} \
           -sdk iphoneos \
           -configuration Release \
