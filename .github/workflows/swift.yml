@@ -11,56 +11,58 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+
     - name: ブランチ名を取得
       id: extract_branch
       run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+
     - name: Rubyのバージョンを表示
       run: ruby -v
+
     - name: 環境変数をBASE64デコードして証明書を復元
       env:
         CERTIFICATES: ${{ secrets.CERTIFICATES }}
-      run: echo $CERTIFICATES | base64 --decode > apple-distribution-mycompany-inc.p12 && echo $PROVISIONING_PROFILES | base64 --decode
+      run: echo $CERTIFICATES | base64 --decode > apple-distribution-mycompany-inc.p12
+
     - name: プロビジョニングプロファイルを格納するディレクトリーを作成
       run: mkdir -pv ~/Library/MobileDevice/Provisioning\ Profiles/
+
     - name: 環境変数をBASE64デコードしてプロビジョニングプロファイルを復元
       env:
         PROVISIONING_PROFILES: ${{ secrets.PROVISIONING_PROFILES }}
       run: echo $PROVISIONING_PROFILES | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/${{ secrets.PROVISIONING_PROFILE_NAME }}.mobileprovision
-    - name: Bundlerをアップデート
-      run: gem update bundler && bundle -v && which bundle
-    - uses: actions/cache@v1
-      with:
-        path: vendor/bundle
-        key: ${{ runner.os }}-vendor/bundle-${{ hashFiles('**/Gemfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-vendor/bundle-
-    - name: Bundleをインストール
+
+    - name: CocoaPodsのセットアップ
+      run: pod install
+
+    - name: Xcodeプロジェクトのビルド
       env:
-        BUNDLE_JOBS: 4
-        BUNDLE_RETRY: 3
-      run: bundle check --path vendor/bundle || bundle install --path vendor/bundle
-    - name: Firebase Toolsをインストール
-      run: npm i firebase-tools
-    - uses: actions/cache@v1
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
-    - name: Fastlaneを実行
-      env:
-        CIRCLE_BRANCH: ${{ steps.extract_branch.outputs.branch }}
-        FASTLANE_LANE: fad
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-        SCHEME_NAME: ${{ secrets.SCHEME_NAME }}
-        PROJECT_NAME: ${{ secrets.PROJECT_NAME }}
-        PLIST_PATH: ${{ secrets.PLIST_PATH }}
-        BUNDLE_ID: ${{ secrets.BUNDLE_ID }}
-        PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
-        PROVISIONING_PROFILE_NAME: ${{ secrets.PROVISIONING_PROFILE_NAME }}
         CODE_SIGN_IDENTITY: ${{ secrets.CODE_SIGN_IDENTITY }}
-        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-        FIREBASE_TESTERS: ${{ secrets.FIREBASE_TESTERS }}
-        CHATWORK_API_TOKEN: ${{ secrets.CHATWORK_API_TOKEN }}
-        CHATWORK_ROOM_ID: ${{ secrets.CHATWORK_ROOM_ID }}
-      run: bundle exec fastlane ios $FASTLANE_LANE
+        PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}
+      run: |
+        xcodebuild -workspace YourProject.xcworkspace \
+          -scheme ${{ secrets.SCHEME_NAME }} \
+          -sdk iphoneos \
+          -configuration Release \
+          -archivePath $PWD/build/FlashEnglish.xcarchive \
+          clean archive \
+          CODE_SIGN_IDENTITY="${{ secrets.CODE_SIGN_IDENTITY }}" \
+          PROVISIONING_PROFILE_SPECIFIER="${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}"
+
+    - name: IPAのエクスポート
+      run: |
+        xcodebuild -exportArchive \
+          -archivePath $PWD/build/FlashEnglish.xcarchive \
+          -exportPath $PWD/build/FlashEnglish.ipa \
+          -exportOptionsPlist ${{ secrets.PLIST_PATH }}
+
+    - name: Firebase Toolsをインストール
+      run: npm install -g firebase-tools
+
+    - name: Firebase App Distributionへアップロード
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      run: |
+        firebase appdistribution:distribute $PWD/build/FlashEnglish.ipa \
+          --app ${{ secrets.FIREBASE_APP_ID }} \
+          --testers ${{ secrets.FIREBASE_TESTERS }}
