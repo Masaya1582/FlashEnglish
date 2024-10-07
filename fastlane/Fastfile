@@ -26,7 +26,7 @@ platform :ios do
     )
 
     update_app_identifier(
-      xcodeproj: ENV["PROJECT_NAME"] + ".xcworkspace",
+      xcodeproj: ENV["PROJECT_NAME"] + ".xcodeproj",
       plist_path: ENV["PLIST_PATH"],
       app_identifier: ENV["BUNDLE_ID"]
     )
