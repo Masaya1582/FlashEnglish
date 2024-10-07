@@ -38,14 +38,14 @@ platform :ios do
       clean: true,
       verbose: true,
       scheme: ENV["SCHEME_NAME"],
-      export_method: "adhoc",
+      export_method: "ad-hoc",
       output_directory: "./build/ipa/" + Time.new.strftime("%Y/%m/%d/%H%M"),
       output_name: ENV["PROJECT_NAME"] + ".ipa",
       include_bitcode: false,
       xcargs: "OTHER_SWIFT_FLAGS='$(inherited) -DSTGING' PROVISIONING_PROFILE='" + ENV["PROVISIONING_PROFILE_NAME"] + "' PROVISIONING_PROFILE_SPECIFIER='" + ENV["PROVISIONING_PROFILE_SPECIFIER"] + "' CODE_SIGN_IDENTITY='" + ENV["CODE_SIGN_IDENTITY"] + "'",
       export_xcargs: "-allowProvisioningUpdates",
       export_options: {
-        method: "adhoc",
+        method: "ad-hoc",
         compileBitcode: false,
         uploadBitcode: false,
         provisioningProfiles: {
