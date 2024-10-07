@@ -1,0 +1,52 @@
+name: iOS Firebase Distribution
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+
+jobs:
+  build-and-upload:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: '16' # Adjust based on your version requirement
+
+      - name: Install Dependencies
+        run: |
+          brew install cocoapods
+          pod install
+
+      - name: Build IPA
+        run: |
+          xcodebuild -workspace FlashEnglish.xcworkspace \
+                     -scheme FlashEnglish \
+                     -sdk iphoneos \
+                     -configuration Release \
+                     -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
+                     archive
+
+          xcodebuild -exportArchive \
+                     -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
+                     -exportOptionsPlist ExportOptions.plist \
+                     -exportPath ${{ github.workspace }}/build
+
+      - name: Install Firebase CLI
+        run: curl -sL https://firebase.tools | bash
+
+      - name: Upload to Firebase App Distribution
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+        run: |
+          firebase appdistribution:distribute ${{ github.workspace }}/build/FlashEnglish.ipa \
+            --app $FIREBASE_APP_ID \
+            --groups "testers-group" \
+            --release-notes "Automated build from GitHub Actions"
