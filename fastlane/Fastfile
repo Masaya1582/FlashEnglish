@@ -38,7 +38,7 @@ platform :ios do
       clean: true,
       verbose: true,
       scheme: ENV["SCHEME_NAME"],
-      export_method: "adhoc",
+      export_method: "ad-hoc",
       output_directory: "./build/ipa/" + Time.new.strftime("%Y/%m/%d/%H%M"),
       output_name: ENV["PROJECT_NAME"] + ".ipa",
       include_bitcode: false,
