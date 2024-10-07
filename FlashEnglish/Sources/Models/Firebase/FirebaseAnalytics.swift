@@ -21,7 +21,7 @@ enum FirebaseAnalytics {
         case eventOne
         case eventTwo
         case eventThree
-        case eventFour(String) // パラメータ付きイベント
+        case selectedLevel(String) // パラメータ付きイベント
 
         // MARK: - Name
         var name: String {
@@ -32,8 +32,8 @@ enum FirebaseAnalytics {
                 return "event_two"
             case .eventThree:
                 return "event_three"
-            case .eventFour:
-                return "event_four"
+            case .selectedLevel:
+                return "selected_level"
             }
         }
 
@@ -44,7 +44,7 @@ enum FirebaseAnalytics {
                     .eventTwo,
                     .eventThree:
                 return nil
-            case let .eventFour(parameter):
+            case let .selectedLevel(parameter):
                 return ["parameter": parameter]
             }
         }

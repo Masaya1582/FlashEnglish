@@ -73,6 +73,7 @@ struct HomeView: View {
                     ForEach(levelItem) { levelItem in
                         LevelGridItem(levelItem: levelItem, tapAction: {
                             withAnimation {
+                                FirebaseAnalytics.logEvent(.selectedLevel(levelItem.title))
                                 quizManager.loadQuizData(quizLevel: levelItem.levelCase)
                                 navigationManager.navigationPath.append(.quizDetailView)
                             }
