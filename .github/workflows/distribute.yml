@@ -16,14 +16,8 @@ jobs:
 
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
-
-      - name: Cache CocoaPods
-        uses: actions/cache@v3
         with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
+          xcode-version: '15.3'
 
       - name: Install Dependencies
         run: |
@@ -54,6 +48,7 @@ jobs:
           DEVELOPER_TEAM_ID: ${{ secrets.DEVELOPER_TEAM_ID }}
           EXPORT_METHOD: ${{ secrets.EXPORT_METHOD }}
           SCHEME_NAME: ${{ secrets.SCHEME_NAME }}
+          PROVISIONING_PROFILE_SPECIFIER: ${{ secrets.PROVISIONING_PROFILE }}
         run: |
           xcodebuild -workspace FlashEnglish.xcworkspace \
                      -scheme $SCHEME_NAME \
@@ -61,8 +56,9 @@ jobs:
                      -configuration Release \
                      -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
                      clean archive \
-                     CODE_SIGN_STYLE=Automatic \
-                     DEVELOPMENT_TEAM=$DEVELOPER_TEAM_ID
+                     CODE_SIGN_STYLE=Manual \
+                     DEVELOPMENT_TEAM=$DEVELOPER_TEAM_ID \
+                     PROVISIONING_PROFILE_SPECIFIER=$PROVISIONING_PROFILE_SPECIFIER
 
           xcodebuild -exportArchive \
                      -archivePath ${{ github.workspace }}/build/FlashEnglish.xcarchive \
