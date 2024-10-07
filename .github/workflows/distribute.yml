@@ -17,7 +17,7 @@ jobs:
       - name: Set up Xcode
         uses: maxim-lobanov/setup-xcode@v1
         with:
-          xcode-version: '16' # Adjust based on your version requirement
+          xcode-version: '15.3.0' # Adjust based on your version requirement
 
       - name: Install Dependencies
         run: |
@@ -44,6 +44,7 @@ jobs:
 
       - name: Build IPA
         env:
+          MD_APPLE_SDK_ROOT: /Applications/Xcode.app
           DEVELOPER_TEAM_ID: ${{ secrets.DEVELOPER_TEAM_ID }}
           EXPORT_METHOD: ${{ secrets.EXPORT_METHOD }}
           SCHEME_NAME: ${{ secrets.SCHEME_NAME }}
