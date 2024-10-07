@@ -33,6 +33,7 @@ platform :ios do
 
     # アプリをビルドし、ipaファイルを作成する
     gym(
+      workspace: ENV["PROJECT_NAME"] + ".xcworkspace",
       configuration: "Release",
       derived_data_path: "./DerivedData",
       clean: true,
