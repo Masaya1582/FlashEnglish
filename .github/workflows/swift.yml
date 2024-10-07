@@ -25,7 +25,7 @@ jobs:
     - name: 環境変数をBASE64デコードしてプロビジョニングプロファイルを復元
       env:
         PROVISIONING_PROFILES: ${{ secrets.PROVISIONING_PROFILES }}
-      run: echo $PROVISIONING_PROFILES | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/${{ secrets.PROVISIONING_PROFILE_SPECIFIER }}.mobileprovision
+      run: echo $PROVISIONING_PROFILES | base64 --decode > ~/Library/MobileDevice/Provisioning\ Profiles/${{ secrets.PROVISIONING_PROFILE_NAME }}.mobileprovision
     - name: Bundlerをアップデート
       run: gem update bundler && bundle -v && which bundle
     - uses: actions/cache@v1
