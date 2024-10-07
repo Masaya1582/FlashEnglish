@@ -643,7 +643,6 @@
 		};
 		400A9C192B467BA70086914E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
