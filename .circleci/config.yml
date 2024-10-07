@@ -121,7 +121,7 @@ workflows:
       - adhoc:
           filters:
             branches:
-              only: development
+              only: master
           requires:
             - build-and-test
 
