@@ -9,10 +9,8 @@ target 'FlashEnglish' do
     pod 'SwiftGen', '~> 6.0'
     pod 'lottie-ios'
     pod 'Google-Mobile-Ads-SDK'
-    pod 'Firebase/Analytics'
     pod 'Firebase/Auth'
     pod 'Firebase/Messaging'
     pod 'Firebase/Crashlytics'
-    pod 'Firebase/Performance'
 
 end
