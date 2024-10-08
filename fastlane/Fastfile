@@ -1,6 +1,18 @@
 default_platform(:ios)
 
 platform :ios do
+  before_all do
+    # Base64でエンコードされたGoogleService-Info.plistをデコードしてファイルとして書き出す
+    if ENV['GOOGLE_SERVICE_INFO_PLIST_BASE64']
+      File.write(
+        './GoogleService-Info.plist',
+        Base64.decode64(ENV['GOOGLE_SERVICE_INFO_PLIST_BASE64'])
+      )
+    else
+      UI.error("GOOGLE_SERVICE_INFO_PLIST_BASE64 environment variable is not set!")
+    end
+  end
+
   desc "Push to Firebase App Distribution"
   lane :distribute_to_firebase do
     # 証明書の管理（match を使用している場合）
@@ -19,5 +31,12 @@ platform :ios do
       firebase_cli_token: ENV['FIREBASE_APP_DISTRIBUTION_API_TOKEN'], # Firebase CLI トークン
       groups: "all" # テスターグループを指定
     )
+  end
+
+  after_all do
+    # ビルド後にGoogleService-Info.plistを削除する
+    if File.exist?('./GoogleService-Info.plist')
+      File.delete('./GoogleService-Info.plist')
+    end
   end
 end
