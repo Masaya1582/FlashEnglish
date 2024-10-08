@@ -1,0 +1,30 @@
+name: comment hook
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: distribute-develop
+        run: |
+          PAYLOAD=$(cat "$GITHUB_EVENT_PATH")
+          NUMBER=$(echo "$PAYLOAD" | jq -c '.issue.number')
+          if [[ "$(echo "$PAYLOAD" | jq -c '.issue.pull_request')" = "null" ]]; then
+            echo "It's not pull request. Skip it."
+            exit 0
+          fi
+          PULL_REQUEST=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$NUMBER")
+          if [[ "$(echo "$PAYLOAD" | jq -c '.comment.body | test("distribute\\s+beta"; "i")')" = "true" ]]; then
+            gh api "repos/$GITHUB_REPOSITORY/issues/$NUMBER/comments" -F "body=Beta 版アプリ配布ジョブを実行します :rocket:"
+            jq -n --arg branch $(echo "$PULL_REQUEST" | jq -r '.head.ref') --arg trigger beta '{ branch: $branch, parameters: { trigger: $trigger } }' \
+              | curl -sSk -X POST https://circleci.com/api/v2/project/github/Masaya1582/FlashEnglish/pipeline \
+                  -H "Circle-Token: $CIRCLE_TOKEN" \
+                  -H "Content-Type: application/json" \
+                  --data @-
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
