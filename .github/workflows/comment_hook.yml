@@ -21,7 +21,7 @@ jobs:
       # Step 3: Install dependencies (Fastlane)
       - name: Install dependencies
         run: |
-          gem install bundler
+          gem install bundler -v 2.4.22
           bundle install
 
       # Step 4: Check if the comment contains "distribute beta"
