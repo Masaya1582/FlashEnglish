@@ -22,7 +22,7 @@ jobs:
 
     - name: Decode GoogleService-Info.plist
       run: |
-        echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }} | base64 --decode > FlashEnglish/FlashEnglish/Resources/Firebase
+        echo ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }} | base64 --decode > FlashEnglish/Resources/Firebase
 
     # CocoaPodsのセットアップ
     - name: Install dependencies
