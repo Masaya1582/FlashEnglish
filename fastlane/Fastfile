@@ -1,52 +1,23 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Build and distribute app to Firebase"
+  desc "Push to Firebase App Distribution"
   lane :distribute_to_firebase do
-    # キーチェーンのセットアップ
-    setup_keychain
+    # 証明書の管理（match を使用している場合）
+    match(type: "adhoc", readonly: true, git_url: "https://github.com/Masaya1582/ios-certificates")
 
-    # AdHoc証明書の取得
-    match(type: "adhoc", readonly: true) 
-
-    # Xcodeのビルド
-    build_app(scheme: "FlashEnglish")  
-
-    # Firebase App Distributionへの配布
-    firebase_app_distribution(
-      app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
-      firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],
-      release_notes: "Automatic build from Develop branch",  
-      testers: "masa4y44@gmail.com"  
+    # ビルド
+    build_app(
+      scheme: "FlashEnglish", # アプリのスキームを指定
+      export_method: "ad-hoc"  # ad-hoc 配布
     )
-  end
 
-  desc "Prepare GoogleService-Info.plist"
-  lane :prepare_google_service_info do
-    require 'base64'
-
-    # GitHub SecretsからBase64エンコードされた文字列を取得
-    plist_base64 = ENV['GOOGLE_SERVICE_INFO_PLIST_BASE64']
-
-    # デコードしてファイルとして保存
-    plist_data = Base64.decode64(plist_base64)
-
-    # GoogleService-Info.plistを指定したディレクトリに作成
-    File.open("./FlashEnglish/FlashEnglish/Resources/Firebase/GoogleService-Info.plist", "wb") do |f|
-      f.write(plist_data)
-    end
-
-    UI.message("GoogleService-Info.plist has been created")
-  end
-
-  desc "Setup keychain"
-  lane :setup_keychain do
-    create_keychain(
-      name: "login.keychain",  # ログインキーチェーンを使用
-      default_keychain: true,
-      unlock: true,
-      timeout: 3600,
-      password: ENV['KEYCHAIN_PASSWORD'] # GitHub Secretsで設定したキー
+    # Firebase App Distribution へのアップロード
+    firebase_app_distribution(
+      app: ENV['FIREBASE_APP_ID'], # 環境変数からFirebase App IDを取得
+      ipa_path: lane_context[SharedValues::IPA_OUTPUT_PATH], # IPAファイルのパス
+      firebase_cli_token: ENV['FIREBASE_APP_DISTRIBUTION_API_TOKEN'], # Firebase CLI トークン
+      groups: "all" # テスターグループを指定
     )
   end
 end
