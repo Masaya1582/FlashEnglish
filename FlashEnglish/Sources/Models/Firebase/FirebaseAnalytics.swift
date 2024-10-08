@@ -27,7 +27,7 @@ enum FirebaseAnalytics {
         var name: String {
             switch self {
             case .eventOne:
-                return "event_one"
+                return "event_ones"
             case .eventTwo:
                 return "event_two"
             case .eventThree:
