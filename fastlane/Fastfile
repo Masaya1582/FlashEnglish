@@ -6,7 +6,7 @@ platform :ios do
     match(type: "adhoc")
     gym(scheme: "FlashEnglish")
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID"],,
+      app: ENV["FIREBASE_APP_ID"],
       release_notes: "This is a test release!",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"] 
     )
