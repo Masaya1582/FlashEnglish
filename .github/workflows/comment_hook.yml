@@ -8,23 +8,43 @@ jobs:
   distribute:
     runs-on: ubuntu-latest
     steps:
-      - name: distribute-develop
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Ruby
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'  # You can specify your version here
+
+      # Step 3: Install dependencies (Fastlane)
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      # Step 4: Check if the comment contains "distribute beta"
+      - name: Check if comment contains "distribute beta"
+        id: check_comment
         run: |
           PAYLOAD=$(cat "$GITHUB_EVENT_PATH")
-          NUMBER=$(echo "$PAYLOAD" | jq -c '.issue.number')
-          if [[ "$(echo "$PAYLOAD" | jq -c '.issue.pull_request')" = "null" ]]; then
-            echo "It's not pull request. Skip it."
+          COMMENT=$(echo "$PAYLOAD" | jq -r '.comment.body')
+          if [[ "$COMMENT" =~ "distribute beta" ]]; then
+            echo "Distribute beta triggered."
+            echo "::set-output name=run_beta::true"
+          else
+            echo "No beta distribution trigger found. Exiting."
+            echo "::set-output name=run_beta::false"
             exit 0
           fi
-          PULL_REQUEST=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$NUMBER")
-          if [[ "$(echo "$PAYLOAD" | jq -c '.comment.body | test("distribute\\s+beta"; "i")')" = "true" ]]; then
-            gh api "repos/$GITHUB_REPOSITORY/issues/$NUMBER/comments" -F "body=Beta 版アプリ配布ジョブを実行します :rocket:"
-            jq -n --arg branch $(echo "$PULL_REQUEST" | jq -r '.head.ref') --arg trigger beta '{ branch: $branch, parameters: { trigger: $trigger } }' \
-              | curl -sSk -X POST https://circleci.com/api/v2/project/github/Masaya1582/FlashEnglish/pipeline \
-                  -H "Circle-Token: $CIRCLE_TOKEN" \
-                  -H "Content-Type: application/json" \
-                  --data @-
-          fi
+
+      # Step 5: Run Fastlane beta if the comment contains the trigger
+      - name: Run Fastlane beta
+        if: steps.check_comment.outputs.run_beta == 'true'
+        run: |
+          bundle exec fastlane beta
         env:
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          CIRCLE_TOKEN: ${{ secrets.CIRCLE_TOKEN }}
