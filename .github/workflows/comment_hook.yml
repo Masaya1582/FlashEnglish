@@ -8,26 +8,27 @@ jobs:
   distribute:
     runs-on: macos-latest
     steps:
+      # Step 1: Select Xcode version (optional step if needed)
       - name: Select Xcode version
         run: sudo xcode-select --switch /Applications/Xcode.app
-    steps:
-      # Step 1: Check out the repository
+
+      # Step 2: Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set up Ruby
+      # Step 3: Set up Ruby
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1' # You can specify your version here
+          ruby-version: '3.1' # Specify your Ruby version
 
-      # Step 3: Install dependencies (Fastlane)
+      # Step 4: Install dependencies (Fastlane)
       - name: Install dependencies
         run: |
           gem install bundler -v 2.4.22
           bundle install
 
-      # Step 4: Check if the comment contains "distribute beta"
+      # Step 5: Check if the comment contains "distribute beta"
       - name: Check if comment contains "distribute beta"
         id: check_comment
         run: |
@@ -42,7 +43,7 @@ jobs:
             exit 0
           fi
 
-      # Step 5: Run Fastlane beta if the comment contains the trigger
+      # Step 6: Run Fastlane beta if the comment contains the trigger
       - name: Run Fastlane beta
         if: steps.check_comment.outputs.run_beta == 'true'
         run: |
