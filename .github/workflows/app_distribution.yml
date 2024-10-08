@@ -1,0 +1,39 @@
+name: Distribute to Firebase
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'  # Rubyバージョン
+        bundler-cache: true
+
+    - name: Install dependencies
+      run: bundle install
+
+    - name: Decrypt certificates
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      run: bundle exec fastlane match adhoc --readonly
+
+    - name: Prepare GoogleService-Info.plist
+      env:
+        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+      run: bundle exec fastlane prepare_google_service_info
+
+    - name: Build and distribute to Firebase
+      env:
+        FIREBASE_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+      run: bundle exec fastlane distribute_to_firebase

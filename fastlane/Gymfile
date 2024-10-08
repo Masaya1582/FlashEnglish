@@ -1,0 +1,6 @@
+workspace 'FlashEnglish.xcworkspace'
+scheme 'FlashEnglish'
+include_symbols true
+clean true
+output_directory 'Products'
+output_name 'FlashEnglish.ipa'
