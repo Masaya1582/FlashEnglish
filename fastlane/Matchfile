@@ -7,7 +7,7 @@ storage_mode("git")
 type("adhoc") # 証明書のタイプ: appstore, adhoc, enterprise, development から選択
 
 # 証明書管理用のGitリポジトリURLを設定
-git_url("git@github.com:Masaya1582/ios-certificates.git") # SSH URLを使用することでセキュリティを強化
+git_url("https://github.com/Masaya1582/ios-certificates") 
 
 # 使用するブランチを指定
 git_branch("master") # 証明書が格納されている正しいブランチを指定
