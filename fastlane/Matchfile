@@ -10,13 +10,13 @@ type("adhoc") # 証明書のタイプ: appstore, adhoc, enterprise, development 
 git_url("https://github.com/Masaya1582/ios-certificates") 
 
 # 使用するブランチを指定
-git_branch("master") # 証明書が格納されている正しいブランチを指定
+git_branch("master") 
 
 # Apple Developer アカウントに対応するチームID
-team_id("L6Q3MJXV23") # 実際のApple DeveloperチームIDに置き換えてください
+team_id("L6Q3MJXV23") 
 
 # このMatch設定に対するアプリのバンドルIDを指定
-app_identifier(["com.masa4y44.FlashEnglish"]) # アプリのバンドルIDに置き換え
+app_identifier(["com.masa4y44.FlashEnglish"]) 
 
 # Gitリポジトリにコミットする際のユーザー情報
 git_full_name("Masaya1582")
