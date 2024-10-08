@@ -1,24 +1,14 @@
-default_platform(:ios)
+default_platform :ios
 
 platform :ios do
-  desc "Submit a new Beta Build to Firebase App Distribution"
+  desc "Upload to Firebase"
   lane :beta do
-    xcode_select("/Applications/Xcode.app")
-    # podのインストール
-    cocoapods
-    
-    # IPAファイルの生成
-    build_app(
-      workspace: "FlashEnglish.xcworkspace", # あなたのプロジェクト名に置き換えてください
-      scheme: "FlashEnglish", # あなたのXcodeスキーム名に置き換えてください
-      export_method: "ad-hoc" # 配布方法に応じて設定
-    )
-    
-    # Firebase App Distributionにアップロード
+    match(type: "adhoc")
+    gym(scheme: "FlashEnglish")
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID"], # Firebaseで取得したApp ID
-      firebase_cli_token: ENV["FIREBASE_TOKEN"], # Firebase CLI Token
-      groups: "testers" # テストグループの名前
+      app: ENV["FIREBASE_APP_ID"],,
+      release_notes: "This is a test release!",
+      firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"] 
     )
   end
 end
