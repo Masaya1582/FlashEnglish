@@ -3,64 +3,29 @@ fastlane_version "2.224.0"
 default_platform(:ios)
 
 platform :ios do
+  # Ensure the Firebase plugin is installed
   before_all do
-    ENV["FL_OUTPUT_DIR"] = 'temp'
-
-    clear_derived_data(derived_data_path: "./DerivedData")
-    sh "rm -rf ../build"
-  end
-
-  desc "Runs setup"
-  lane :setup do
-    unless File.exist?("../Pods/Manifest.lock") && FileUtils.cmp("../Podfile.lock", "../Pods/Manifest.lock") then
-      cocoapods(verbose: true)
+    # Install Firebase plugin if not already installed
+    unless File.exist?('Gemfile') && File.read('Gemfile').include?('fastlane-plugin-firebase_app_distribution')
+      puts "Adding fastlane-plugin-firebase_app_distribution to the Gemfile"
+      sh "fastlane add_plugin firebase_app_distribution"
     end
   end
 
-  # fadレーン 
-  desc "アプリをFirebase App Distributionで配布します"
-  lane :fad do
-    automatic_code_signing(
-      targets: ENV["PROJECT_NAME"],
-      use_automatic_signing: false
-    )
+  # Define the beta lane
+  desc "Distribute the app to Firebase App Distribution"
+  lane :beta do
+    # Ensure build configuration and IPA generation
+    build_app(scheme: "FlashEnglish")
 
-    update_app_identifier(
-      xcodeproj: ENV["PROJECT_NAME"] + ".xcodeproj",
-      plist_path: ENV["PLIST_PATH"],
-      app_identifier: ENV["BUNDLE_ID"]
-    )
-
-    # アプリをビルドし、ipaファイルを作成する
-    gym(
-      workspace: ENV["PROJECT_NAME"] + ".xcworkspace",
-      configuration: "Release",
-      derived_data_path: "./DerivedData",
-      clean: true,
-      verbose: true,
-      scheme: ENV["SCHEME_NAME"],
-      export_method: "ad-hoc",
-      output_directory: "./build/ipa/" + Time.new.strftime("%Y/%m/%d/%H%M"),
-      output_name: ENV["PROJECT_NAME"] + ".ipa",
-      include_bitcode: false,
-      xcargs: "OTHER_SWIFT_FLAGS='$(inherited) -DSTGING' PROVISIONING_PROFILE='" + ENV["PROVISIONING_PROFILE_NAME"] + "' PROVISIONING_PROFILE_SPECIFIER='" + ENV["PROVISIONING_PROFILE_SPECIFIER"] + "' CODE_SIGN_IDENTITY='" + ENV["CODE_SIGN_IDENTITY"] + "'",
-      export_xcargs: "-allowProvisioningUpdates",
-      export_options: {
-        method: "ad-hoc",
-        compileBitcode: false,
-        uploadBitcode: false,
-        provisioningProfiles: {
-          ENV["BUNDLE_ID"] => ENV["PROVISIONING_PROFILE_SPECIFIER"]
-        }
-      }
-    )
-
-    # Firebase App Distribution にアプリをアップロードする
+    # Upload to Firebase App Distribution
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
-      testers: ENV["FIREBASE_TESTERS"],
-      release_notes: "Firebase App Distributionからの配信 " + Time.new.strftime("%Y/%m/%d %H:%M") + "版リリース(" + ENV["CIRCLE_BRANCH"] + ")",
-      firebase_cli_path: "./node_modules/.bin/firebase"
+      ipa_path: lane_context[SharedValues::IPA_OUTPUT_PATH],
+      firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],  # Firebase token stored in environment variables
+      groups: "testers",  # Specify the group of testers if needed
+      release_notes: "Beta release"  # Add optional release notes
     )
   end
 end
+
