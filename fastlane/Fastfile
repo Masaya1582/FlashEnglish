@@ -16,7 +16,7 @@ platform :ios do
   desc "Distribute the app to Firebase App Distribution"
   lane :beta do
     # Ensure build configuration and IPA generation
-    build_app(scheme: "FlashEnglish")
+    build_app(workspace: "FlashEnglish.xcworkspace", scheme: "FlashEnglish")
 
     # Upload to Firebase App Distribution
     firebase_app_distribution(
