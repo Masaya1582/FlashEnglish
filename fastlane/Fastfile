@@ -3,10 +3,6 @@ default_platform :ios
 platform :ios do
   desc "Upload to Firebase"
   lane :beta do
-    unlock_keychain(
-      path: "./Library/login.keychain-db", 
-      password: ENV["KEYCHAIN_PASSWORD"] 
-    )
     match(type: "adhoc", readonly: true)
     gym(scheme: "FlashEnglish")
     firebase_app_distribution(
