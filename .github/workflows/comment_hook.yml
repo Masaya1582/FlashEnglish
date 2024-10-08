@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'  # You can specify your version here
+          ruby-version: '3.1' # You can specify your version here
 
       # Step 3: Install dependencies (Fastlane)
       - name: Install dependencies
