@@ -1,31 +1,23 @@
-fastlane_version "2.224.0"
-
 default_platform(:ios)
 
 platform :ios do
-  # Ensure the Firebase plugin is installed
-  before_all do
-    # Install Firebase plugin if not already installed
-    unless File.exist?('Gemfile') && File.read('Gemfile').include?('fastlane-plugin-firebase_app_distribution')
-      puts "Adding fastlane-plugin-firebase_app_distribution to the Gemfile"
-      sh "fastlane add_plugin firebase_app_distribution"
-    end
-  end
-
-  # Define the beta lane
-  desc "Distribute the app to Firebase App Distribution"
+  desc "Submit a new Beta Build to Firebase App Distribution"
   lane :beta do
-    # Ensure build configuration and IPA generation
-    build_app(workspace: "FlashEnglish.xcworkspace", scheme: "FlashEnglish")
-
-    # Upload to Firebase App Distribution
+    # podのインストール
+    cocoapods
+    
+    # IPAファイルの生成
+    build_app(
+      workspace: "FlashEnglish.xcworkspace", # あなたのプロジェクト名に置き換えてください
+      scheme: "FlashEnglish", # あなたのXcodeスキーム名に置き換えてください
+      export_method: "ad-hoc" # 配布方法に応じて設定
+    )
+    
+    # Firebase App Distributionにアップロード
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID"],
-      ipa_path: lane_context[SharedValues::IPA_OUTPUT_PATH],
-      firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],  # Firebase token stored in environment variables
-      groups: "testers",  # Specify the group of testers if needed
-      release_notes: "Beta release"  # Add optional release notes
+      app: ENV["FIREBASE_APP_ID"], # Firebaseで取得したApp ID
+      firebase_cli_token: ENV["FIREBASE_TOKEN"], # Firebase CLI Token
+      groups: "testers" # テストグループの名前
     )
   end
 end
-
