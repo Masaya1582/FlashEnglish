@@ -6,7 +6,7 @@ platform :ios do
     match(type: "adhoc", readonly: true)
     gym(
       scheme: "FlashEnglish",
-      xcode_path: /Applications/Xcode.app
+      xcode_path: "/Applications/Xcode.app"
     )
     firebase_app_distribution(
       app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
