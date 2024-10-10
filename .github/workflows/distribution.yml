@@ -18,13 +18,13 @@ jobs:
       with:
         ruby-version: '3.1'
 
-#    - name: Cache CocoaPods
-#      uses: actions/cache@v2
-#      with:
-#        path: Pods
-#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-pods-
+    - name: Cache CocoaPods
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
 
     - name: Install CocoaPods
       run: |
@@ -56,15 +56,16 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
-#    - name: Enable Parallel Code Signing
-#      run: |
-#        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4
+    - name: Enable Parallel Code Signing
+      run: |
+        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4
 
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
 
     - name: Build and distribute to Firebase App Distribution
       run: bundle exec fastlane distribute
+      timeout-minutes: 20
       env:
         FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
