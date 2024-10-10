@@ -9,13 +9,12 @@ platform :ios do
       workspace: "FlashEnglish.xcworkspace",
       scheme: "FlashEnglish",
       clean: true,
-      export_method: "adhoc"
+      export_method: "ad-hoc"
     )
 
     firebase_app_distribution(
       app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
       testers: "masa4y44@gmail.com",
-      groups: "beta-testers",
       release_notes: "New build from GitHub Actions"
     )
   end
