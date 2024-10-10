@@ -6,7 +6,7 @@ platform :ios do
     match(type: "adhoc", readonly: true)
     
     build_app(
-      workspace: "FlashEnglish",
+      workspace: "FlashEnglish.xcworkspace",
       scheme: "FlashEnglish",
       clean: true,
       export_method: "adhoc"
