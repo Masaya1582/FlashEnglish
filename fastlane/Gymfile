@@ -1,5 +1,4 @@
 workspace 'FlashEnglish.xcworkspace'
 scheme 'FlashEnglish'
 clean true
-output_directory 'Products'
 output_name 'FlashEnglish.ipa'
