@@ -1,0 +1,46 @@
+name: Distribute to Firebase App Distribution
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.1'
+
+    - name: Install CocoaPods
+      run: |
+        gem install bundler
+        bundle install
+        pod install
+
+    - name: Decrypt GoogleService-Info.plist
+      run: |
+        echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > ./FlashEnglish/Resources/Firebase/GoogleService-Info.plist
+      env:
+        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+
+    - name: Set up Fastlane
+      run: bundle exec fastlane match development --readonly
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+
+    - name: Build and distribute to Firebase App Distribution
+      run: bundle exec fastlane distribute
+      env:
+        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
