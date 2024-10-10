@@ -28,6 +28,7 @@ jobs:
 
     - name: Install CocoaPods
       run: |
+        bundle install
         pod install
 
     - name: Decrypt GoogleService-Info.plist
