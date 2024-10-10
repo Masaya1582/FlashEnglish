@@ -28,6 +28,16 @@ jobs:
       run: |
         mkdir -p FlashEnglish/Resources/Firebase
         echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
+        # Check if the file exists
+        if [ -f FlashEnglish/Resources/Firebase/GoogleService-Info.plist ]; then
+          echo "GoogleService-Info.plist file exists."
+        else
+          echo "GoogleService-Info.plist file does NOT exist!"
+        fi
+        # List the directory to ensure the file is there
+        ls -la FlashEnglish/Resources/Firebase/
+        # Optionally print the first few lines of the file for verification
+        head FlashEnglish/Resources/Firebase/GoogleService-Info.plist
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
