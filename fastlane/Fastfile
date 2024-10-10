@@ -5,7 +5,7 @@ platform :ios do
   lane :distribute do
     match(type: "adhoc", readonly: true)
     gym(
-      scheme: "FlashEnglish"
+      scheme: "FlashEnglish",
       verbose: true
     )
     firebase_app_distribution(
