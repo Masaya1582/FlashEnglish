@@ -31,15 +31,15 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
-    - name: Verify Code Signing Identity
-      run: sudo security find-identity -v -p codesigning
-
     - name: Set up Fastlane
       run: bundle exec fastlane match adhoc --readonly
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+
+    - name: Verify Code Signing Identity
+      run: security find-identity -v -p codesigning
 
     - name: Build and distribute to Firebase App Distribution
       run: bundle exec fastlane distribute
