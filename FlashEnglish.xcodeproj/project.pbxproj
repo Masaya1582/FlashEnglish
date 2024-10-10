@@ -480,7 +480,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		400A9C332B467FD40086914E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -539,7 +538,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
