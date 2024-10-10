@@ -31,6 +31,9 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
+    - name: Verify Code Signing Identity
+      run: security find-identity -v -p codesigning
+
     - name: Set up Fastlane
       run: bundle exec fastlane match adhoc --readonly
       env:
