@@ -24,15 +24,6 @@ jobs:
         bundle install
         pod install
 
-    - name: Create and unlock the keychain
-      run: |
-        security create-keychain -p "$MATCH_KEYCHAIN_PASSWORD" github_actions.keychain
-        security default-keychain -s github_actions.keychain
-        security unlock-keychain -p "$MATCH_KEYCHAIN_PASSWORD" github_actions.keychain
-        security list-keychains -s github_actions.keychain
-      env:
-        MATCH_KEYCHAIN_PASSWORD: ${{ secrets.MATCH_KEYCHAIN_PASSWORD }}
-
     - name: Decrypt GoogleService-Info.plist
       run: |
         mkdir -p FlashEnglish/Resources/Firebase
@@ -41,7 +32,7 @@ jobs:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
     - name: Verify Code Signing Identity
-      run: security find-identity -v -p codesigning
+      run: sudo security find-identity -v -p codesigning
 
     - name: Set up Fastlane
       run: bundle exec fastlane match adhoc --readonly
