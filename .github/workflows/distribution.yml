@@ -56,6 +56,10 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
+    - name: Enable Parallel Code Signing
+      run: |
+        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4
+
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
 
