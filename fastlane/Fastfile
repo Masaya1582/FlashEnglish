@@ -4,7 +4,10 @@ platform :ios do
   desc "Upload to Firebase"
   lane :distribute do
     match(type: "adhoc", readonly: true)
-    gym(scheme: "FlashEnglish")
+    gym(
+      scheme: "FlashEnglish",
+      xcode_path: /Applications/Xcode.app
+    )
     firebase_app_distribution(
       app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
       release_notes: "This is a test release!",
