@@ -1,131 +1,131 @@
-version: 2.1
-
-orbs:
-  macos: circleci/macos@2
-  slack: circleci/slack@4
-
-executors:
-  flash_english:
-    macos:
-      xcode: 15.3.0
-    resource_class: macos.m1.medium.gen1
-
-commands:
-  set-match-git-basic-authorization:
-    steps:
-      - run:
-          name: Unset git config
-          command: git config --global --unset url.ssh://git@github.com.insteadof
-      - run:
-          name: Set MATCH_GIT_BASIC_AUTHORIZATION
-          command: |
-            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"  # Encoding instead of decoding
-            echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
-
-  setup_app_store_connect_api_key_json:
-    steps:
-      - run:
-          name: Setup app-store-connect-api-key.json
-          command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > ./app-store-connect-api-key.json
-
-jobs:
-  build-and-test:
-    macos:
-      xcode: 15.3.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
-    steps:
-      - checkout
-      - run: bundle install
-      - run:
-          name: Fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
-      - store_artifacts:
-          path: output
-      - store_test_results:
-          path: output/scan
-
-  adhoc:
-    macos:
-      xcode: 15.3.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: adhoc
-    steps:
-      - checkout
-      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
-      - run: bundle install
-      - run: curl -sL https://firebase.tools | bash  # Added Firebase CLI installation
-      - run:
-          name: Fastlane
-          command: bundle exec fastlane $FASTLANE_LANE
-      - store_artifacts:
-          path: output
-
-  upload_firebase:
-    macos:
-      xcode: 15.3.0
-    environment:
-      FL_OUTPUT_DIR: output
-      FASTLANE_LANE: upload_firebase
-    steps:
-      - checkout
-      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
-      - run: bundle install
-      - run: curl -sL https://firebase.tools | bash  # Install Firebase CLI
-      - run:
-          name: Fastlane Upload to Firebase
-          command: bundle exec fastlane $FASTLANE_LANE
-      - store_artifacts:
-          path: output
-
-  deploy:
-    executor: flash_english
-    steps:
-      - checkout
-      - add_ssh_keys:
-          fingerprints:
-            - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
-      - set-match-git-basic-authorization
-      - setup_app_store_connect_api_key_json
-      - run:
-          name: Install ncurses (terminfo)
-          command: brew install ncurses
-      - run:
-          name: Add ncurses to path
-          command: |
-            export TERMINFO=$(brew --prefix ncurses)/share/terminfo
-            echo 'export TERMINFO=$(brew --prefix ncurses)/share/terminfo' >> $BASH_ENV
-      - run:
-          name: Install CocoaPods
-          command: pod install
-      - run:
-          name: Install Bundler and Fastlane
-          command: |
-            gem install bundler -v 2.3.0  # Install stable version of Bundler
-            bundle install
-      - run:
-          name: fastlane deploy
-          command: |
-            export FASTLANE_DISABLE_COLORS=1
-            export FASTLANE_SKIP_TERMINAL_PROMPT=true
-            export TERM=dumb  # Prevent terminal control sequences
-            bundle exec fastlane deploy
-
-  deploy-workflow:
-    jobs:
-      - deploy:
-          filters:
-            branches:
-              ignore:
-                - develop
-            tags:
-              only: /^v\d+\.\d+\.\d+$/
-
-  firebase-workflow:
-    jobs:
-      - upload_firebase:
-          filters:
-            branches:
-              only: /feature\/.*/
+#version: 2.1
+#
+#orbs:
+#  macos: circleci/macos@2
+#  slack: circleci/slack@4
+#
+#executors:
+#  flash_english:
+#    macos:
+#      xcode: 15.3.0
+#    resource_class: macos.m1.medium.gen1
+#
+#commands:
+#  set-match-git-basic-authorization:
+#    steps:
+#      - run:
+#          name: Unset git config
+#          command: git config --global --unset url.ssh://git@github.com.insteadof
+#      - run:
+#          name: Set MATCH_GIT_BASIC_AUTHORIZATION
+#          command: |
+#            basic_auth="$(echo -n "x-oauth-basic:${GITHUB_TOKEN}" | base64)"  # Encoding instead of decoding
+#            echo "export MATCH_GIT_BASIC_AUTHORIZATION=\"${basic_auth}\"" >> "${BASH_ENV}"
+#
+#  setup_app_store_connect_api_key_json:
+#    steps:
+#      - run:
+#          name: Setup app-store-connect-api-key.json
+#          command: echo "${APP_STORE_CONNECT_API_KEY_HERBERT_JSON}" > ./app-store-connect-api-key.json
+#
+#jobs:
+#  build-and-test:
+#    macos:
+#      xcode: 15.3.0
+#    environment:
+#      FL_OUTPUT_DIR: output
+#      FASTLANE_LANE: test
+#    steps:
+#      - checkout
+#      - run: bundle install
+#      - run:
+#          name: Fastlane
+#          command: bundle exec fastlane $FASTLANE_LANE
+#      - store_artifacts:
+#          path: output
+#      - store_test_results:
+#          path: output/scan
+#
+#  adhoc:
+#    macos:
+#      xcode: 15.3.0
+#    environment:
+#      FL_OUTPUT_DIR: output
+#      FASTLANE_LANE: adhoc
+#    steps:
+#      - checkout
+#      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
+#      - run: bundle install
+#      - run: curl -sL https://firebase.tools | bash  # Added Firebase CLI installation
+#      - run:
+#          name: Fastlane
+#          command: bundle exec fastlane $FASTLANE_LANE
+#      - store_artifacts:
+#          path: output
+#
+#  upload_firebase:
+#    macos:
+#      xcode: 15.3.0
+#    environment:
+#      FL_OUTPUT_DIR: output
+#      FASTLANE_LANE: upload_firebase
+#    steps:
+#      - checkout
+#      - run: echo 'chruby ruby-2.6' >> ~/.bash_profile
+#      - run: bundle install
+#      - run: curl -sL https://firebase.tools | bash  # Install Firebase CLI
+#      - run:
+#          name: Fastlane Upload to Firebase
+#          command: bundle exec fastlane $FASTLANE_LANE
+#      - store_artifacts:
+#          path: output
+#
+#  deploy:
+#    executor: flash_english
+#    steps:
+#      - checkout
+#      - add_ssh_keys:
+#          fingerprints:
+#            - "xjItc2nRs118tDyeM4Pmr2ljsafqEYnoUR1de0Vet3g"
+#      - set-match-git-basic-authorization
+#      - setup_app_store_connect_api_key_json
+#      - run:
+#          name: Install ncurses (terminfo)
+#          command: brew install ncurses
+#      - run:
+#          name: Add ncurses to path
+#          command: |
+#            export TERMINFO=$(brew --prefix ncurses)/share/terminfo
+#            echo 'export TERMINFO=$(brew --prefix ncurses)/share/terminfo' >> $BASH_ENV
+#      - run:
+#          name: Install CocoaPods
+#          command: pod install
+#      - run:
+#          name: Install Bundler and Fastlane
+#          command: |
+#            gem install bundler -v 2.3.0  # Install stable version of Bundler
+#            bundle install
+#      - run:
+#          name: fastlane deploy
+#          command: |
+#            export FASTLANE_DISABLE_COLORS=1
+#            export FASTLANE_SKIP_TERMINAL_PROMPT=true
+#            export TERM=dumb  # Prevent terminal control sequences
+#            bundle exec fastlane deploy
+#
+#  deploy-workflow:
+#    jobs:
+#      - deploy:
+#          filters:
+#            branches:
+#              ignore:
+#                - develop
+#            tags:
+#              only: /^v\d+\.\d+\.\d+$/
+#
+#  firebase-workflow:
+#    jobs:
+#      - upload_firebase:
+#          filters:
+#            branches:
+#              only: /feature\/.*/
