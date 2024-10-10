@@ -24,7 +24,7 @@ jobs:
         bundle install
         pod install
 
-     - name: Create and unlock the keychain
+    - name: Create and unlock the keychain
       run: |
         security create-keychain -p "$MATCH_KEYCHAIN_PASSWORD" github_actions.keychain
         security default-keychain -s github_actions.keychain
