@@ -9,7 +9,8 @@ platform :ios do
       workspace: "FlashEnglish.xcworkspace",
       scheme: "FlashEnglish",
       clean: true,
-      export_method: "ad-hoc"
+      export_method: "ad-hoc",
+      xcode_path: "/Applications/Xcode.app"
     )
 
     firebase_app_distribution(
