@@ -9,7 +9,7 @@ platform :ios do
       workspace: "FlashEnglish",
       scheme: "FlashEnglish",
       clean: true,
-      export_method: "ad-hoc"
+      export_method: "adhoc"
     )
 
     firebase_app_distribution(
