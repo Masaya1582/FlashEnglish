@@ -63,6 +63,9 @@ jobs:
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
 
+    - name: Clean Derived Data
+      run: xcodebuild clean -scheme FlashEnglish -derivedDataPath build/
+
     - name: Build and distribute to Firebase App Distribution
       run: bundle exec fastlane distribute
       timeout-minutes: 20
