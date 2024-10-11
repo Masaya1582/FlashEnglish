@@ -1,4 +1,4 @@
-name: Distribute to Firebase App Distribution
+name: Distribute IPA to Firebase App Distribution
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-latest # 最新のMacOS
 
     steps:
     - name: Checkout repository
