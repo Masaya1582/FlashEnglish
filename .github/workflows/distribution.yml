@@ -7,20 +7,35 @@ on:
 jobs:
   build:
     if: ${{ github.event.comment.body == 'distribute beta' }}
-    runs-on: macos-latest  # Use latest macOS environment for the job
+    runs-on: macos-latest
 
     steps:
-    - name: Send comment back to PR
-      uses: actions/github-script@v6
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          github.rest.issues.createComment({
-            issue_number: context.payload.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: "Beta版アプリを配信します 🚀"
-          })
+      - name: Check if it is a pull request and distribute beta
+        run: |
+          PAYLOAD=$(cat "$GITHUB_EVENT_PATH")
+          NUMBER=$(echo "$PAYLOAD" | jq -r '.issue.number')
+
+          # Check if the comment is associated with a pull request
+          if [[ "$(echo "$PAYLOAD" | jq -c '.issue.pull_request')" == "null" ]]; then
+            echo "This is not a pull request. Skipping."
+            exit 0
+          fi
+
+          # Get the pull request details
+          PULL_REQUEST=$(gh api "repos/$GITHUB_REPOSITORY/pulls/$NUMBER")
+          
+          # Check if the comment body contains "distribute beta"
+          if [[ "$(echo "$PAYLOAD" | jq -r '.comment.body' | grep -i 'distribute\\s\\+beta')" ]]; then
+            echo "Distribute beta command detected. Proceeding with distribution."
+
+            # Post a comment back to the pull request
+            gh api "repos/$GITHUB_REPOSITORY/issues/$NUMBER/comments" -F "body=Beta版アプリ配布ジョブを実行します :rocket:"
+          else
+            echo "No valid distribute beta command found. Exiting."
+            exit 0
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Checkout repository
       uses: actions/checkout@v2
