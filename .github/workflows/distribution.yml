@@ -44,7 +44,7 @@ jobs:
         if [ -f FlashEnglish/Resources/Firebase/GoogleService-Info.plist ]; then
           echo "GoogleService-Info.plist file exists."
         else
-          echo "GoogleService-Info.plist file does NOT exist!"
+          echo "GoogleService-Info.plist file does not exist!"
         fi
         # List the directory to ensure the file is there
         ls -la FlashEnglish/Resources/Firebase/
@@ -54,7 +54,7 @@ jobs:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
     - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc --readonly
+      run: bundle exec fastlane match adhoc --readonly --keychain_name "login.keychain" --keychain_password ${{ secrets.KEYCHAIN_PASSWORD }}
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
