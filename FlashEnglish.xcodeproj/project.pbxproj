@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		14980A7E78ED8597C2A764EA /* Pods_FlashEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */; };
 		1E046D752B4E4EB70016C390 /* SideMenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D742B4E4EB70016C390 /* SideMenuManager.swift */; };
 		1E046D782B4E4F040016C390 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D772B4E4F040016C390 /* MainTabView.swift */; };
 		1E046D7A2B4E4F1D0016C390 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E046D792B4E4F1D0016C390 /* SideMenuView.swift */; };
@@ -49,6 +48,7 @@
 		400A9C312B467E640086914E /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C302B467E640086914E /* Fonts.swift */; };
 		400A9C362B46830E0086914E /* CustomViewComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 400A9C352B46830E0086914E /* CustomViewComponents.swift */; };
 		40EC7E982CB24317000EE52D /* FirebaseAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40EC7E972CB24317000EE52D /* FirebaseAnalytics.swift */; };
+		F1603C4B5DBE18DBA83957EA /* Pods_FlashEnglish.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B69568590287AEC8D9EFFC /* Pods_FlashEnglish.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,7 +82,8 @@
 		1E1BB1A82B4A898F00E0A468 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E1BB1AA2B4A8A3C00E0A468 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E1BB1AB2B4B89AB00E0A468 /* AdMobBannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerView.swift; sourceTree = "<group>"; };
-		3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30B69568590287AEC8D9EFFC /* Pods_FlashEnglish.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlashEnglish.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CAD832E891A883F48058595 /* Pods-FlashEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.debug.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.debug.xcconfig"; sourceTree = "<group>"; };
 		400A5F672CAFF55D00C8D421 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		400A9C0C2B467BA60086914E /* FlashEnglish.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlashEnglish.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		400A9C0F2B467BA60086914E /* FlashEnglishApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashEnglishApp.swift; sourceTree = "<group>"; };
@@ -96,8 +97,7 @@
 		400A9C302B467E640086914E /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		400A9C352B46830E0086914E /* CustomViewComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewComponents.swift; sourceTree = "<group>"; };
 		40EC7E972CB24317000EE52D /* FirebaseAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseAnalytics.swift; sourceTree = "<group>"; };
-		73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.release.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.release.xcconfig"; sourceTree = "<group>"; };
-		A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.debug.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.debug.xcconfig"; sourceTree = "<group>"; };
+		5F3E0654FEE15834086EB82A /* Pods-FlashEnglish.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlashEnglish.release.xcconfig"; path = "Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14980A7E78ED8597C2A764EA /* Pods_FlashEnglish.framework in Frameworks */,
+				F1603C4B5DBE18DBA83957EA /* Pods_FlashEnglish.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +236,14 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		33B055136C9C4BA12444DF9D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				30B69568590287AEC8D9EFFC /* Pods_FlashEnglish.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		400A5F662CAFF55300C8D421 /* Firebase */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,7 +258,7 @@
 				400A9C0E2B467BA60086914E /* FlashEnglish */,
 				400A9C0D2B467BA60086914E /* Products */,
 				5644C387C454A9AA54646018 /* Pods */,
-				A86379BDA699414CC06D6CC7 /* Frameworks */,
+				33B055136C9C4BA12444DF9D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -366,18 +374,10 @@
 		5644C387C454A9AA54646018 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */,
-				73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */,
+				3CAD832E891A883F48058595 /* Pods-FlashEnglish.debug.xcconfig */,
+				5F3E0654FEE15834086EB82A /* Pods-FlashEnglish.release.xcconfig */,
 			);
 			path = Pods;
-			sourceTree = "<group>";
-		};
-		A86379BDA699414CC06D6CC7 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3319C79FE8F98DD1E53DBF53 /* Pods_FlashEnglish.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,13 +387,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 400A9C1A2B467BA70086914E /* Build configuration list for PBXNativeTarget "FlashEnglish" */;
 			buildPhases = (
-				6D895A9D35E2177B11291255 /* [CP] Check Pods Manifest.lock */,
+				CD37694E4E5E7D11E197A257 /* [CP] Check Pods Manifest.lock */,
 				400A9C082B467BA60086914E /* Sources */,
 				400A9C092B467BA60086914E /* Frameworks */,
 				400A9C0A2B467BA60086914E /* Resources */,
 				400A9C332B467FD40086914E /* SwiftLint */,
-				1B5B93889CFD5437CB299028 /* [CP] Embed Pods Frameworks */,
-				C76DBF3867BD95EEEEF3059F /* [CP] Copy Pods Resources */,
+				A93EADC95EF5D6C1C53BD3B4 /* [CP] Embed Pods Frameworks */,
+				646AA8A9E6E17AA343EA51E2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -465,23 +465,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1B5B93889CFD5437CB299028 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		400A9C332B467FD40086914E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -502,7 +485,41 @@
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint >/dev/null; then\n  swiftlint autocorrect --format # 自動修正の有効化\n  swiftlint\nelse\n  echo \"SwiftLint does not exist, download from https://github.com/realm/SwiftLint\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6D895A9D35E2177B11291255 /* [CP] Check Pods Manifest.lock */ = {
+		646AA8A9E6E17AA343EA51E2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A93EADC95EF5D6C1C53BD3B4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD37694E4E5E7D11E197A257 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -523,22 +540,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
-		};
-		C76DBF3867BD95EEEEF3059F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-resources.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -698,7 +699,7 @@
 		};
 		400A9C1B2B467BA70086914E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3E29F5D16FFAE6D0EB38130 /* Pods-FlashEnglish.debug.xcconfig */;
+			baseConfigurationReference = 3CAD832E891A883F48058595 /* Pods-FlashEnglish.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -741,7 +742,7 @@
 		};
 		400A9C1C2B467BA70086914E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 73539783EB5C5EECC7314A57 /* Pods-FlashEnglish.release.xcconfig */;
+			baseConfigurationReference = 5F3E0654FEE15834086EB82A /* Pods-FlashEnglish.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
