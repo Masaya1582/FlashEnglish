@@ -467,7 +467,6 @@
 /* Begin PBXShellScriptBuildPhase section */
 		1B5B93889CFD5437CB299028 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -481,6 +480,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlashEnglish/Pods-FlashEnglish-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 		400A9C332B467FD40086914E /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
