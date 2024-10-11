@@ -23,14 +23,6 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
         sudo xcodebuild -runFirstLaunch
 
-#    - name: Cache CocoaPods
-#      uses: actions/cache@v2
-#      with:
-#        path: Pods
-#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-pods-
-
     - name: Clean CocoaPods cache
       run: pod cache clean --all
 
@@ -58,6 +50,18 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
+   - name: Set up keychain
+      run: |
+        # 新しいキーチェーンを作成
+        security create-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
+        security default-keychain -s build.keychain
+        security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
+        security set-keychain-settings build.keychain
+
+        # 必要な証明書をインポート（ここではfastlane matchが後で行うので設定不要）
+        # キーチェーンのアクセス制限を無効化
+        security set-key-partition-list -S apple-tool:,apple: -s -k ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
+
     - name: Set up Fastlane
       run: bundle exec fastlane match adhoc --readonly
       env:
@@ -72,16 +76,8 @@ jobs:
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
 
-#    - name: Build with xcodebuild
-#      run: |
-#        xcodebuild -workspace FlashEnglish.xcworkspace \
-#                   -scheme FlashEnglish \
-#                   -sdk iphonesimulator \
-#                   -configuration Release \
-#                   clean build | xcpretty --verbose
-
     - name: Build and distribute to Firebase App Distribution
-      run: bundle exec fastlane distribute --verbose
+      run: bundle exec fastlane distribute
       timeout-minutes: 20
       env:
         FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
