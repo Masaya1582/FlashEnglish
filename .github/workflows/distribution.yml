@@ -15,8 +15,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          github.issues.createComment({
-            issue_number: context.issue.number,
+          github.rest.issues.createComment({
+            issue_number: context.payload.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
             body: "Beta版アプリを配信します 🚀"
