@@ -75,7 +75,7 @@ jobs:
       run: xcodebuild clean -scheme FlashEnglish -derivedDataPath build/
 
     - name: Build and distribute to Firebase App Distribution
-      run: bundle exec fastlane distribute
+      run: bundle exec fastlane distribute --verbose
       timeout-minutes: 20
       env:
         FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
