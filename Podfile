@@ -1,11 +1,10 @@
 # Uncomment the next line to define a global platform for your project
   platform :ios, '16.0'
+  use_frameworks!
+  inhibit_all_warnings!
 
 target 'FlashEnglish' do
-  # Comment the next line if you don't want to use dynamic frameworks
-  use_frameworks!
-
-  # Pods for FlashEnglish
+    # Application
     pod 'SwiftGen', '~> 6.0'
     pod 'lottie-ios'
     pod 'Google-Mobile-Ads-SDK'
@@ -16,12 +15,13 @@ target 'FlashEnglish' do
 
 end
 
-# Post-install hook to disable code signing for frameworks installed by CocoaPods
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      config.build_settings['CODE_SIGNING_REQUIRED'] = 'NO'
-      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      if config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'].to_f < 12.0
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
+      end
+      config.build_settings['EXCLUDED_ARCHS[sdk=iphonesimulator*]'] = 'arm64'
     end
   end
 end
