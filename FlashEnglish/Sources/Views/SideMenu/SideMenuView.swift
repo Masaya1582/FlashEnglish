@@ -17,7 +17,7 @@ struct SideMenuView: View {
         HStack {
             ZStack {
                 Rectangle()
-                    .fill(Asset.Colors.white.swiftUIColor)
+                    .fill(Asset.Colors.defaultWhite.swiftUIColor)
                     .frame(width: 270)
                 VStack(alignment: .leading, spacing: 0) {
                     profileImageView()
@@ -34,7 +34,7 @@ struct SideMenuView: View {
                 .padding(.top, 100)
                 .frame(width: 270)
                 .background(
-                    Asset.Colors.white.swiftUIColor
+                    Asset.Colors.defaultWhite.swiftUIColor
                 )
             }
             Spacer()
@@ -75,7 +75,7 @@ struct SideMenuView: View {
             VStack(alignment: .leading) {
                 HStack(spacing: 20) {
                     Rectangle()
-                        .fill(isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.white.swiftUIColor)
+                        .fill(isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.defaultWhite.swiftUIColor)
                         .frame(width: 5)
                     ZStack {
                         Image(systemName: imageName)
@@ -92,7 +92,7 @@ struct SideMenuView: View {
         }
         .frame(height: UIScreen.main.bounds.height / 12)
         .background(
-            LinearGradient(colors: [isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.white.swiftUIColor, Asset.Colors.white.swiftUIColor], startPoint: .leading, endPoint: .trailing)
+            LinearGradient(colors: [isSelected ? Asset.Colors.buttonColor.swiftUIColor : Asset.Colors.defaultWhite.swiftUIColor, Asset.Colors.defaultWhite.swiftUIColor], startPoint: .leading, endPoint: .trailing)
         )
     }
 

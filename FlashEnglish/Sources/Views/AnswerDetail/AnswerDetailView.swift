@@ -77,7 +77,7 @@ struct AnswerDetailView: View {
                 }
             } label: {
                 Text(quizManager.allQuizContents.count - quizManager.quizNumber == 1 ? "結果を見る" : "次の問題")
-                    .modifier(CustomButton(foregroundColor: Asset.Colors.white.swiftUIColor, backgroundColor: (quizManager.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
+                    .modifier(CustomButton(foregroundColor: Asset.Colors.defaultWhite.swiftUIColor, backgroundColor: (quizManager.allQuizContents.count - quizManager.quizNumber == 1) ? Asset.Colors.blue.swiftUIColor : Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSansJP.bold, width: UIScreen.main.bounds.width / 1.4, height: UIScreen.main.bounds.height / 32))
             }
             Button("ホームに戻る") {
                 quizManager.isShowAlertView = true

@@ -70,7 +70,7 @@ struct ScoreView: View {
                     navigationManager.navigationPath.removeAll()
                 } label: {
                     Text("ホームに戻る")
-                        .modifier(CustomButton(foregroundColor: Asset.Colors.white.swiftUIColor, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
+                        .modifier(CustomButton(foregroundColor: Asset.Colors.defaultWhite.swiftUIColor, backgroundColor: Asset.Colors.buttonColor.swiftUIColor, fontName: FontFamily.NotoSans.bold, width: UIScreen.main.bounds.width / 1.2, height: UIScreen.main.bounds.height / 32))
                 }
             }
             Spacer()
