@@ -34,12 +34,10 @@ jobs:
 #    - name: Clean CocoaPods cache
 #      run: pod cache clean --all
 #
-#    - name: Install CocoaPods
-#      run: |
-#        gem install bundler
-#        gem install cocoapods -v '1.15.2'
-#        bundle install
-#        pod install --verbose
+    - name: Install Bundle
+      run: |
+        gem install bundler
+        bundle install
 
     - name: Decrypt GoogleService-Info.plist
       run: |
