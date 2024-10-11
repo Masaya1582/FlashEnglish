@@ -4,15 +4,6 @@ platform :ios do
   desc "Upload to Firebase"
   lane :distribute do
     match(type: "adhoc")
-
-    update_code_signing_settings(
-      use_automatic_signing: false,
-      path: "FlashEnglish.xcworkspace",
-      team_id: "L6Q3MJXV23",
-      bundle_identifier: "com.masa4y44.FlashEnglish",
-      profile_name: "match AdHoc com.masa4y44.FlashEnglish"
-    )
-
     gym(
       scheme: "FlashEnglish",
       verbose: true

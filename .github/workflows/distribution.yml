@@ -50,6 +50,20 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
+    - name: Create Keychain
+      run: |
+        security create-keychain -p "" build.keychain
+        security list-keychains -s build.keychain
+        security unlock-keychain -p "" build.keychain
+        security set-keychain-settings -t 3600 -u build.keychain
+
+    - name: Import Certificates
+      run: |
+        security import "./path/to/your/certificate.p12" -k build.keychain -P "$MATCH_PASSWORD" -T /usr/bin/codesign
+        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
+      env:
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
     - name: Set up Fastlane
       run: bundle exec fastlane match adhoc --readonly
       env:
