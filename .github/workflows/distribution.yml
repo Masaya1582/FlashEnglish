@@ -23,13 +23,17 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
         sudo xcodebuild -runFirstLaunch
 
-    - name: Cache CocoaPods
-      uses: actions/cache@v2
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
+#    - name: Cache CocoaPods
+#      uses: actions/cache@v2
+#      with:
+#        path: Pods
+#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-pods-
+    - name: Clean CocoaPods
+      run: |
+          rm -rf Pods/
+          pod cache clean --all
 
     - name: Install CocoaPods
       run: |
