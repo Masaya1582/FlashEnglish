@@ -23,22 +23,5 @@ platform :ios do
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"]
     )
   end
-
-after_all do |lane|
-    # Success message
-    slack(
-      slack_url: ENV["SLACK_WEBHOOK_URL"],
-      channel: ENV["SLACK_CHANNEL_ID"]
-    )
-  end
-
-  error do |lane, exception|
-    # Failure message
-    slack(
-      success: false,
-      slack_url: ENV["SLACK_WEBHOOK_URL"],
-      channel: ENV["SLACK_CHANNEL_ID"]
-    )
-  end
 end
 
