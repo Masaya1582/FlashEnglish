@@ -81,7 +81,7 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
         SLACK_TITLE: "Build Successful!"
-        SLACK_MESSAGE: "Successfully distributed version ${{ github.event.inputs.version }} to Firebase App Distribution 🎉"
+        SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution 🚀"
         SLACK_COLOR: "good"
 
     # Slack notification on failure
@@ -92,5 +92,5 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
         SLACK_TITLE: "Build Failed!"
-        SLACK_MESSAGE: "Build failed. Please check the logs for more details."
+        SLACK_MESSAGE: "Failed to distribute build to Firebase App Distribution😭"
         SLACK_COLOR: "danger"
