@@ -44,9 +44,9 @@ struct QuizDetailView: View {
     private var quizDescriptionView: some View {
         VStack(alignment: .center) {
             Text("\(quizManager.quizLevelTitle): \(quizManager.allQuizContents.count)問")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
             Text(L10n.mainDescription)
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 20, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 20, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
                 .padding()
             Text(L10n.subDescription)
@@ -86,11 +86,11 @@ struct QuizDetailView: View {
             Toggle(isOn: $quizManager.shouldShuffleQuizData) {
                 Text("単語をシャッフルして挑戦する")
                     .multilineTextAlignment(.center)
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
                     .padding()
             }
             Text("フラッシュ表示間隔: \(quizManager.flashCountInterval, specifier: "%.1f")秒毎に表示")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
             Slider(value: $quizManager.flashCountInterval, in: 0.1...1, step: 0.1)
         }
         .padding(4)

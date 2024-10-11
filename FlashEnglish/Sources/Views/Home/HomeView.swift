@@ -56,7 +56,7 @@ struct HomeView: View {
                             presentSideMenu.toggle()
                         } label: {
                             Image(systemName: "list.bullet")
-                                .foregroundColor(Asset.Colors.black.swiftUIColor)
+                                .foregroundColor(Asset.Colors.defaultBlack.swiftUIColor)
                         }
                 )
         }
@@ -65,7 +65,7 @@ struct HomeView: View {
     private var stageSelectorView: some View {
         VStack {
             Text("フラッシュ英文法だ")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
             Spacer().frame(height: 20)
             ScrollView {

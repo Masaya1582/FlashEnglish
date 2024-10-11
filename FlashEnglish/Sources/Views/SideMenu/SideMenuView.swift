@@ -60,10 +60,10 @@ struct SideMenuView: View {
             }
 
             Text("Masaya Nakakuki")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 18, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 18, fontName: FontFamily.NotoSans.bold))
 
             Text("iOSエンジニア")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor.opacity(0.5), size: 14, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor.opacity(0.5), size: 14, fontName: FontFamily.NotoSans.bold))
         }
     }
 
@@ -81,7 +81,7 @@ struct SideMenuView: View {
                         Image(systemName: imageName)
                             .resizable()
                             .renderingMode(.template)
-                            .foregroundColor(isSelected ? Asset.Colors.black.swiftUIColor : Asset.Colors.gray4.swiftUIColor)
+                            .foregroundColor(isSelected ? Asset.Colors.defaultBlack.swiftUIColor : Asset.Colors.gray4.swiftUIColor)
                             .frame(width: 24, height: 24)
                     }
                     Text(title)

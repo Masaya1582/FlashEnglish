@@ -19,7 +19,7 @@ struct QuizView: View {
         NavigationStack(path: $navigationManager.navigationPath) {
             VStack {
                 Text("Question \(quizManager.quizNumber + 1)")
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
                 Spacer()
                 // 3秒のカウント後、フラッシュ式にクイズを出題する
                 if quizManager.countDown > 0 {
@@ -73,7 +73,7 @@ struct QuizView: View {
     // カウントダウン表示
     private var countDownCircleView: some View {
         Text("\(quizManager.countDown)")
-            .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
+            .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
             .padding()
             .background(
                 RoundedRectangle(cornerRadius: 120)
@@ -88,7 +88,7 @@ struct QuizView: View {
         VStack {
             Spacer()
             Text(quizManager.isTryAgainSelected ? quizManager.quizContentForTryAgain[quizManager.eachQuizWordNumber] : quizManager.productionQuizContentArray[quizManager.eachQuizWordNumber])
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 48, fontName: FontFamily.NotoSans.bold))
             Spacer()
         }
     }

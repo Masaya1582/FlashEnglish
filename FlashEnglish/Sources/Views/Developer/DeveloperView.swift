@@ -26,11 +26,11 @@ struct DeveloperView: View {
                     .resizable()
                     .modifier(CustomImage(width: 200, height: 200))
                 Text("Masaya Nakakuki")
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 32, fontName: FontFamily.NotoSans.bold))
                 Text("iOSエンジニア")
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.semiBold))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 24, fontName: FontFamily.NotoSans.semiBold))
                 Text(L10n.developerDescription)
-                    .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSans.regular))
+                    .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 16, fontName: FontFamily.NotoSans.regular))
                     .padding()
                 HStack(spacing: 24) {
                     ForEach(socialServiceIconArray) { socialService in
@@ -60,7 +60,7 @@ struct DeveloperView: View {
                         presentSideMenu.toggle()
                     } label: {
                         Image(systemName: "list.bullet")
-                            .foregroundColor(Asset.Colors.black.swiftUIColor)
+                            .foregroundColor(Asset.Colors.defaultBlack.swiftUIColor)
                     }
             )
         }

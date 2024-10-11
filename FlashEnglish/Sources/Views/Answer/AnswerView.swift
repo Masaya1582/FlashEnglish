@@ -51,9 +51,9 @@ struct AnswerView: View {
     private var userAnswerFieldView: some View {
         VStack {
             Text("あなたの解答:")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
             Text("\(quizManager.userAnswerInputs)")
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 24, fontName: FontFamily.NotoSansJP.bold))
                 .multilineTextAlignment(.center)
         }
         .frame(maxWidth: .infinity)
@@ -78,7 +78,7 @@ struct AnswerView: View {
                     Text(quizManager.isFlipHint ? "閉じる" : "ヒントを見る(並び替える前の単語がみれます)")
                     Image(systemName: quizManager.isFlipHint ? "chevron.up" : "chevron.down")
                 }
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.blue.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.bold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlue.swiftUIColor, size: 12, fontName: FontFamily.NotoSansJP.bold))
             }
             if quizManager.isFlipHint {
                 Text(quizManager.productionQuizContentArray.joined(separator: " "))

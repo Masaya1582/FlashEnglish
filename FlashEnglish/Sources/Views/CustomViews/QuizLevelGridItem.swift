@@ -31,7 +31,7 @@ struct LevelGridItem: View {
                 )
 
             Text(levelItem.title)
-                .modifier(CustomLabel(foregroundColor: Asset.Colors.black.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
+                .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 16, fontName: FontFamily.NotoSansJP.semiBold))
         }
         .onTapGesture {
             tapAction()
@@ -39,6 +39,6 @@ struct LevelGridItem: View {
         .padding(16)
         .background(Asset.Colors.defaultWhite.swiftUIColor)
         .cornerRadius(16)
-        .shadow(color: Asset.Colors.black.swiftUIColor.opacity(0.2), radius: 8, x: 0, y: 4)
+        .shadow(color: Asset.Colors.defaultBlack.swiftUIColor.opacity(0.2), radius: 8, x: 0, y: 4)
     }
 }
