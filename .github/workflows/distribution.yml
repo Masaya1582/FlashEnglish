@@ -50,16 +50,8 @@ jobs:
       env:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
-     # Keychain Setup: Create and Unlock Keychain
-    - name: Unlock the login Keychain
-      run: |
-        security unlock-keychain -p "$KEYCHAIN_PASSWORD" /Users/runner/Library/Keychains/login.keychain-db
-        security set-keychain-settings -t 3600 -u /Users/runner/Library/Keychains/login.keychain-db
-      env:
-        KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-
     - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc
+      run: bundle exec fastlane match adhoc --readonly
       env:
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
