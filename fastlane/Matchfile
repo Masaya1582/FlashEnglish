@@ -4,13 +4,13 @@
 storage_mode("git")
 
 # 証明書のタイプを指定
-type("adhoc", readOnly: true) # 証明書のタイプ: appstore, adhoc, enterprise, development から選択
+type("adhoc") # 証明書のタイプ: appstore, adhoc, enterprise, development から選択
 
 # 証明書管理用のGitリポジトリURLを設定
 git_url("https://github.com/Masaya1582/ios-certificates") 
 
 # 使用するブランチを指定
-git_branch("master") 
+git_branch("develop") 
 
 # Apple Developer アカウントに対応するチームID
 team_id("L6Q3MJXV23") 
@@ -23,4 +23,4 @@ git_full_name("Masaya1582")
 git_user_email("masa4y44@gmail.com")
 
 # 新しいデバイス用に証明書を強制的に生成するオプション（必要に応じて）
-force_for_new_devices(true)
+force_for_new_devices(false)
