@@ -35,7 +35,7 @@ jobs:
       run: |
         gem install bundler
         bundle install
-        pod install
+        pod install --verbose
 
     - name: Decrypt GoogleService-Info.plist
       run: |
