@@ -54,8 +54,6 @@ jobs:
       run: bundle exec fastlane match adhoc --readonly
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
     - name: Enable Parallel Code Signing
       run: |
