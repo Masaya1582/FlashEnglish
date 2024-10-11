@@ -57,16 +57,10 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
 
-    - name: Set up keychain
+    - name: Reload keychain
       run: |
-        # 新しいキーチェーンを作成
-        security create-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
-        security default-keychain -s build.keychain
-        security unlock-keychain -p ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
+        security list-keychains -s build.keychain
         security set-keychain-settings build.keychain
-
-        # キーチェーンのアクセス制限を無効化
-        security set-key-partition-list -S apple-tool:,apple: -s -k ${{ secrets.KEYCHAIN_PASSWORD }} build.keychain
 
     - name: Enable Parallel Code Signing
       run: |
