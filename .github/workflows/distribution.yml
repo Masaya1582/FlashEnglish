@@ -32,7 +32,7 @@ jobs:
 #          ${{ runner.os }}-pods-
     - name: Clean CocoaPods
       run: |
-          rm -rf Pods/
+          rm -rf Pods/ Podfile.lock
           pod cache clean --all
 
     - name: Install CocoaPods
