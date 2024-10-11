@@ -59,7 +59,7 @@ jobs:
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
 
     - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc --readonly
+      run: bundle exec fastlane match adhoc
       env:
         KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
