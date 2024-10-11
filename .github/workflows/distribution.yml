@@ -31,13 +31,15 @@ jobs:
 #        restore-keys: |
 #          ${{ runner.os }}-pods-
 
-#    - name: Clean CocoaPods cache
-#      run: pod cache clean --all
-#
-    - name: Install Bundle
+    - name: Clean CocoaPods cache
+      run: pod cache clean --all
+
+    - name: Install CocoaPods
       run: |
         gem install bundler
+        gem install cocoapods -v '1.15.2'
         bundle install
+        pod install
 
     - name: Decrypt GoogleService-Info.plist
       run: |
