@@ -23,22 +23,19 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
         sudo xcodebuild -runFirstLaunch
 
-#    - name: Cache CocoaPods
-#      uses: actions/cache@v2
-#      with:
-#        path: Pods
-#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-pods-
-    - name: Clean CocoaPods
-      run: |
-          rm -rf Pods/ Podfile.lock
-          pod cache clean --all
+    - name: Cache CocoaPods
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
 
     - name: Install CocoaPods
       run: |
+        gem install bundler
         bundle install
-        pod install --repo-update
+        pod install
 
     - name: Decrypt GoogleService-Info.plist
       run: |
@@ -58,7 +55,7 @@ jobs:
         GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
     - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc --readonly --keychain_name "login.keychain" --keychain_password ${{ secrets.KEYCHAIN_PASSWORD }}
+      run: bundle exec fastlane match adhoc
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
@@ -70,9 +67,6 @@ jobs:
 
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
-
-    - name: Clean Derived Data
-      run: xcodebuild clean -scheme FlashEnglish -derivedDataPath build/
 
     - name: Build and distribute to Firebase App Distribution
       run: bundle exec fastlane distribute --verbose
