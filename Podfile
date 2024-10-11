@@ -13,7 +13,6 @@ target 'FlashEnglish' do
     pod 'Firebase/Messaging'
     pod 'Firebase/Crashlytics'
     pod 'Firebase/Analytics'
-    pod 'Firebase/Performance'
 
 end
 
