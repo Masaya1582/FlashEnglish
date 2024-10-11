@@ -23,13 +23,15 @@ jobs:
         sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
         sudo xcodebuild -runFirstLaunch
 
-    - name: Cache CocoaPods
-      uses: actions/cache@v2
-      with:
-        path: Pods
-        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-pods-
+#    - name: Cache CocoaPods
+#      uses: actions/cache@v2
+#      with:
+#        path: Pods
+#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+#        restore-keys: |
+#          ${{ runner.os }}-pods-
+    - name: Clean CocoaPods cache
+      run: pod cache clean --all
 
     - name: Install CocoaPods
       run: |
@@ -68,6 +70,10 @@ jobs:
 
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
+
+    - name: Run SwiftLint
+      run: swiftlint
+      if: false # 一時的に無効化
 
     - name: Build and distribute to Firebase App Distribution
       run: bundle exec fastlane distribute --verbose
