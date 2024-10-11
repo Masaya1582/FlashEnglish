@@ -1,9 +1,9 @@
 # Uncomment the next line to define a global platform for your project
   platform :ios, '16.0'
-  use_frameworks!
-  inhibit_all_warnings!
 
 target 'FlashEnglish' do
+  use_frameworks!
+  inhibit_all_warnings!
     # Application
     pod 'SwiftGen', '~> 6.0'
     pod 'lottie-ios'
