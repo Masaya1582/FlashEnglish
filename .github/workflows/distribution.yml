@@ -31,15 +31,15 @@ jobs:
 #        restore-keys: |
 #          ${{ runner.os }}-pods-
 
-    - name: Clean CocoaPods cache
-      run: pod cache clean --all
-
-    - name: Install CocoaPods
-      run: |
-        gem install bundler
-        gem install cocoapods -v '1.15.2'
-        bundle install
-        pod install --verbose
+#    - name: Clean CocoaPods cache
+#      run: pod cache clean --all
+#
+#    - name: Install CocoaPods
+#      run: |
+#        gem install bundler
+#        gem install cocoapods -v '1.15.2'
+#        bundle install
+#        pod install --verbose
 
     - name: Decrypt GoogleService-Info.plist
       run: |
@@ -72,19 +72,19 @@ jobs:
     - name: Verify Code Signing Identity
       run: security find-identity -v -p codesigning
 
-    - name: Build with xcodebuild
-      run: |
-        xcodebuild -workspace FlashEnglish.xcworkspace \
-                   -scheme FlashEnglish \
-                   -sdk iphonesimulator \
-                   -configuration Release \
-                   clean build | xcpretty --verbose
+#    - name: Build with xcodebuild
+#      run: |
+#        xcodebuild -workspace FlashEnglish.xcworkspace \
+#                   -scheme FlashEnglish \
+#                   -sdk iphonesimulator \
+#                   -configuration Release \
+#                   clean build | xcpretty --verbose
 
-#    - name: Build and distribute to Firebase App Distribution
-#      run: bundle exec fastlane distribute --verbose
-#      timeout-minutes: 20
-#      env:
-#        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
-#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
-#        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
-#        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
+    - name: Build and distribute to Firebase App Distribution
+      run: bundle exec fastlane distribute --verbose
+      timeout-minutes: 20
+      env:
+        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}
+        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}
