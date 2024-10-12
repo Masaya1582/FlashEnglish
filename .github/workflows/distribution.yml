@@ -79,19 +79,8 @@ jobs:
       if: success()
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-        SLACK_TITLE: "Build Successful!"
-        SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution 🚀"
-        SLACK_COLOR: "good"
-
-    # Slack notification on failure
-    - name: Notify Slack on Failure
-      if: failure()
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-        SLACK_TITLE: "Build Failed!"
-        SLACK_MESSAGE: "Failed to distribute build to Firebase App Distribution😭"
-        SLACK_COLOR: "danger"
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_MESSAGE: 'Successfully distributed build to Firebase App Distribution :rocket'
+        SLACK_TITLE: Post Title
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
