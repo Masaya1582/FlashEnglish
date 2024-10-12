@@ -78,8 +78,9 @@ jobs:
       if: success()  # Only run this step if the build succeeds
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Slack webhook URL from secrets
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}  # Slack webhook URL from secrets
         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}  # Slack channel ID from secrets
-      with:
-        status: success
-        fields: repo,message,commit,author,took
+        SLACK_COLOR: good  # Color for success (green)
+        SLACK_MSG_AUTHOR: ${{ github.actor }}  # GitHub user who triggered the action
+        SLACK_MESSAGE_ON_SUCCESS: "The app was successfully distributed to Firebase :rocket"
+        SLACK_TITLE: "IPA Distribution Successful"
