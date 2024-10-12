@@ -13,66 +13,66 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2  # リポジトリのソースコードをチェックアウト（ダウンロード）
 
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: '3.2'  # Rubyのバージョン3.2を設定。FastlaneやCocoaPodsはRubyで動作するため
-
-    - name: Set Xcode version
-      run: |
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-        sudo xcodebuild -runFirstLaunch
-
-    - name: Cache CocoaPods
-      uses: actions/cache@v2
-      with:
-        path: Pods  # CocoaPodsでインストールされた依存パッケージをキャッシュ
-        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}  # Podfile.lockを基にしたキャッシュキー
-        restore-keys: |
-          ${{ runner.os }}-pods-  # キャッシュが見つからない場合のフォールバックキー
-
-    - name: Install CocoaPods
-      run: |
-        gem install bundler
-        bundle install
-        pod install
-
-    - name: Decrypt GoogleService-Info.plist
-      run: |
-        mkdir -p FlashEnglish/Resources/Firebase
-        echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
-      env:
-        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}  # Firebase用のGoogleService-Info.plistをSecretsから復号化して配置
-
-    - name: Decrypt and Import .p12 Certificate
-      run: |
-        echo "$P12_BASE64" | base64 --decode > certificate.p12
-        security create-keychain -p "" build.keychain
-        security list-keychains -s build.keychain
-        security unlock-keychain -p "" build.keychain
-        security import ./certificate.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
-        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
-      env:
-        P12_BASE64: ${{ secrets.P12_BASE64 }}  # Secretsに保存した証明書のBase64エンコード値
-        P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # 証明書のパスワードをSecretsから取得
-
-    - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc --readonly  # FastlaneのMatchを使用してAdHocプロファイルを取得（読み取り専用モード）
-      env:
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
-
-    - name: Enable Parallel Code Signing
-      run: |
-        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4  # Xcodeで並列コード署名を有効化し、ビルド時間を短縮
-
-    - name: Build and distribute to Firebase App Distribution
-      run: bundle exec fastlane distribute  # Fastlaneでアプリをビルドし、Firebase App Distributionにアップロード
-      env:
-        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}  # Firebase App Distribution用のAPIトークン (TEST)
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
-        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlaneのユーザー名（Apple IDなど）
-        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlaneのパスワード
+#    - name: Set up Ruby
+#      uses: ruby/setup-ruby@v1
+#      with:
+#        ruby-version: '3.2'  # Rubyのバージョン3.2を設定。FastlaneやCocoaPodsはRubyで動作するため
+#
+#    - name: Set Xcode version
+#      run: |
+#        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+#        sudo xcodebuild -runFirstLaunch
+#
+#    - name: Cache CocoaPods
+#      uses: actions/cache@v2
+#      with:
+#        path: Pods  # CocoaPodsでインストールされた依存パッケージをキャッシュ
+#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}  # Podfile.lockを基にしたキャッシュキー
+#        restore-keys: |
+#          ${{ runner.os }}-pods-  # キャッシュが見つからない場合のフォールバックキー
+#
+#    - name: Install CocoaPods
+#      run: |
+#        gem install bundler
+#        bundle install
+#        pod install
+#
+#    - name: Decrypt GoogleService-Info.plist
+#      run: |
+#        mkdir -p FlashEnglish/Resources/Firebase
+#        echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
+#      env:
+#        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}  # Firebase用のGoogleService-Info.plistをSecretsから復号化して配置
+#
+#    - name: Decrypt and Import .p12 Certificate
+#      run: |
+#        echo "$P12_BASE64" | base64 --decode > certificate.p12
+#        security create-keychain -p "" build.keychain
+#        security list-keychains -s build.keychain
+#        security unlock-keychain -p "" build.keychain
+#        security import ./certificate.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
+#        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
+#      env:
+#        P12_BASE64: ${{ secrets.P12_BASE64 }}  # Secretsに保存した証明書のBase64エンコード値
+#        P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # 証明書のパスワードをSecretsから取得
+#
+#    - name: Set up Fastlane
+#      run: bundle exec fastlane match adhoc --readonly  # FastlaneのMatchを使用してAdHocプロファイルを取得（読み取り専用モード）
+#      env:
+#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
+#
+#    - name: Enable Parallel Code Signing
+#      run: |
+#        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4  # Xcodeで並列コード署名を有効化し、ビルド時間を短縮
+#
+#    - name: Build and distribute to Firebase App Distribution
+#      run: bundle exec fastlane distribute  # Fastlaneでアプリをビルドし、Firebase App Distributionにアップロード
+#      env:
+#        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+#        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}  # Firebase App Distribution用のAPIトークン (TEST)
+#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
+#        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlaneのユーザー名（Apple IDなど）
+#        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlaneのパスワード
 
     # Slack notification on success
     - name: Notify Slack on Success
