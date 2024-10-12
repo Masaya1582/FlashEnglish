@@ -3,20 +3,20 @@ name: Distribute IPA to Firebase App Distribution
 on:
   push:
     branches:
-      - develop  # developブランチにpushされたときにこのジョブがトリガーされる
+      - develop  # Trigger the job when pushing to the develop branch
 
 jobs:
   build:
-    runs-on: macos-latest  # 最新のmacOS環境でジョブを実行
+    runs-on: macos-latest  # Execute the job on the latest macOS environment
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  # リポジトリのソースコードをチェックアウト（ダウンロード）
+      uses: actions/checkout@v2  # Checkout the repository source code
 
 #    - name: Set up Ruby
 #      uses: ruby/setup-ruby@v1
 #      with:
-#        ruby-version: '3.2'  # Rubyのバージョン3.2を設定。FastlaneやCocoaPodsはRubyで動作するため
+#        ruby-version: '3.2'  # Use Ruby version 3.2, required for Fastlane and CocoaPods
 #
 #    - name: Set Xcode version
 #      run: |
@@ -26,10 +26,10 @@ jobs:
 #    - name: Cache CocoaPods
 #      uses: actions/cache@v2
 #      with:
-#        path: Pods  # CocoaPodsでインストールされた依存パッケージをキャッシュ
-#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}  # Podfile.lockを基にしたキャッシュキー
+#        path: Pods  # Cache installed CocoaPods dependencies
+#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}  # Cache key based on Podfile.lock
 #        restore-keys: |
-#          ${{ runner.os }}-pods-  # キャッシュが見つからない場合のフォールバックキー
+#          ${{ runner.os }}-pods-  # Fallback cache key if the main one isn't found
 #
 #    - name: Install CocoaPods
 #      run: |
@@ -42,7 +42,7 @@ jobs:
 #        mkdir -p FlashEnglish/Resources/Firebase
 #        echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
 #      env:
-#        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}  # Firebase用のGoogleService-Info.plistをSecretsから復号化して配置
+#        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}  # Decrypt the GoogleService-Info.plist for Firebase from secrets
 #
 #    - name: Decrypt and Import .p12 Certificate
 #      run: |
@@ -53,45 +53,51 @@ jobs:
 #        security import ./certificate.p12 -k build.keychain -P "$P12_PASSWORD" -T /usr/bin/codesign
 #        security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "" build.keychain
 #      env:
-#        P12_BASE64: ${{ secrets.P12_BASE64 }}  # Secretsに保存した証明書のBase64エンコード値
-#        P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # 証明書のパスワードをSecretsから取得
+#        P12_BASE64: ${{ secrets.P12_BASE64 }}  # The Base64 encoded certificate
+#        P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Password for the certificate from secrets
 #
 #    - name: Set up Fastlane
-#      run: bundle exec fastlane match adhoc --readonly  # FastlaneのMatchを使用してAdHocプロファイルを取得（読み取り専用モード）
+#      run: bundle exec fastlane match adhoc --readonly  # Use Fastlane Match to get the AdHoc profile (read-only mode)
 #      env:
-#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
+#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match password from secrets
 #
 #    - name: Enable Parallel Code Signing
 #      run: |
-#        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4  # Xcodeで並列コード署名を有効化し、ビルド時間を短縮
+#        defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4  # Enable parallel code signing to speed up builds
 #
 #    - name: Build and distribute to Firebase App Distribution
-#      run: bundle exec fastlane distribute  # Fastlaneでアプリをビルドし、Firebase App Distributionにアップロード
+#      run: bundle exec fastlane distribute  # Use Fastlane to build the app and upload it to Firebase App Distribution
 #      env:
 #        FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
-#        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}  # Firebase App Distribution用のAPIトークン (TEST)
-#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match用のパスワード
-#        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlaneのユーザー名（Apple IDなど）
-#        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlaneのパスワード
+#        FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}  # Firebase App Distribution API token
+#        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match password from secrets
+#        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
+#        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
 
-     # Slack notification on success
-     - name: Notify Slack on Success
-       if: success()
-       uses: rtCamp/action-slack-notify@v2
-       env:
-         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-         SLACK_TITLE: "Build Successful!"
-         SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
-         SLACK_COLOR: "good"
+  # Slack notification on success
+  notify_success:
+    runs-on: macos-latest
+    if: ${{ success() }}  # Notify only on success
+    steps:
+    - name: Notify Slack on Success
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+        SLACK_TITLE: "Build Successful!"
+        SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
+        SLACK_COLOR: "good"
 
-     # Slack notification on failure
-     - name: Notify Slack on Failure
-       if: failure()
-       uses: rtCamp/action-slack-notify@v2
-       env:
-         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-         SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-         SLACK_TITLE: "Build Failed!"
-         SLACK_MESSAGE: "Failed to distribute build to Firebase App Distribution :cry:"
-         SLACK_COLOR: "danger"
+  # Slack notification on failure
+  notify_failure:
+    runs-on: macos-latest
+    if: ${{ failure() }}  # Notify only on failure
+    steps:
+    - name: Notify Slack on Failure
+      uses: rtCamp/action-slack-notify@v2
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
+        SLACK_TITLE: "Build Failed!"
+        SLACK_MESSAGE: "Failed to distribute build to Firebase App Distribution :cry:"
+        SLACK_COLOR: "danger"
