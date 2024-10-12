@@ -74,29 +74,12 @@ jobs:
 #        FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
 #        FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
 
-  # Slack notification on success
-  notify_success:
-    runs-on: macos-latest
-    if: ${{ success() }}  # Notify only on success
-    steps:
-    - name: Notify Slack on Success
+    - name: Send Slack notification on success
+      if: success()  # Only run this step if the build succeeds
       uses: rtCamp/action-slack-notify@v2
       env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_TITLE: "Build Successful!"
-        SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
-        SLACK_COLOR: "good"
-
-  # Slack notification on failure
-  notify_failure:
-    runs-on: macos-latest
-    if: ${{ failure() }}  # Notify only on failure
-    steps:
-    - name: Notify Slack on Failure
-      uses: rtCamp/action-slack-notify@v2
-      env:
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}
-        SLACK_TITLE: "Build Failed!"
-        SLACK_MESSAGE: "Failed to distribute build to Firebase App Distribution :cry:"
-        SLACK_COLOR: "danger"
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Slack webhook URL from secrets
+        SLACK_CHANNEL: ${{ secrets.SLACK_CHANNEL_ID }}  # Slack channel ID from secrets
+      with:
+        status: success
+        fields: repo,message,commit,author,took
