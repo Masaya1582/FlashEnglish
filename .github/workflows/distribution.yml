@@ -83,4 +83,4 @@ jobs:
         SLACK_COLOR: ${{ job.status }}
         SLACK_MESSAGE: 'Successfully distributed build to Firebase App Distribution :rocket'
         SLACK_TITLE: Post Title
-        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
