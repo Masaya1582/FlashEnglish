@@ -74,11 +74,12 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
 
-  slack_notification:
-    runs-on: ubuntu-latest  # Slack通知だけはUbuntuランナーを使用
+  notify:
+    runs-on: ubuntu-latest  # Slack通知はUbuntuランナーを使用
+    needs: build  # buildジョブの成功/失敗に依存
     steps:
     - name: Slack Notification on Success
-      if: ${{ success() }}
+      if: ${{ needs.build.result == 'success' }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Webhook URL stored in GitHub secrets
@@ -87,7 +88,7 @@ jobs:
         SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
 
     - name: Slack Notification on Failure
-      if: ${{ failure() }}
+      if: ${{ needs.build.result == 'failure' }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Webhook URL stored in GitHub secrets
