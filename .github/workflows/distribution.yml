@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     steps:
     - name: Checkout repository
@@ -74,19 +74,25 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
 
+  notify:
+    runs-on: ubuntu-latest  # Use Ubuntu for sending Slack notifications
+    needs: build  # This job depends on the macOS build job
+
+    steps:
+    # Slack Notification on Success
     - name: Slack Notification on Success
-      uses: rtCamp/action-slack-notify@v2
       if: ${{ success() }}
+      uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Webhook URL stored in GitHub secrets
         SLACK_TITLE: "Deploy / Success"
         SLACK_COLOR: good
         SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
 
-    # 失敗時のSlack通知
+    # Slack Notification on Failure
     - name: Slack Notification on Failure
-      uses: rtCamp/action-slack-notify@v2
       if: ${{ failure() }}
+      uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}  # Webhook URL stored in GitHub secrets
         SLACK_TITLE: "Deploy / Failure"
