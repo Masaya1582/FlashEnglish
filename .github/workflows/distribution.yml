@@ -18,10 +18,10 @@ jobs:
       with:
         ruby-version: '3.2'  # Use Ruby version 3.2, required for Fastlane and CocoaPods
 
-    - name: Set Xcode version
-      run: |
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-        sudo xcodebuild -runFirstLaunch
+#    - name: Set Xcode version
+#      run: |
+#        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+#        sudo xcodebuild -runFirstLaunch
 
     - name: Cache CocoaPods
       uses: actions/cache@v2
