@@ -74,12 +74,6 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
 
-  notify:
-    runs-on: ubuntu-latest  # Use Ubuntu for sending Slack notifications
-    needs: build  # This job depends on the macOS build job
-
-    steps:
-    # Slack Notification on Success
     - name: Slack Notification on Success
       if: ${{ success() }}
       uses: rtCamp/action-slack-notify@v2
@@ -89,7 +83,6 @@ jobs:
         SLACK_COLOR: good
         SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution :rocket:"
 
-    # Slack Notification on Failure
     - name: Slack Notification on Failure
       if: ${{ failure() }}
       uses: rtCamp/action-slack-notify@v2
