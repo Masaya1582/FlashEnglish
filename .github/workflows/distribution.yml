@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest  # Execute the job on the latest macOS environment
+    runs-on: ubuntu-latest  # Execute the job on the latest macOS environment
 
     steps:
     - name: Checkout repository
