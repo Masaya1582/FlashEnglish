@@ -85,7 +85,7 @@ jobs:
         SLACK_MESSAGE: "Successfully distributed build to Firebase App Distribution 🚀"
         SLACK_COLOR: "good"
 
-     Slack notification on failure
+    # Slack notification on failure
     - name: Notify Slack on Failure
       if: failure()
       uses: rtCamp/action-slack-notify@v2
