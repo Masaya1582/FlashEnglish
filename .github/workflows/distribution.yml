@@ -20,7 +20,7 @@ jobs:
 
     - name: Set Xcode version
       run: |
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Develope
         sudo xcodebuild -runFirstLaunch
 
     - name: Cache CocoaPods
@@ -77,6 +77,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest  # Slack通知はUbuntuランナーを使用
     needs: build  # buildジョブの成功/失敗に依存
+    if: always()
     steps:
     - name: Slack Notification on Success
       if: ${{ needs.build.result == 'success' }}
