@@ -23,7 +23,6 @@ platform :ios do
       release_notes: "Beta Release: #{version_number} (Build: #{build_number})",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],
       testers: ENV["FIREBASE_TESTERS"],
-      notify_testers: true
     )
   end
 end
