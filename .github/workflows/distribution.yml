@@ -20,7 +20,7 @@ jobs:
 
     - name: Set Xcode version
       run: |
-        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Develope
         sudo xcodebuild -runFirstLaunch
 
     - name: Cache CocoaPods
