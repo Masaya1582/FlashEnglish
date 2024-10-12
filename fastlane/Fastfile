@@ -17,14 +17,12 @@ platform :ios do
       scheme: "FlashEnglish",
       verbose: true
     )
-
-    testers_list = ENV["FIREBASE_TESTERS"].split(",")
     
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
       release_notes: "Beta Release: #{version_number} (Build: #{build_number})",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],
-      testers: testers_list,
+      ENV["FIREBASE_TESTERS"],
       notify_testers: true
     )
   end
