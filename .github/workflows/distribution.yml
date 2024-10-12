@@ -16,7 +16,7 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: '3.2'  # Use Ruby version 3.2, required for Fastlane and CocoaPods
+        ruby-version: '3.2  # Use Ruby version 3.2, required for Fastlane and CocoaPods
 
     - name: Set Xcode version
       run: |
