@@ -3,12 +3,13 @@ default_platform(:ios)
 platform :ios do
   desc "Upload to Firebase"
   lane :distribute do
-    match(type: "adhoc", readonly: true)
+    match(
+    type: "adhoc", 
+    readonly: true
+   )
 
-    # Increment build number
     increment_build_number
 
-    # Fetch the new version and build number from Info.plist
     version_number = get_info_plist_value(path: "./FlashEnglish/Resources/Info.plist", key: "CFBundleShortVersionString")
     build_number = get_build_number
 
@@ -18,7 +19,7 @@ platform :ios do
     )
     
     firebase_app_distribution(
-      app: "1:353282465583:ios:7879b5701a6426a9d1cbda",
+      app: ENV["FIREBASE_APP_ID"],
       release_notes: "Beta Release: #{version_number} (Build: #{build_number})",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"]
     )
