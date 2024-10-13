@@ -15,14 +15,13 @@ platform :ios do
 
     gym(
       scheme: "FlashEnglish",
-      verbose: true
     )
     
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
       release_notes: "Beta Release: #{version_number} (Build: #{build_number})",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],
-      testers: ENV["FIREBASE_TESTERS"],
+      testers: ENV["FIREBASE_TESTERS"]
     )
   end
 end
