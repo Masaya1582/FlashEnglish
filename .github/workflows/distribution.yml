@@ -1,15 +1,29 @@
 name: Distribute IPA to Firebase App Distribution
 
 on:
-  push:
-    branches:
-      - develop  # Trigger the job when pushing to the develop branch
+  issue_comment:
+    types:
+      - created  # Trigger on new comments on the pull request
 
 jobs:
   build:
+    if: github.event.issue.pull_request  # Ensures this runs only on pull requests
     runs-on: macos-latest
 
     steps:
+    - name: Check comment for "distribute beta"
+      if: contains(github.event.comment.body, 'distribute beta')  # Trigger if the comment contains 'distribute beta'
+      run: echo "Triggering distribution as 'distribute beta' comment found"
+
+    - name: Reply with bot comment
+      if: contains(github.event.comment.body, 'distribute beta')  # Only reply if 'distribute beta' is in the comment
+      run: |
+        curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{"body":"Beta版アプリを配信します :rocket:"}' \
+          ${{ github.event.issue.comments_url }}
+
     - name: Checkout repository
       uses: actions/checkout@v2  # Checkout the repository source code
 
