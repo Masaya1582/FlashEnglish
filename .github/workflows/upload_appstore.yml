@@ -52,7 +52,7 @@ jobs:
         P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Password for the certificate from secrets
 
     - name: Set up Fastlane
-      run: bundle exec fastlane match appstore  # Use Fastlane Match to get the AppStore profile
+      run: bundle exec fastlane match appstore --readonly  # Use Fastlane Match to get the AppStore profile
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match password from secrets
 
