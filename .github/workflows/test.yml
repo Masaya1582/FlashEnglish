@@ -8,41 +8,42 @@ jobs:
   tests:
     runs-on: macos-latest
     steps:
+      # リポジトリのチェックアウト（コードを取得）
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # GoogleService-Info.plistを復号して保存
       - name: Decrypt GoogleService-Info.plist
         run: |
-          mkdir -p FlashEnglish/Resources/Firebase
-          echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
+          mkdir -p FlashEnglish/Resources/Firebase # ディレクトリを作成
+          echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist # base64をデコードして.plistファイルを作成
         env:
-          GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+          GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }} # secretsからbase64データを取得
 
-      - name: Restore Gem Cache
+      # Gem（Rubyのパッケージ）のキャッシュ管理
+      - name: Cache Gem
         uses: actions/cache@v2
         with:
-          path: ./vendor/bundle
-          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          path: ./vendor/bundle # キャッシュを保存するパス
+          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }} # Gemfile.lockのハッシュでキャッシュキーを生成
           restore-keys: |
-            v1-dependencies-${{ runner.os }}-gems-
+            v1-dependencies-${{ runner.os }}-gems- # キャッシュが見つからない場合、同じランタイムで再利用可能なキャッシュを試す
 
+      # M1 MacのためにRosettaをインストール (必要に応じて)
+      - name: Install Rosetta (For M1 Macs if needed)
+        if: runner.os == 'macOS' && contains(runner.architecture, 'ARM64') # MacOSかつARM64 (M1チップ) の場合にのみ実行
+        run: |
+          softwareupdate --install-rosetta --agree-to-license # Rosettaをインストール
+
+      # Bundlerと依存関係のインストール
       - name: Install Bundler and dependencies
         run: |
-          gem install bundler -v "$(tail -n 1 Gemfile.lock | sed -r 's/ //g')" -N
-          bundle config set path './vendor/bundle'
-          bundle install
+          gem install bundler -v "$(tail -n 1 Gemfile.lock | sed -r 's/ //g')" -N # Gemfile.lockの最後の行からバージョンを取得してbundlerをインストール
+          bundle config set path './vendor/bundle' # Bundlerのインストールパスを設定
+          bundle install # Gemをインストール
 
-      - name: Save Gem Cache
-        uses: actions/cache@v2
-        with:
-          path: ./vendor/bundle
-          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-
-      - name: Install Rosetta (For M1 Macs if needed)
-        run: |
-          softwareupdate --install-rosetta --agree-to-license
-
+      # Danger（PRの静的解析とLintの自動実行）を実行
       - name: Run Danger
-        run: bundle exec danger
+        run: bundle exec danger # Dangerを実行してPRを解析
         env:
-          DANGER_GITHUB_BEARER_TOKEN: ${{ secrets.DANGER_GITHUB_BEARER_TOKEN }}
+          DANGER_GITHUB_BEARER_TOKEN: ${{ secrets.DANGER_GITHUB_BEARER_TOKEN }} # GitHubの認証トークンを設定
