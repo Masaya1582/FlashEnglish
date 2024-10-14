@@ -44,6 +44,8 @@ jobs:
 
       - name: Run Danger
         run: bundle exec danger
+        env:
+          DANGER_GITHUB_BEARER_TOKEN: ${{ secrets.DANGER_GITHUB_BEARER_TOKEN }}
 
       - name: Run Fastlane Test
         run: bundle exec fastlane test
