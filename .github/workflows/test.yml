@@ -5,29 +5,17 @@ on:
     types: [opened, synchronize]  # PRが作成されたとき、または新しいコミットがあったときにトリガー
 
 jobs:
-  lint:
-    runs-on: macos-latest  # 最新のmacOSで実行（iOS開発環境に必要）
-    
+  tests:
+    runs-on: macos-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2  # ソースコードをチェックアウト
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'  # DangerやBundlerに必要なRubyのバージョン
-
-      - name: Install Bundler
-        run: gem install bundler  # Bundlerをインストール
-
-      - name: Install dependencies
-        run: bundle install  # Gemfileに従ってDangerやLintの依存関係をインストール
-
-      - name: Run SwiftLint
-        run: |
-          bundle exec swiftlint
-
-      - name: Run Danger
-        run: bundle exec danger
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # DangerがGitHubにアクセスするためのトークン
+      - checkout
+      - prepare
+      - run:
+          name: Set DANGER_GITHUB_BEARER_TOKEN
+          command: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
+      - danger
+      - run:
+          name: Fastlane test
+          command: bundle exec fastlane test
+      - store_test_results:
+          path: "fastlane/test_output"
