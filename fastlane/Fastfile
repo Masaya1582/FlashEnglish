@@ -25,7 +25,7 @@ platform :ios do
     
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID"],
-      release_notes: "Betaリリース: #{version_number} (Build: #{new_build_number})",
+      release_notes: "Betaリリース: #{version_number} (Build: #{build_number})",
       firebase_cli_token: ENV["FIREBASE_APP_DISTRIBUTION_API_TOKEN"],
       testers: ENV["FIREBASE_TESTERS"]
     )
