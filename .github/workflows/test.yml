@@ -26,8 +26,6 @@ jobs:
       - name: Run SwiftLint
         run: |
           bundle exec swiftlint
-        env:
-          LINT_CONFIG: .swiftlint.yml  # 必要であればLintの設定ファイルを指定
 
       - name: Run Danger
         run: bundle exec danger
