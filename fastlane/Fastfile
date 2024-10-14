@@ -17,6 +17,7 @@ platform :ios do
 
     gym(
       scheme: "FlashEnglish",
+      export_method: "ad-hoc"
     )
     
     firebase_app_distribution(

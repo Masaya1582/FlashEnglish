@@ -51,7 +51,7 @@ jobs:
         mkdir -p FlashEnglish/Resources/Firebase
         echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
       env:
-        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}  # Decrypt the GoogleService-Info.plist for Firebase from secrets
+        GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
 
     - name: Decrypt and Import .p12 Certificate
       run: |
