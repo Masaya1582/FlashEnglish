@@ -66,7 +66,7 @@ jobs:
         P12_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Password for the certificate from secrets
 
     - name: Set up Fastlane
-      run: bundle exec fastlane match adhoc --readonly  # Use Fastlane Match to get the AdHoc profile (read-only mode)
+      run: bundle exec fastlane match adhoc --readonly
       env:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match password from secrets
 
