@@ -82,6 +82,7 @@ jobs:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # Match password from secrets
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlane user (Apple ID, etc.)
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlane password
+        APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}
 
   notify:
     runs-on: ubuntu-latest  # Slack通知はUbuntuランナーを使用
