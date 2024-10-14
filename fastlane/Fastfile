@@ -8,7 +8,9 @@ platform :ios do
     readonly: true
    )
 
-    increment_build_number
+    increment_build_number(
+      build_number: latest_testflight_build_number + 1
+    )
 
     version_number = get_info_plist_value(path: "./FlashEnglish/Resources/Info.plist", key: "CFBundleShortVersionString")
     build_number = get_build_number
