@@ -2,7 +2,7 @@ name: PR Static Analysis and Lint
 
 on:
   pull_request:
-    types: [opened, synchronize]  # Trigger when a PR is created or updated
+    types: [opened, synchronize]
 
 jobs:
   tests:
