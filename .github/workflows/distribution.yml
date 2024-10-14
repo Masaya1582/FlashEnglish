@@ -1,9 +1,9 @@
 name: Distribute IPA to Firebase App Distribution
 
 on:
-  issue_comment:
-    types:
-      - created  # Trigger on new comments on the pull request
+  push:
+    branches:
+      - develop  # Trigger the job when pushing to the develop branch
 
 jobs:
   build:
