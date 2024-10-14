@@ -2,4 +2,8 @@
 #
 # Ensure this file is checked in to source control!
 
+gem 'fastlane-plugin-appicon'
+gem 'fastlane-plugin-badge'
+gem 'fastlane-plugin-update_provisioning_profile_specifier'
 gem 'fastlane-plugin-firebase_app_distribution'
+gem 'fastlane-plugin-xcconfig'
