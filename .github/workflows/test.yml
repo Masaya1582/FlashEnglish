@@ -2,37 +2,47 @@ name: PR Static Analysis and Lint
 
 on:
   pull_request:
-    types: [opened, synchronize]  # PRが作成されたとき、または新しいコミットがあったときにトリガー
+    types: [opened, synchronize]  # Trigger when a PR is created or updated
 
 jobs:
-  lint:
-    runs-on: macos-latest  # 最新のmacOSで実行（iOS開発環境に必要）
-    
+  tests:
+    runs-on: macos-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # ソースコードをチェックアウト
+        uses: actions/checkout@v2
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.2'  # DangerやBundlerに必要なRubyのバージョン
-
-      - name: Install Bundler
-        run: gem install bundler  # Bundlerをインストール
-
-      - name: Install dependencies
-        run: bundle install  # Gemfileに従ってDangerやLintの依存関係をインストール
-
-      - name: Install CocoaPods
-        run: bundle exec pod install  # CocoaPodsの依存関係をインストール
-
-      - name: Run SwiftLint
+      - name: Decrypt GoogleService-Info.plist
         run: |
-          bundle exec swiftlint
+          mkdir -p FlashEnglish/Resources/Firebase
+          echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
         env:
-          LINT_CONFIG: .swiftlint.yml  # 必要であればLintの設定ファイルを指定
+          GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+
+      - name: Restore Gem Cache
+        uses: actions/cache@v2
+        with:
+          path: ./vendor/bundle
+          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v1-dependencies-${{ runner.os }}-gems-
+
+      - name: Install Bundler and dependencies
+        run: |
+          gem install bundler -v "$(tail -n 1 Gemfile.lock | sed -r 's/ //g')" -N
+          bundle config set path './vendor/bundle'
+          bundle install
+
+      - name: Save Gem Cache
+        uses: actions/cache@v2
+        with:
+          path: ./vendor/bundle
+          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: Install Rosetta (For M1 Macs if needed)
+        run: |
+          softwareupdate --install-rosetta --agree-to-license
 
       - name: Run Danger
         run: bundle exec danger
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # DangerがGitHubにアクセスするためのトークン
+          DANGER_GITHUB_BEARER_TOKEN: ${{ secrets.DANGER_GITHUB_BEARER_TOKEN }}
