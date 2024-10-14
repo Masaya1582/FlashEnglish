@@ -75,7 +75,7 @@ jobs:
         defaults write com.apple.dt.Xcode IDEBuildOperationMaxNumberOfConcurrentCompileTasks 4  # Enable parallel code signing to speed up builds
 
     - name: Build and distribute to Firebase App Distribution
-      run: bundle exec fastlane distribute  # Use Fastlane to build the app and upload it to Firebase App Distribution
+      run: bundle exec fastlane distribute
       env:
         FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
         FIREBASE_APP_DISTRIBUTION_API_TOKEN: ${{ secrets.FIREBASE_APP_DISTRIBUTION_API_TOKEN }}  # Firebase App Distribution API token
