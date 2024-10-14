@@ -1,0 +1,38 @@
+name: PR Static Analysis and Lint
+
+on:
+  pull_request:
+    types: [opened, synchronize]  # PRが作成されたとき、または新しいコミットがあったときにトリガー
+
+jobs:
+  lint:
+    runs-on: macos-latest  # 最新のmacOSで実行（iOS開発環境に必要）
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2  # ソースコードをチェックアウト
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'  # DangerやBundlerに必要なRubyのバージョン
+
+      - name: Install Bundler
+        run: gem install bundler  # Bundlerをインストール
+
+      - name: Install dependencies
+        run: bundle install  # Gemfileに従ってDangerやLintの依存関係をインストール
+
+      - name: Install CocoaPods
+        run: bundle exec pod install  # CocoaPodsの依存関係をインストール
+
+      - name: Run SwiftLint
+        run: |
+          bundle exec swiftlint
+        env:
+          LINT_CONFIG: .swiftlint.yml  # 必要であればLintの設定ファイルを指定
+
+      - name: Run Danger
+        run: bundle exec danger
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # DangerがGitHubにアクセスするためのトークン

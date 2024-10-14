@@ -215,11 +215,12 @@ GEM
       xcpretty (~> 0.2, >= 0.0.7)
 
 PLATFORMS
-  x86_64-darwin-22
+  arm64-darwin-22
+  ruby
 
 DEPENDENCIES
   fastlane
   fastlane-plugin-firebase_app_distribution
 
 BUNDLED WITH
-   2.4.4
+   2.5.21
