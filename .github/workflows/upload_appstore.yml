@@ -22,7 +22,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: Pods  # Cache installed CocoaPods dependencies
-        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}  # Cache key based on Podfile.lock
+        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
         restore-keys: |
           ${{ runner.os }}-pods-  # Fallback cache key if the main one isn't found
 
