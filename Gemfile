@@ -1,8 +1,8 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-gem "fastlane"
-gem "danger"
-gem "danger-swiftlint" 
+gem 'cocoapods'
+gem 'fastlane'
+gem 'danger'
+gem 'danger-swiftlint'
 
-plugins_path = File.join(File.dirname(__FILE__), 'fastlane', 'Pluginfile')
-eval_gemfile(plugins_path) if File.exist?(plugins_path)
+eval_gemfile("fastlane/Pluginfile") if File.exist?("fastlane/Pluginfile")
