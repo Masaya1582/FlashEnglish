@@ -4,9 +4,9 @@ platform :ios do
   desc "Upload to Firebase"
   lane :distribute do
     match(
-    type: "adhoc", 
-    readonly: true
-   )
+      type: "adhoc", 
+      readonly: true
+    )
 
     increment_build_number(
       build_number: latest_testflight_build_number + 1
@@ -28,7 +28,7 @@ platform :ios do
     )
   end
 
-desc "Build and upload to the App Store"
+  desc "Build and upload to the App Store"
   lane :upload_appstore do
     match(
       type: "appstore", 
@@ -52,4 +52,3 @@ desc "Build and upload to the App Store"
     )
   end
 end
-
