@@ -40,6 +40,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-pods-  # Fallback cache key if the main one isn't found
 
+    - name: Install ImageMagick and librsvg
+      run: |
+        brew install imagemagick
+        brew install librsvg
+      shell: bash
+
     - name: Install CocoaPods
       run: |
         gem install bundler
