@@ -23,9 +23,6 @@ jobs:
       - name: Install dependencies
         run: bundle install  # Gemfileに従ってDangerやLintの依存関係をインストール
 
-      - name: Install CocoaPods
-        run: bundle exec pod install  # CocoaPodsの依存関係をインストール
-
       - name: Run SwiftLint
         run: |
           bundle exec swiftlint
