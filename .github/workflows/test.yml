@@ -52,9 +52,3 @@ jobs:
 
       - name: Run Fastlane Test
         run: bundle exec fastlane test
-
-      - name: Store Test Results
-        uses: actions/upload-artifact@v2
-        with:
-          name: fastlane-test-results
-          path: fastlane/test_output
