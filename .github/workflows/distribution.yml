@@ -32,25 +32,13 @@ jobs:
       with:
         ruby-version: '3.2'
 
-#    - name: Cache CocoaPods
-#      uses: actions/cache@v2
-#      with:
-#        path: Pods
-#        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
-#        restore-keys: |
-#          ${{ runner.os }}-pods-  # Fallback cache key if the main one isn't found
-
-     # Clear DerivedData
-    - name: Clear DerivedData
-      run: |
-        rm -rf ~/Library/Developer/Xcode/DerivedData/*
-        echo "DerivedData cleared"
-
-    # Clear CocoaPods cache
-    - name: Clear CocoaPods Cache
-      run: |
-        pod cache clean --all
-        echo "CocoaPods cache cleared"
+    - name: Cache CocoaPods
+      uses: actions/cache@v2
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-  # Fallback cache key if the main one isn't found
 
     - name: Install CocoaPods
       run: |
