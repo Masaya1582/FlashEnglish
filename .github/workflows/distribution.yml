@@ -43,6 +43,7 @@ jobs:
     - name: Install CocoaPods
       run: |
         gem install bundler
+        gem install cocoapods -v '1.15.2'
         bundle install
         pod install
 
