@@ -2,20 +2,59 @@ name: PR Static Analysis and Lint
 
 on:
   pull_request:
-    types: [opened, synchronize]  # PRが作成されたとき、または新しいコミットがあったときにトリガー
+    types: [opened, synchronize]  # Trigger when a PR is created or updated
 
 jobs:
   tests:
     runs-on: macos-latest
     steps:
-      - checkout
-      - prepare
-      - run:
-          name: Set DANGER_GITHUB_BEARER_TOKEN
-          command: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
-      - danger
-      - run:
-          name: Fastlane test
-          command: bundle exec fastlane test
-      - store_test_results:
-          path: "fastlane/test_output"
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Decrypt GoogleService-Info.plist
+        run: |
+          mkdir -p FlashEnglish/Resources/Firebase
+          echo "$GOOGLE_SERVICE_INFO_PLIST_BASE64" | base64 --decode > FlashEnglish/Resources/Firebase/GoogleService-Info.plist
+        env:
+          GOOGLE_SERVICE_INFO_PLIST_BASE64: ${{ secrets.GOOGLE_SERVICE_INFO_PLIST_BASE64 }}
+
+      - name: Restore Gem Cache
+        uses: actions/cache@v2
+        with:
+          path: ./vendor/bundle
+          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            v1-dependencies-${{ runner.os }}-gems-
+
+      - name: Install Bundler and dependencies
+        run: |
+          gem install bundler -v "$(tail -n 1 Gemfile.lock | sed -r 's/ //g')" -N
+          bundle config set path './vendor/bundle'
+          bundle install
+
+      - name: Save Gem Cache
+        uses: actions/cache@v2
+        with:
+          path: ./vendor/bundle
+          key: v1-dependencies-${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+
+      - name: Install Rosetta (For M1 Macs if needed)
+        run: |
+          softwareupdate --install-rosetta --agree-to-license
+
+      - name: Set DANGER_GITHUB_BEARER_TOKEN
+        run: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Danger
+        run: bundle exec danger
+
+      - name: Run Fastlane Test
+        run: bundle exec fastlane test
+
+      - name: Store Test Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: fastlane-test-results
+          path: fastlane/test_output
