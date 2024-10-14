@@ -43,7 +43,7 @@ jobs:
           softwareupdate --install-rosetta --agree-to-license
 
       - name: Set DANGER_GITHUB_BEARER_TOKEN
-        run: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> "${BASH_ENV}"
+        run: echo "export DANGER_GITHUB_BEARER_TOKEN=\"${GITHUB_TOKEN}\"" >> $GITHUB_ENV
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
