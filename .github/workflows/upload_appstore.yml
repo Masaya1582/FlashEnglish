@@ -62,7 +62,7 @@ jobs:
         FASTLANE_USER: ${{ secrets.FASTLANE_USER }}  # Fastlaneユーザー（Apple IDなど）
         FASTLANE_PASSWORD: ${{ secrets.FASTLANE_PASSWORD }}  # Fastlaneパスワード
         APP_STORE_CONNECT_API_KEY: ${{ secrets.APP_STORE_CONNECT_API_KEY }}  # SecretsからのApp Store Connect APIキー
-        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}  # SecretsからのMatchパスワード
+        MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
   notify:
     runs-on: ubuntu-latest
