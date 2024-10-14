@@ -9,7 +9,7 @@ platform :ios do
     )
 
     increment_build_number(
-      build_number: latest_testflight_build_number + 1
+      build_number: latest_testflight_build_number(app_identifier: "com.masa4y44.FlashEnglish") + 1
     )
 
     version_number = get_info_plist_value(path: "./FlashEnglish/Resources/Info.plist", key: "CFBundleShortVersionString")
@@ -17,7 +17,8 @@ platform :ios do
 
     gym(
       scheme: "FlashEnglish",
-      export_method: "ad-hoc"
+      export_method: "ad-hoc",
+      configuration: "Debug"
     )
     
     firebase_app_distribution(
@@ -36,12 +37,13 @@ platform :ios do
     )
 
     increment_build_number(
-      build_number: latest_testflight_build_number + 1
+      build_number: latest_testflight_build_number(app_identifier: "com.masa4y44.FlashEnglish") + 1
     )
 
     gym(
       scheme: "FlashEnglish",
-      export_method: "app-store"
+      export_method: "app-store",
+      configuration: "Release"
     )
     
     upload_to_app_store(
