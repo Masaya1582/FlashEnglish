@@ -70,7 +70,7 @@ jobs:
     if: always()
     steps:
     - name: Slack Notification on Success
-      if: ${{ needs.build.result == 'success' }}
+      if: ${{ needs.upload-to-appstore.result == 'success' }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -79,7 +79,7 @@ jobs:
         SLACK_MESSAGE: "Successfully uploaded build to AppStoreConnect :rocket:"
 
     - name: Slack Notification on Failure
-      if: ${{ needs.build.result == 'failure' }}
+      if: ${{ needs.upload-to-appstore.result == 'failure' }}
       uses: rtCamp/action-slack-notify@v2
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
