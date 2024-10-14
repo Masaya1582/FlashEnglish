@@ -15,9 +15,8 @@ platform :ios do
     version_number = get_info_plist_value(path: "./FlashEnglish/Resources/Info.plist", key: "CFBundleShortVersionString")
     build_number = get_build_number
 
-    badge(
-      shield: "beta", # You can use other shield text like 'staging', etc.
-      no_badge: false,
+    add_badge(
+      beta: true
     )
 
     gym(
