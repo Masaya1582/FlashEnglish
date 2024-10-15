@@ -8,12 +8,17 @@
 import SwiftUI
 
 struct ScoreView: View {
+
+
+
+
+
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
-    @EnvironmentObject var navigationManager: NavigationManager
+            @EnvironmentObject var navigationManager: NavigationManager
 
     // MARK: - Body
-    var body: some View {
+    var body: some View             {
         NavigationView {
             ZStack {
                 VStack {
@@ -28,6 +33,11 @@ struct ScoreView: View {
         }
         .navigationBarBackButtonHidden()
     }
+
+
+
+
+    
 
     private var topFieldView: some View {
         VStack {
