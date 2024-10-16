@@ -3,20 +3,23 @@
 # 使用するストレージモードの設定
 storage_mode("git")
 
-# 証明書のタイプを指定
-type("adhoc") # 証明書のタイプ: appstore, adhoc, enterprise, development から選択
+# 証明書のタイプ: appstore, adhoc, enterprise, development から選択
+type("adhoc") 
 
 # 証明書管理用のGitリポジトリURLを設定
 git_url("https://github.com/Masaya1582/ios-certificates") 
-
-# 使用するブランチを指定
-git_branch("develop") 
 
 # Apple Developer アカウントに対応するチームID
 team_id("L6Q3MJXV23") 
 
 # このMatch設定に対するアプリのバンドルIDを指定
 app_identifier(["com.masa4y44.FlashEnglish"]) 
+
+# Gitリポジトリからブランチ全体をクローンせずに、必要なブランチだけを直接クローンします。
+clone_branch_directly(true)
+
+# 読み取り専用 (新しい証明書の生成を防ぐ)
+readonly(true)
 
 # Gitリポジトリにコミットする際のユーザー情報
 git_full_name("Masaya1582")
