@@ -64,7 +64,7 @@ struct HomeView: View {
 
     private var stageSelectorView: some View {
         VStack {
-            Text("フラッシュ英文法だ")
+            Text("フラッシュ英文法")
                 .modifier(CustomLabel(foregroundColor: Asset.Colors.defaultBlack.swiftUIColor, size: 32, fontName: FontFamily.NotoSansJP.bold))
                 .padding()
             Spacer().frame(height: 20)
