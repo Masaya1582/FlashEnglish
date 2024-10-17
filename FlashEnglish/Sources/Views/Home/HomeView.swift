@@ -8,12 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-
-
-
-
-
-
     // MARK: - Properties
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
@@ -26,16 +20,10 @@ struct HomeView: View {
         LevelItem(image: Asset.Assets.imgExpert.swiftUIImage, title: "専門家レベル", levelCase: .expert),
         LevelItem(image: Asset.Assets.imgMonster.swiftUIImage, title: "人外レベル", levelCase: .monster)
     ]
-          private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
+    private let gridItems = [GridItem(.flexible()), GridItem(.flexible())]
 
     // MARK: - Body
     var body: some View {
-
-
-
-
-
-        
         NavigationStack(path: $navigationManager.navigationPath) {
             stageSelectorView
                 .gesture(
