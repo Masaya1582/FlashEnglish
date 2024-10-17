@@ -4,7 +4,7 @@
 target 'FlashEnglish' do
   use_frameworks!
   inhibit_all_warnings!
-    # Application
+    # Apps
     pod 'SwiftGen', '~> 6.0'
     pod 'lottie-ios'
     pod 'Google-Mobile-Ads-SDK'
