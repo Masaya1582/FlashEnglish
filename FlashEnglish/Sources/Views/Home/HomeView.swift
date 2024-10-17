@@ -12,7 +12,7 @@ struct HomeView: View {
     @EnvironmentObject var quizManager: QuizManager
     @EnvironmentObject var navigationManager: NavigationManager
     @Binding var presentSideMenu: Bool
-    private let levelItem: [LevelItem] =     [
+    private let levelItem: [LevelItem] = [
         LevelItem(image: Asset.Assets.imgJuniorHighSchool.swiftUIImage, title: "中学生レベル", levelCase: .juniorHighSchool),
         LevelItem(image: Asset.Assets.imgHighSchool.swiftUIImage, title: "高校生レベル", levelCase: .highSchool),
         LevelItem(image: Asset.Assets.imgCollege.swiftUIImage, title: "大学生レベル", levelCase: .college),
