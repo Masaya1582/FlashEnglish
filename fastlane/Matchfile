@@ -21,9 +21,5 @@ clone_branch_directly(true)
 # 読み取り専用 (新しい証明書の生成を防ぐ)
 readonly(true)
 
-# Gitリポジトリにコミットする際のユーザー情報
-git_full_name("Masaya1582")
-git_user_email("masa4y44@gmail.com")
-
 # 新しいデバイス用に証明書を強制的に生成するオプション（必要に応じて）
 force_for_new_devices(false)
